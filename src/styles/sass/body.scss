@@ -1,0 +1,30 @@
+body {
+    background-color: #26292B;
+}
+
+h2, #label, p, h4 {
+    color: white;
+}
+
+#formGroup {
+    margin: 1em;
+}
+
+li {
+    margin-left: 1em;
+    margin-top: 0.5em;
+}
+
+#alert {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    #alertText {
+        color: black;
+    }
+}
+
+#modalText {
+    color: black;
+}

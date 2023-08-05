@@ -1,0 +1,26 @@
+#createBlindModel {
+    margin-left: 10em;
+
+    #addStep {
+        display: flex;
+        flex-direction: row;
+    }
+
+    #formControl {
+        margin: 0.5em;
+        margin-bottom: 1em;
+    }
+
+    #addButton {
+        margin: 0.5em;
+        height: 2.5em;
+    }
+
+    #step {
+        color: white;
+    }
+
+    #formButtons {
+        margin: 0.3em;
+    }
+}

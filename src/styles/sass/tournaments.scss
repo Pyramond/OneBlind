@@ -1,0 +1,28 @@
+#allTournaments {
+    margin: 0.5em;
+    margin-top: 4.5em;
+
+    #allTournamentsTitle {
+        margin: 1em;
+    }
+
+    #tournamentsCards {
+        display: flex;
+        flex-direction: row;
+    }
+}
+
+#tournament {
+
+    margin: 2em;
+
+    #dropdown, #button {
+        margin-left: 1em;
+    }
+    
+    #cardButtons {
+        display: flex;
+        flex-direction: row;
+    }
+    
+}
