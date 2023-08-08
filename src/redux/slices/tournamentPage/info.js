@@ -7,7 +7,9 @@ export const tournamentInfo = createSlice({
         date: 0,
         blindName: "",
         blindId: 0,
-        initialChip: 0
+        initialChip: 0,
+
+        avStack: 0
     },
     reducers: {
         setInfos: (state, action) => {
