@@ -44,7 +44,8 @@ export default function MyTimer() {
                 <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
             </div>
             <p>{isRunning ? 'Running' : 'Not running'}</p>
-            <Button variant='primary' onClick={resume} id="timerButtons">Resume</Button>
+            <p>{t.currentStep.type}</p>
+            <Button variant='success' onClick={resume} id="timerButtons">Resume</Button>
             <Button variant="danger" onClick={pause} id="timerButtons">Pause</Button>
             <Button variant="secondary" onClick={() => {
                 const time = new Date();
