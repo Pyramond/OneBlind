@@ -50,7 +50,7 @@ export default function MyTimer() {
     return (
         <div style={{textAlign: 'center'}}>
             <div style={{fontSize: '180px', color: "white"}}>
-               <span>{hours < 10 ? "0" + hours : hours}</span>:<span>{minutes < 10 ? "0" + minutes : minutes}</span>:<span>{seconds}</span>
+               <span>{hours < 10 ? "0" + hours : hours}</span>:<span>{minutes < 10 ? "0" + minutes : minutes}</span>:<span>{seconds < 10 ? "0" + seconds : seconds}</span>
             </div>
 
             <p id="info">{isFinish ? "Partie Terminée" : t.currentStep.type}</p>
