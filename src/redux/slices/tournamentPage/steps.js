@@ -12,8 +12,13 @@ export const tournamentSteps = createSlice({
             state.steps = action.payload
         },
         changeStep: (state) => {
-            state.currentStep = state.steps[state.index]
-            state.index = state.index + 1
+            if(!state.steps[state.index]) {
+                state.currentStep = {"time": 0}
+            } else {
+                state.currentStep = state.steps[state.index]
+                state.index = state.index + 1
+            }
+
         }
     },
 });
