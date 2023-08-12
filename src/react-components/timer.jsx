@@ -24,7 +24,7 @@ export default function MyTimer() {
         resume,
         restart,
     } = useTimer({
-        expiryTimestamp: new Date(new Date().getTime() + t.currentStep.time * 60000),
+        expiryTimestamp: new Date(new Date().getTime() + t.currentStep.time * 60000 - 1 * 1000),
         onExpire: () => {
             dispatch(changeStep())
         },
@@ -35,7 +35,7 @@ export default function MyTimer() {
             setIsFinish(true)
         } else {
             setIsFinish(false)
-            const newExpiryTimestamp = new Date(new Date().getTime() + t.currentStep.time * 60000);
+            const newExpiryTimestamp = new Date(new Date().getTime() + t.currentStep.time * 60000 - 1 * 1000);
             restart(newExpiryTimestamp);
         }
   }, [effectDependency]);
@@ -45,7 +45,7 @@ export default function MyTimer() {
     return (
         <div style={{textAlign: 'center'}}>
             <div style={{fontSize: '180px', color: "white"}}>
-                <span>{days}</span>:<span>{hours}</span>:<span>{minutes}</span>:<span>{seconds}</span>
+               <span>{hours < 10 ? "0" + hours : hours}</span>:<span>{minutes < 10 ? "0" + minutes : minutes}</span>:<span>{seconds}</span>
             </div>
 
             <p id="info">{isRunning ? 'Running' : 'Not running'}</p>
