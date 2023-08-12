@@ -9,6 +9,7 @@ import { getTournamentPlayers, getTournamentById } from '../utils/tournaments';
 import { getModelById } from '../utils/models';
 import { setSteps, changeStep } from '../redux/slices/tournamentPage/steps';
 import MyTimer from '../react-components/timer';
+import Blind from '../react-components/blind';
 
 
 export default function TournamentPage() {
@@ -38,7 +39,10 @@ export default function TournamentPage() {
   return (
     <>
       <NavigationBar />
+      <div id="tournamentContainer">
+        <Blind />
         <MyTimer />
+      </div>
     </>
   )
 }
