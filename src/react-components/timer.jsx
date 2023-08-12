@@ -10,6 +10,7 @@ export default function MyTimer() {
     const t = useSelector((state) => state.tournamentSteps);
     const dispatch = useDispatch();
     const [isFinish, setIsFinish] = useState(false)
+    const [isPlay, setIsPlay] = useState(false)
 
     const effectDependency = useMemo(() => ({ currentStep: t.currentStep, random: Math.random() }), [t.currentStep]);
     
@@ -24,7 +25,7 @@ export default function MyTimer() {
         resume,
         restart,
     } = useTimer({
-        expiryTimestamp: new Date(new Date().getTime() + t.currentStep.time * 60000 - 1 * 1000),
+        expiryTimestamp: 0,
         onExpire: () => {
             dispatch(changeStep())
         },
@@ -38,6 +39,10 @@ export default function MyTimer() {
             const newExpiryTimestamp = new Date(new Date().getTime() + t.currentStep.time * 60000 - 1 * 1000);
             restart(newExpiryTimestamp);
         }
+
+        if(isPlay === false) {
+            pause()
+        }
   }, [effectDependency]);
 
 
@@ -48,12 +53,10 @@ export default function MyTimer() {
                <span>{hours < 10 ? "0" + hours : hours}</span>:<span>{minutes < 10 ? "0" + minutes : minutes}</span>:<span>{seconds}</span>
             </div>
 
-            <p id="info">{isRunning ? 'Running' : 'Not running'}</p>
             <p id="info">{isFinish ? "Partie Terminée" : t.currentStep.type}</p>
-            <p id="info">{isFinish ? "Toutes les étapes sont terminées" : `Étape ${t.currentStep.order}`}</p>
+            <p id="info">{isFinish ? `${Object.keys(t.steps).length} / ${Object.keys(t.steps).length}` : `${t.currentStep.order} / ${Object.keys(t.steps).length}`}</p>
 
-            <Button variant='success' onClick={resume} id="timerButtons">Resume</Button>
-            <Button variant="danger" onClick={pause} id="timerButtons">Pause</Button>
+            {isPlay ? <Button variant="danger" onClick={() => { pause() ; setIsPlay(false)}} id="timerButtons">Pause</Button> : <Button variant='success' onClick={() => { resume() ; setIsPlay(true)}} id="timerButtons">Resume</Button>}
 
             <Button variant="secondary" onClick={() => {
                 const time = new Date(new Date().getTime() + t.currentStep.time * 60000);
