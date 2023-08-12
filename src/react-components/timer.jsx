@@ -28,7 +28,6 @@ export default function MyTimer() {
         onExpire: () => {
             console.log('on expire');
             dispatch(changeStep())
-            
         },
     });
 
@@ -53,9 +52,8 @@ export default function MyTimer() {
             <Button variant='success' onClick={resume} id="timerButtons">Resume</Button>
             <Button variant="danger" onClick={pause} id="timerButtons">Pause</Button>
             <Button variant="secondary" onClick={() => {
-                const time = new Date();
-                time.setSeconds(time.getSeconds() + currentTime);
-                restart(time); // Ce restart exécute le OnExpire donc passer à l'étape d'après
+                const time = new Date(new Date().getTime() + t.currentStep.time * 60000);
+                restart(time);
             }} id="timerButtons" >Restart</Button>
         </div>
     );
