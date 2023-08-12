@@ -51,15 +51,18 @@ export default function MyTimer() {
             <p id="info">{isRunning ? 'Running' : 'Not running'}</p>
             <p id="info">{isFinish ? "Partie Terminée" : t.currentStep.type}</p>
             <p id="info">{isFinish ? "Toutes les étapes sont terminées" : `Étape ${t.currentStep.order}`}</p>
-            {/* <p id="info">{t.currentStep.type}</p>
-            <p id="info">Étape {t.currentStep.order}</p> */}
 
             <Button variant='success' onClick={resume} id="timerButtons">Resume</Button>
             <Button variant="danger" onClick={pause} id="timerButtons">Pause</Button>
+
             <Button variant="secondary" onClick={() => {
                 const time = new Date(new Date().getTime() + t.currentStep.time * 60000);
                 restart(time);
             }} id="timerButtons" >Restart</Button>
+
+            <Button variant="secondary" onClick={() => {
+                dispatch(changeStep())
+            }}>Next</Button>
         </div>
     );
 }
