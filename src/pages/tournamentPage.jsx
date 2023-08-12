@@ -10,6 +10,9 @@ import { getModelById } from '../utils/models';
 import { setSteps, changeStep } from '../redux/slices/tournamentPage/steps';
 import MyTimer from '../react-components/timer';
 import Blind from '../react-components/blind';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 
 export default function TournamentPage() {
@@ -39,10 +42,14 @@ export default function TournamentPage() {
   return (
     <>
       <NavigationBar />
-      <div id="tournamentContainer">
-        <Blind />
-        <MyTimer />
-      </div>
+
+        <Container fluid>
+        <Row>
+          <Col> <Blind /> </Col>
+          <Col> <MyTimer /> </Col>
+        </Row>
+      </Container>
+
     </>
   )
 }
