@@ -9,7 +9,7 @@ export default function MyTimer() {
 
     const t = useSelector((state) => state.tournamentSteps);
     const dispatch = useDispatch();
-    const [currentTime, setCurrentTime] = useState(0)
+    const [isFinish, setIsFinish] = useState(false)
 
     const effectDependency = useMemo(() => ({ currentStep: t.currentStep, random: Math.random() }), [t.currentStep]);
     
@@ -26,15 +26,18 @@ export default function MyTimer() {
     } = useTimer({
         expiryTimestamp: new Date(new Date().getTime() + t.currentStep.time * 60000),
         onExpire: () => {
-            console.log('on expire');
             dispatch(changeStep())
         },
     });
 
     useEffect(() => {
-        const newExpiryTimestamp = new Date(new Date().getTime() + t.currentStep.time * 60000);
-        restart(newExpiryTimestamp);
-        setCurrentTime(t.currentStep.time)
+        if(!t.currentStep.order) {
+            setIsFinish(true)
+        } else {
+            setIsFinish(false)
+            const newExpiryTimestamp = new Date(new Date().getTime() + t.currentStep.time * 60000);
+            restart(newExpiryTimestamp);
+        }
   }, [effectDependency]);
 
 
@@ -46,8 +49,10 @@ export default function MyTimer() {
             </div>
 
             <p id="info">{isRunning ? 'Running' : 'Not running'}</p>
-            <p id="info">{t.currentStep.type}</p>
-            <p id="info">Étape {t.currentStep.order}</p>
+            <p id="info">{isFinish ? "Partie Terminée" : t.currentStep.type}</p>
+            <p id="info">{isFinish ? "Toutes les étapes sont terminées" : `Étape ${t.currentStep.order}`}</p>
+            {/* <p id="info">{t.currentStep.type}</p>
+            <p id="info">Étape {t.currentStep.order}</p> */}
 
             <Button variant='success' onClick={resume} id="timerButtons">Resume</Button>
             <Button variant="danger" onClick={pause} id="timerButtons">Pause</Button>
