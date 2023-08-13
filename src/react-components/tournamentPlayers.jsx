@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { removePlayer } from '../redux/slices/tournamentPage/players';
+import { updateAvStack } from '../redux/slices/tournamentPage/info';
 
 
 export function TournamentPlayers(props) {
@@ -12,8 +13,8 @@ export function TournamentPlayers(props) {
     const [isWinner, setIsWinner] = useState(false)
 
     useEffect(() => {
-        console.log(t.value)
-    },)
+        dispatch(updateAvStack(Object.keys(t.value).length))
+    }, [Object.keys(t.value).length])
 
     function eliminatePlayer(id) {
 
@@ -32,7 +33,7 @@ export function TournamentPlayers(props) {
           .then(res => res.json())
           .then(res => {
             dispatch(removePlayer(id))
-
+            
             if(Object.keys(t.value).length == 1) {
                 setIsWinner(true)
             }
