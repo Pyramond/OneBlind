@@ -13,27 +13,29 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { TournamentPlayers } from '../react-components/tournamentPlayers';
+import AvStack from '../react-components/avStack';
 
 
 export default function TournamentPage() {
 
     const { id } = useParams();
     const dispatch = useDispatch()
-    const t = useSelector((state) => state.tournamentSteps);
+    const t = useSelector((state) => state.tournamentPlayers);
 
     useEffect(() => {
-      getTournamentPlayers(id).then((players) => {
+      async function fetchData() {
+        const players = await getTournamentPlayers(id);
         dispatch(setPlayers(players));
-      });
-    
-      getTournamentById(id).then((infos) => {
+
+        const infos = await getTournamentById(id);
+        infos.number = players.length;
         dispatch(setInfos(infos));
-    
-        getModelById(infos.blindId).then((steps) => {
-          dispatch(setSteps(steps.steps));
-          dispatch(changeStep())
-        });
-      });
+
+        const steps = await getModelById(infos.blindId);
+        dispatch(setSteps(steps.steps));
+        dispatch(changeStep());
+      }
+      fetchData()
     }, []);
 
   return (
@@ -45,9 +47,13 @@ export default function TournamentPage() {
           <Col> <Blind /> </Col>
           <Col> <MyTimer /> </Col>
         </Row>
+        <Row>
+          <Col> <TournamentPlayers id={id} /> </Col>
+          <Col> <AvStack /> </Col>
+        </Row>
       </Container>
 
-      <TournamentPlayers id={id} />
+      
     </>
   )
 }
