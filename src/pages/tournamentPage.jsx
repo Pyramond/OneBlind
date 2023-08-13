@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setPlayers } from '../redux/slices/tournamentPage/players';
 import { setInfos } from "../redux/slices/tournamentPage/info"
 import { useEffect } from 'react';
-import { Button } from 'react-bootstrap';
 import { getTournamentPlayers, getTournamentById } from '../utils/tournaments';
 import { getModelById } from '../utils/models';
 import { setSteps, changeStep } from '../redux/slices/tournamentPage/steps';
@@ -13,6 +12,7 @@ import Blind from '../react-components/blind';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { TournamentPlayers } from '../react-components/tournamentPlayers';
 
 
 export default function TournamentPage() {
@@ -36,9 +36,6 @@ export default function TournamentPage() {
       });
     }, []);
 
-    function test() {
-      alert(JSON.stringify(t.currentStep));
-    }
   return (
     <>
       <NavigationBar />
@@ -50,6 +47,7 @@ export default function TournamentPage() {
         </Row>
       </Container>
 
+      <TournamentPlayers id={id} />
     </>
   )
 }
