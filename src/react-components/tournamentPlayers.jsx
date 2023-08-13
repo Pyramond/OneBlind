@@ -14,6 +14,10 @@ export function TournamentPlayers(props) {
 
     useEffect(() => {
         dispatch(updateAvStack(Object.keys(t.value).length))
+
+        if(Object.keys(t.value).length == 1) {
+            setIsWinner(true)
+        }
     }, [Object.keys(t.value).length])
 
     function eliminatePlayer(id) {
@@ -33,10 +37,6 @@ export function TournamentPlayers(props) {
           .then(res => res.json())
           .then(res => {
             dispatch(removePlayer(id))
-            
-            if(Object.keys(t.value).length == 1) {
-                setIsWinner(true)
-            }
           })
     }
 
