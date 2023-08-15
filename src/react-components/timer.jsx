@@ -1,6 +1,6 @@
 import { useTimer } from 'react-timer-hook';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeStep } from '../redux/slices/tournamentPage/steps';
+import { changeStep, prevStep } from '../redux/slices/tournamentPage/steps';
 import { useEffect, useState, useMemo } from 'react';
 import { Button } from 'react-bootstrap';
 
@@ -56,7 +56,9 @@ export default function MyTimer() {
             <p id="info">{isFinish ? "Partie Terminée" : t.currentStep.type}</p>
             <p id="info">{isFinish ? `${Object.keys(t.steps).length} / ${Object.keys(t.steps).length}` : `${t.currentStep.order} / ${Object.keys(t.steps).length}`}</p>
             
-            <Button variant="secondary"> <img src="/images/timer-icons/PreviousArrowBackward.svg" alt="Prev_button_icon" /> </Button>
+            <Button variant="secondary" onClick={() => {
+                dispatch(prevStep())
+            }}> <img src="/images/timer-icons/PreviousArrowBackward.svg" alt="Prev_button_icon" /> </Button>
 
             {isPlay ? <Button variant="danger" onClick={() => { pause() ; setIsPlay(false)}} id="timerButtons"> <img src="/images/timer-icons/Pause.svg" alt="Pause_button_image" /> </Button> : <Button variant='success' onClick={() => { resume() ; setIsPlay(true)}} id="timerButtons"> <img src="/images/timer-icons/Play.svg" alt="Play_button_image" /> </Button>}
 
