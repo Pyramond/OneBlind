@@ -17,10 +17,11 @@ export function TournamentPlayers(props) {
 
         if(Object.keys(t.value).length == 1) {
             setIsWinner(true)
+            eliminatePlayer(t.value[0].id, false)
         }
     }, [Object.keys(t.value).length])
 
-    function eliminatePlayer(id) {
+    function eliminatePlayer(id, remove) {
 
         fetch("http://localhost:8000/tournament/eliminate", {
             method: "POST",
@@ -36,7 +37,7 @@ export function TournamentPlayers(props) {
           })
           .then(res => res.json())
           .then(res => {
-            dispatch(removePlayer(id))
+            if(remove) dispatch(removePlayer(id))
           })
     }
 
@@ -44,7 +45,7 @@ export function TournamentPlayers(props) {
         <>
             <div id="tournamentPlayersContainer">
                 {t.value.map((player, index) => (
-                    <p id="player" key={index}>{player.name} {isWinner ? <p>Gagnant</p> : <Button variant='danger' onClick={() => { eliminatePlayer(player.id) }}>Eliminer</Button>} </p>
+                    <p id="player" key={index}>{player.name} {isWinner ? "Gagnant" : <Button variant='danger' onClick={() => { eliminatePlayer(player.id, true) }}>Eliminer</Button>} </p>
                 ))}
             </div>
         </>
