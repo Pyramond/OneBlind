@@ -45,6 +45,12 @@ export default function MyTimer() {
         }
   }, [effectDependency]);
 
+  useEffect(() => {
+    if(hours == 0 && minutes == 0 && seconds ==  10) {
+        new Audio("/sounds/escargotPhoneAlarm.mp3").play()
+    }
+  }, [seconds])
+
 
 
     return (
