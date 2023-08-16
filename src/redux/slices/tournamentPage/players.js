@@ -9,8 +9,12 @@ export const tournamentPlayers = createSlice({
         setPlayers: (state, action) => {
             state.value = action.payload;
         },
+        removePlayer: (state, action) => {
+            const playerId = action.payload;
+            state.value = state.value.filter(player => player.id !== playerId);
+        }
     },
 });
 
-export const { setPlayers } = tournamentPlayers.actions;
+export const { setPlayers, removePlayer } = tournamentPlayers.actions;
 export default tournamentPlayers.reducer;

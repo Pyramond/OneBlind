@@ -10,8 +10,8 @@ export default function Blind() {
         <>
             <div id="blindContainer">
                 <div id="blindNumberContainer">
-                    <h1 id="blindNumber">{t.currentStep.sb}</h1>
-                    <h1 id="blindNumber">{t.currentStep.sb * 2}</h1>
+                    <h1 id="blindNumber">{t.currentStep.sb ? t.currentStep.sb : 0}</h1>
+                    <h1 id="blindNumber">{t.currentStep.sb ? t.currentStep.sb * 2 : 0}</h1>
                 </div>
             </div>
         </>

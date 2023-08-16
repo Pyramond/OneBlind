@@ -3,46 +3,64 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlayers } from '../redux/slices/tournamentPage/players';
 import { setInfos } from "../redux/slices/tournamentPage/info"
-import { useEffect } from 'react';
-import { Button } from 'react-bootstrap';
+import { useEffect, useState } from 'react';
 import { getTournamentPlayers, getTournamentById } from '../utils/tournaments';
 import { getModelById } from '../utils/models';
 import { setSteps, changeStep } from '../redux/slices/tournamentPage/steps';
 import MyTimer from '../react-components/timer';
 import Blind from '../react-components/blind';
-
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import { TournamentPlayers } from '../react-components/tournamentPlayers';
+import AvStack from '../react-components/avStack';
+import BlindTab from '../react-components/blindTab';
 
 export default function TournamentPage() {
 
     const { id } = useParams();
     const dispatch = useDispatch()
-    const t = useSelector((state) => state.tournamentSteps);
+    const t = useSelector((state) => state.tournamentPlayers);
+    const [blindTabComponent, setBlindTabComponent] = useState(<p></p>)
 
     useEffect(() => {
-      getTournamentPlayers(id).then((players) => {
+      async function fetchData() {
+        const players = await getTournamentPlayers(id);
         dispatch(setPlayers(players));
-      });
-    
-      getTournamentById(id).then((infos) => {
+
+        const infos = await getTournamentById(id);
+        infos.number = players.length;
+        setBlindTabComponent(<BlindTab id={infos.blindId}/>)
         dispatch(setInfos(infos));
-    
-        getModelById(infos.blindId).then((steps) => {
-          dispatch(setSteps(steps.steps));
-          dispatch(changeStep())
-        });
-      });
+
+        const steps = await getModelById(infos.blindId);
+        dispatch(setSteps(steps.steps));
+        dispatch(changeStep());
+      }
+      fetchData()
     }, []);
 
-    function test() {
-      alert(JSON.stringify(t.currentStep));
-    }
   return (
     <>
       <NavigationBar />
-      <div id="tournamentContainer">
-        <Blind />
-        <MyTimer />
-      </div>
+
+        <Container fluid>
+        <Row>
+          <Col> <Blind /> </Col>
+          <Col> <MyTimer /> </Col>
+        </Row>
+        <Row>
+          <Col> <TournamentPlayers id={id} /> </Col>
+          <Col>
+            <div>
+              <AvStack />
+              {blindTabComponent}
+            </div>
+          </Col>
+        </Row>
+      </Container>
+
+      
     </>
   )
 }
