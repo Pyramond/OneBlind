@@ -2,7 +2,7 @@ import { useTimer } from 'react-timer-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeStep, prevStep } from '../redux/slices/tournamentPage/steps';
 import { useEffect, useState, useMemo } from 'react';
-import { Button } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 
 export default function MyTimer() {
@@ -11,6 +11,7 @@ export default function MyTimer() {
     const dispatch = useDispatch();
     const [isFinish, setIsFinish] = useState(false)
     const [isPlay, setIsPlay] = useState(false)
+    const [counter, setCounter] = useState(0)
 
     const effectDependency = useMemo(() => ({ currentStep: t.currentStep, random: Math.random() }), [t.currentStep]);
     
@@ -46,11 +47,21 @@ export default function MyTimer() {
   }, [effectDependency]);
 
   useEffect(() => {
+    setCounter(counter + 1)
     if(hours == 0 && minutes == 0 && seconds ==  10) {
         new Audio("/sounds/escargotPhoneAlarm.mp3").play()
     }
   }, [seconds])
 
+  const handleSliderChange = (event) => {
+    const newValue = parseInt(event.target.value, 10);
+
+    const newExpiryTimestamp = new Date(
+      new Date().getTime() + newValue * 1000
+    );
+    restart(newExpiryTimestamp);
+    setIsPlay(true)
+  };
 
 
     return (
@@ -76,6 +87,17 @@ export default function MyTimer() {
             <Button variant="secondary" onClick={() => {
                 dispatch(changeStep())
             }}> <img src="/images/timer-icons/NextArrowForward.svg" alt="Next_button_image" /> </Button>
+
+            <div id="sliderContainer">
+                <Form.Range 
+                    id="slider"
+                    value={minutes * 60 + seconds}
+                    step={1}
+                    min={0}
+                    max={t.currentStep.time * 60}
+                    onChange={handleSliderChange}
+                />
+            </div>
         </div>
     );
 }

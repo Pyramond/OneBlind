@@ -139,6 +139,15 @@ li {
   font-size: 35px;
 }
 
+#sliderContainer {
+  width: 100%;
+  margin-top: 2em;
+}
+#sliderContainer #slider {
+  width: 75%;
+  direction: rtl;
+}
+
 #tournamentContainer {
   display: flex;
   flex-direction: row;
