@@ -1,4 +1,4 @@
 # OneBlind
- Poker Manager like blindValet with React, Redux and bootstrap
+ Poker Manager like blindValet
 
  Back-end with fastAPI => https://github.com/Pyramond/OneBlind-Server
