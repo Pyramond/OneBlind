@@ -5,3 +5,13 @@
 #info {
     font-size: 35px;
 }
+
+#sliderContainer {
+    width: 100%;
+    margin-top: 2em;
+
+    #slider {
+        width: 75%;
+        direction: rtl;
+    }
+}
