@@ -1,13 +1,13 @@
 import { useState, useEffect } from "react"
 import Tournament from "./tournament"
-import { getAllTournaments } from "../utils/tournaments"
+import { getAllCurrentTournaments } from "../utils/tournaments"
 
 export default function AllTournament() {
 
     const [allTournaments, setAllTournaments] = useState([])
 
     useEffect(() => {
-        getAllTournaments().then(tournaments => {
+        getAllCurrentTournaments().then(tournaments => {
             setAllTournaments(tournaments)
         })
     }, [])

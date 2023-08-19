@@ -1,4 +1,4 @@
-export function getAllTournaments() {
+export function getAllCurrentTournaments() {
     return fetch("http://localhost:8000/tournament/getAllCurrent", {
         method: "GET",
         headers: {
@@ -10,6 +10,20 @@ export function getAllTournaments() {
       .then(res => {
         return res;
       })
+}
+
+export function getAllTournaments() {
+  return fetch("http://localhost:8000/tournament/getAll", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+    .then(res => res.json())
+    .then(res => {
+      return res;
+    })
 }
 
 
