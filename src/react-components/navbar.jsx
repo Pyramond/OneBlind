@@ -31,6 +31,7 @@ export default function NavigationBar() {
                 <div className="mb-5">
                   <Button href="/classement" variant="link">Classement</Button>
                   <Button href="/history" variant="link">Historique</Button>
+                  <Button href="/profiles" variant='link'>Profils</Button>
                 </div>
 
                 <AddPlayer />
