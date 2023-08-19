@@ -1,4 +1,4 @@
-export function getAllTournaments() {
+export function getAllCurrentTournaments() {
     return fetch("http://localhost:8000/tournament/getAllCurrent", {
         method: "GET",
         headers: {
