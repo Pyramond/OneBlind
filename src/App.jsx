@@ -5,6 +5,8 @@ import History from "./pages/history"
 import PageNotFound from "./pages/404"
 import Blind from "./pages/blind"
 import TournamentPage from "./pages/tournamentPage"
+import AllProfiles from "./pages/allProfiles"
+import Profile from "./pages/profile"
 
 function App() {
 
@@ -16,6 +18,8 @@ function App() {
         <Route path="/history" element={<History />} />
         <Route path="/blind/:id" element={<Blind />} />
         <Route path="/tournament/:id" element={<TournamentPage />} />
+        <Route path="/profiles" element={<AllProfiles />} />
+        <Route path="/profiles/:id" element={<Profile />} />
         <Route path="/*" element={<PageNotFound />} />
       </Routes>
     </>
