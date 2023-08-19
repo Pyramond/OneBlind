@@ -12,6 +12,20 @@ export function getAllCurrentTournaments() {
       })
 }
 
+export function getAllTournaments() {
+  return fetch("http://localhost:8000/tournament/getAll", {
+      method: "GET",
+      headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+      },
+    })
+    .then(res => res.json())
+    .then(res => {
+      return res;
+    })
+}
+
 
 export function getTournamentPlayers(id) {
     return fetch("http://localhost:8000/tournament/getPlayers", {
