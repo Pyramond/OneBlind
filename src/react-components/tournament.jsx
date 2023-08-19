@@ -39,7 +39,7 @@ export default function Tournament(props) {
 
                                 <Dropdown.Menu data-bs-theme="dark">
                                     {players.map((player, index) => (
-                                        <Dropdown.Item key={index} disabled={true}> {player} </Dropdown.Item>
+                                        <Dropdown.Item key={index} disabled={true}> {player.name} </Dropdown.Item>
                                     ))}
                                 </Dropdown.Menu>
                             </Dropdown>
