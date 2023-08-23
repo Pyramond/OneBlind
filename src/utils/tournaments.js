@@ -77,3 +77,20 @@ export function getTournamentById(id) {
     return res;
   })
 }
+
+export function getTournamentPlayer(id) {
+  return fetch("http://localhost:8000/tournament/getTournamentPlayer", {
+    method: "POST",
+    headers: {
+      "Accept": "application/json",
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        id: id
+    })
+  })
+  .then(res => res.json())
+  .then(res => {
+    return res;
+  })
+}

@@ -1,5 +1,5 @@
 import { FormGroup, Form, Button, Modal } from 'react-bootstrap';
-import { getDate } from '../utils/date';
+import { getTimeStamp } from '../utils/date';
 import { useState } from 'react';
 
 export default function AddPlayer() {
@@ -13,7 +13,7 @@ export default function AddPlayer() {
     const handleShow = () => setShow(true);
 
     function newPlayer() {
-        const date = getDate()
+        const date = getTimeStamp()
 
         fetch("http://localhost:8000/addPlayer", {
             method: "POST",
