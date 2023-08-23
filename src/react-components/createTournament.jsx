@@ -28,7 +28,7 @@ export default function CreateTournament() {
       setPlayers((prevPlayers) => [...prevPlayers, selectedPlayer]);
     } else {
       handleShow()
-      setTempPlayer(selectedItem)
+      setTempPlayer(selectedPlayer.name)
     }
   };
   
