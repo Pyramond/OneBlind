@@ -114,7 +114,7 @@ export default function CreateBlindModel() {
                     <Form.Group className="mb-3" id="formGroup">
                         <Form.Label id="label">Ajouter une étape: </Form.Label>
                         <div id="addStep">
-                            <Form.Control type="number" placeholder="Temps (en minutes)" data-bs-theme="dark" id="formControl" onChange={handleChangeTime} />
+                            <Form.Control type="number" placeholder="Temps (en minutes)" data-bs-theme="dark" id="formControl2" onChange={handleChangeTime} />
                             <Form.Control type="number" placeholder="Petite Blind" data-bs-theme="dark" id="formControl" onChange={handleChangeSBlind} />
                             <Button variant="dark" id="addButton" onClick={addStep} >Ajouter</Button>
                         </div>
