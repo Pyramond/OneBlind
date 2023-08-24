@@ -110,27 +110,24 @@ export default function CreateBlindModel() {
                         <Form.Control type="text" placeholder="Nom de la structure" data-bs-theme="dark" onChange={handleChangeName} />
                     </Form.Group>
 
-                    <div id="blindStep">
-                        <Form.Group className="mb-3" id="formGroup">
-                            <Form.Label id="label">Ajouter une étape: </Form.Label>
+                    
+                    <Form.Group className="mb-3" id="formGroup">
+                        <Form.Label id="label">Ajouter une étape: </Form.Label>
+                        <div id="addStep">
+                            <Form.Control type="number" placeholder="Temps (en minutes)" data-bs-theme="dark" id="formControl" onChange={handleChangeTime} />
+                            <Form.Control type="number" placeholder="Petite Blind" data-bs-theme="dark" id="formControl" onChange={handleChangeSBlind} />
+                            <Button variant="dark" id="addButton" onClick={addStep} >Ajouter</Button>
+                        </div>
+                        <Button variant="info" id="addPause" onClick={handleShow} >Ajouter une pause</Button>
+                    </Form.Group>
 
-                            <div id="addStep">
-                                <Form.Control type="number" placeholder="Temps (en minutes)" data-bs-theme="dark" id="formControl" onChange={handleChangeTime} />
-                                <Form.Control type="number" placeholder="Petite Blind" data-bs-theme="dark" id="formControl" onChange={handleChangeSBlind} />
-                                <Button variant="dark" id="addButton" onClick={addStep} >Ajouter</Button>
-                            </div>
-
-                            <Button variant="info" id="addPause" onClick={handleShow} >Ajouter une pause</Button>
-
-                        </Form.Group>
-
-                        <h4>Étapes:</h4>
-                        <ol>
-                            {steps.map((step, index) => (
-                                <li key={index} id="step" >{step.time}' | {step.type} | {step.SBlind} | {step.SBlind * 2} <CloseButton variant="white" onClick={() => removeStep(step)}/> </li>
-                            ))}
-                        </ol>
-                    </div>
+                    <h4>Étapes:</h4>
+                    <ol>
+                        {steps.map((step, index) => (
+                            <li key={index} id="step" >{step.time}' | {step.type} | {step.SBlind} | {step.SBlind * 2} <CloseButton variant="white" onClick={() => removeStep(step)}/> </li>
+                        ))}
+                    </ol>
+             
                     
                     <Button id="formButtons" variant="primary" type="" onClick={createModel}>Sauvegarder</Button>
                     <Button id="formButtons" variant="secondary" onClick={handleShowDel}>Options</Button>
