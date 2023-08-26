@@ -19,6 +19,7 @@ export function TournamentPlayers(props) {
     const [isWinner, setIsWinner] = useState(false)
     const [playerToRemove, setPlayerToRemove] = useState("Éliminer")
     const [playerToRemoveId, setPlayerToRemoveId] = useState()
+    const [showDrop, setShowDrop] = useState(true)
     
 
     // Ending modal
@@ -50,6 +51,7 @@ export function TournamentPlayers(props) {
         switch (Object.keys(t.value).length) {
             case 1:
                 setIsWinner(true)
+                setShowDrop(false)
                 eliminatePlayer(t.value[0].id, false)
                 break;
             case 2:
@@ -83,7 +85,8 @@ export function TournamentPlayers(props) {
 
     return (
         <>
-            <div id="tournamentPlayersContainer">
+
+            <div id="tournamentPlayersContainer" >
                 <Dropdown data-bs-theme="dark" className="me-2" onSelect={handlePlayer}>
                     <Dropdown.Toggle variant="dark">{playerToRemove}</Dropdown.Toggle>
 
@@ -94,7 +97,7 @@ export function TournamentPlayers(props) {
                     </Dropdown.Menu>
                 </Dropdown>
 
-                <Button variant="danger" onClick={() => { eliminatePlayer(playerToRemoveId, true)}}>Éliminer</Button>
+                {isWinner ? <div> <p>{t.value[0].name} Gagnant</p> <Button variant="primary" onClick={handleShow}>Terminer le tournois</Button> </div> : <Button variant="danger" onClick={() => { eliminatePlayer(playerToRemoveId, true)}}>Éliminer</Button>}
             </div>
 
 
