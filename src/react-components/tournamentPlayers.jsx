@@ -81,7 +81,7 @@ export function TournamentPlayers(props) {
         <>
 
             <div id="tournamentPlayersContainer" >
-                <h4 id="title">Éliminer un joueur.euse: </h4>
+                <h4>Éliminer un joueur.euse: </h4>
                 <div id="dropdown">
                     <Dropdown data-bs-theme="dark" className="me-2" onSelect={handlePlayer} id="dropdown">
                         <Dropdown.Toggle variant="dark">{playerToRemove}</Dropdown.Toggle>
