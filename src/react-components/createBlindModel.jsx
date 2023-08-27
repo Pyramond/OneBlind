@@ -50,7 +50,10 @@ export default function CreateBlindModel() {
         setOrder(order + 1)
     }
 
-    const removeStep = (stepToRemove) => { setSteps((prevSteps) => prevSteps.filter((step) => step !== stepToRemove)) };
+    const removeStep = (stepToRemove) => {
+        setSteps((prevSteps) => prevSteps.filter((step) => step !== stepToRemove)) 
+        setOrder(order - 1)
+    };
 
     function createModel(event) {
         event.preventDefault()
