@@ -19,7 +19,6 @@ export function TournamentPlayers(props) {
     const [isWinner, setIsWinner] = useState(false)
     const [playerToRemove, setPlayerToRemove] = useState("Éliminer")
     const [playerToRemoveId, setPlayerToRemoveId] = useState()
-    const [showDrop, setShowDrop] = useState(true)
     
 
     // Ending modal
@@ -38,11 +37,6 @@ export function TournamentPlayers(props) {
         const selectedPlayer = t.value.find(player => player.id === parseInt(selectedPlayerId));
         setPlayerToRemove(selectedPlayer.name)
         setPlayerToRemoveId(parseInt(selectedPlayerId))
-    }
-
-
-    function test() {
-        console.log(t.value)
     }
 
     useEffect(() => {
@@ -87,17 +81,20 @@ export function TournamentPlayers(props) {
         <>
 
             <div id="tournamentPlayersContainer" >
-                <Dropdown data-bs-theme="dark" className="me-2" onSelect={handlePlayer}>
-                    <Dropdown.Toggle variant="dark">{playerToRemove}</Dropdown.Toggle>
+                <h4 id="title">Éliminer un joueur.euse: </h4>
+                <div id="dropdown">
+                    <Dropdown data-bs-theme="dark" className="me-2" onSelect={handlePlayer} id="dropdown">
+                        <Dropdown.Toggle variant="dark">{playerToRemove}</Dropdown.Toggle>
 
-                    <Dropdown.Menu>
-                        {t.value.map((player, index) => (
-                            <Dropdown.Item key={index} eventKey={player.id}>{player.name}</Dropdown.Item>
-                        ))}
-                    </Dropdown.Menu>
-                </Dropdown>
+                        <Dropdown.Menu>
+                            {t.value.map((player, index) => (
+                                <Dropdown.Item key={index} eventKey={player.id}>{player.name}</Dropdown.Item>
+                            ))}
+                        </Dropdown.Menu>
+                    </Dropdown>
 
-                {isWinner ? <div> <p>{t.value[0].name} Gagnant</p> <Button variant="primary" onClick={handleShow}>Terminer le tournois</Button> </div> : <Button variant="danger" onClick={() => { eliminatePlayer(playerToRemoveId, true)}}>Éliminer</Button>}
+                    {isWinner ? <div> <p>{t.value[0].name} Gagnant</p> <Button variant="primary" onClick={handleShow}>Terminer le tournois</Button> </div> : <Button variant="danger" onClick={() => { eliminatePlayer(playerToRemoveId, true)}}>Éliminer</Button>}
+                </div>
             </div>
 
 
