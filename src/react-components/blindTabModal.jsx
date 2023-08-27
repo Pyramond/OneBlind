@@ -15,7 +15,7 @@ export function BlindTabModal() {
 
     return(
         <>
-            <Button variant="primary" onClick={handleShow}>Structure de blind</Button>
+            <Button variant="secondary" onClick={handleShow}>Structure de blind</Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
