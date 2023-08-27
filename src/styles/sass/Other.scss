@@ -20,10 +20,14 @@
 
 
     #informationsContainer {
-        margin-left: 0.5em;
+        margin: 1em;
 
-        span {
-            font-weight: bold;
+        #infos {
+            margin-left: 0.5em;
+    
+            span {
+                font-weight: bold;
+            }
         }
     }
 }

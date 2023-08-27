@@ -26,16 +26,18 @@ export default function Other(props) {
                             </Row>
                         </Col>
                         <Col>
-                            <h4>Informations:</h4>
                             <div id="informationsContainer">
-                                <p>
-                                    <span> Nom du tournois: </span> {t.name} <br />
-                                    <span> date: </span> {convertTimeStamp(parseInt(t.date))} <br />
-                                    <span> structure de blind: </span> {t.blindName} <br />
-                                    <span> Tapis initial: </span> {t.initialChip} <br />
-                                    <span> Nombre de joueur: </span> {Object.keys(tournamentPlayers.value).length}
+                                <h4>Informations:</h4>
+                                <div id="infos">
+                                    <p>
+                                        <span> Nom du tournois: </span> {t.name} <br />
+                                        <span> date: </span> {convertTimeStamp(parseInt(t.date))} <br />
+                                        <span> structure de blind: </span> {t.blindName} <br />
+                                        <span> Tapis initial: </span> {t.initialChip} <br />
+                                        <span> Nombre de joueur: </span> {Object.keys(tournamentPlayers.value).length}
 
-                                </p>
+                                    </p>
+                                </div>
                             </div>
                         </Col>
                     </Row>
