@@ -33,6 +33,15 @@ export function TournamentPlayers(props) {
     const handleCloseFinal = () => setShowFinal(false)
 
 
+    // Eliminate Modal
+    const [showEliminate, setShowEliminate] = useState(false)
+    const handleShowEliminate = () => setShowEliminate(true)
+    const handleCloseEliminate = () => {
+        setShowEliminate(false)
+        setPlayerToRemove("Éliminer")
+    }
+
+
     const handlePlayer = (selectedPlayerId) => {
         const selectedPlayer = t.value.find(player => player.id === parseInt(selectedPlayerId));
         setPlayerToRemove(selectedPlayer.name)
@@ -73,7 +82,10 @@ export function TournamentPlayers(props) {
           })
           .then(res => res.json())
           .then(res => {
-            if(remove) dispatch(removePlayer(id))
+            if(remove) {
+                dispatch(removePlayer(id))
+                handleShowEliminate()
+            }
           })
     }
 
@@ -127,6 +139,14 @@ export function TournamentPlayers(props) {
                         <img src="/images/fight.gif" alt="finalGif" id="finalGif"/>
 
                     </Modal.Body>
+            </Modal>
+
+            
+            {/* Eliminate Modal */}
+            <Modal show={showEliminate} onHide={handleCloseEliminate}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{playerToRemove} à été éliminé.e</Modal.Title>
+                    </Modal.Header>
             </Modal>
         </>
     )
