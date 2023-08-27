@@ -54,7 +54,6 @@ export function TournamentPlayers(props) {
         switch (Object.keys(t.value).length) {
             case 1:
                 setIsWinner(true)
-                setShowDrop(false)
                 eliminatePlayer(t.value[0].id, false)
                 break;
             case 2:
