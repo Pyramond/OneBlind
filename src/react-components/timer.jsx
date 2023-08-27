@@ -70,7 +70,6 @@ export default function MyTimer() {
                <span>{hours < 10 ? "0" + hours : hours}</span>:<span>{minutes < 10 ? "0" + minutes : minutes}</span>:<span>{seconds < 10 ? "0" + seconds : seconds}</span>
             </div>
 
-            <p id="info">{isFinish ? "Partie Terminée" : t.currentStep.type}</p>
             <p id="info">{isFinish ? `${Object.keys(t.steps).length} / ${Object.keys(t.steps).length}` : `${t.currentStep.order} / ${Object.keys(t.steps).length}`}</p>
             
             <Button variant="secondary" onClick={() => {
