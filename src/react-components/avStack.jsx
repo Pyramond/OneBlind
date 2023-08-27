@@ -1,6 +1,5 @@
-import { useSelector, useDispatch } from "react-redux"
-import { Button } from "react-bootstrap";
-import { recave } from "../redux/slices/tournamentPage/info";
+import { useSelector } from "react-redux"
+
 
 export default function AvStack() {
 
