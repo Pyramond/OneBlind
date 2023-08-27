@@ -13,6 +13,7 @@ export default function MyTimer() {
     const [isFinish, setIsFinish] = useState(false)
     const [isPlay, setIsPlay] = useState(false)
     const [counter, setCounter] = useState(0)
+    const [isDisabled, setIsDisabled] = useState(false)
 
     const effectDependency = useMemo(() => ({ currentStep: t.currentStep, random: Math.random() }), [t.currentStep]);
     
@@ -41,6 +42,9 @@ export default function MyTimer() {
             const newExpiryTimestamp = new Date(new Date().getTime() + t.currentStep.time * 60000 - 1 * 1000);
             restart(newExpiryTimestamp);
             dispatch(set(t.currentStep.type))
+
+            if(t.currentStep.order == 1) setIsDisabled(true)
+            else setIsDisabled(false)
         }
 
         if(isPlay === false) {
@@ -65,6 +69,18 @@ export default function MyTimer() {
     setIsPlay(true)
   };
 
+  function verifyStep(action) {
+    if(action === "next") {
+        dispatch(changeStep())
+    } else if(action === "prev") {
+        if(t.currentStep.order == 1) {
+
+        } else {
+            dispatch(prevStep())
+        }
+    }
+  }
+
 
     return (
         <div style={{textAlign: 'center'}}>
@@ -74,8 +90,8 @@ export default function MyTimer() {
 
             <p id="info">{isFinish ? `${Object.keys(t.steps).length} / ${Object.keys(t.steps).length}` : `${t.currentStep.order} / ${Object.keys(t.steps).length}`}</p>
             
-            <Button variant="secondary" onClick={() => {
-                dispatch(prevStep())
+            <Button variant="secondary" disabled={isDisabled} onClick={() => {
+                verifyStep("prev")
             }}> <img src="/images/timer-icons/PreviousArrowBackward.svg" alt="Prev_button_icon" /> </Button>
 
             {isPlay ? <Button variant="danger" onClick={() => { pause() ; setIsPlay(false)}} id="timerButtons"> <img src="/images/timer-icons/Pause.svg" alt="Pause_button_image" /> </Button> : <Button variant='success' onClick={() => { resume() ; setIsPlay(true)}} id="timerButtons"> <img src="/images/timer-icons/Play.svg" alt="Play_button_image" /> </Button>}
@@ -86,7 +102,7 @@ export default function MyTimer() {
             }} id="timerButtons" > <img src="/images/timer-icons/restart.svg" alt="Restart_button_image" id="Restart_button_image" /> </Button>
 
             <Button variant="secondary" onClick={() => {
-                dispatch(changeStep())
+                verifyStep("next")
             }}> <img src="/images/timer-icons/NextArrowForward.svg" alt="Next_button_image" /> </Button>
 
             <div id="sliderContainer">
