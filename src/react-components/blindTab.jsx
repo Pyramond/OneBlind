@@ -25,7 +25,7 @@ export default function BlindTab(props) {
     return (
         <>
             <div id="blindTabContainer">
-            <Table striped bordered hover variant='dark'>
+            <Table striped bordered hover variant={props.theme}>
                 <thead>
                     <tr>
                         <th>#</th>

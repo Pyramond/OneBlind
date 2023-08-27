@@ -31,7 +31,7 @@ function Blind() {
       <NavigationBar />
 
       <h2>Détails du model: <span id="modelName">{name}</span></h2>
-      <BlindTab id={id} />
+      <BlindTab id={id} theme="dark" />
       
     </>
   )

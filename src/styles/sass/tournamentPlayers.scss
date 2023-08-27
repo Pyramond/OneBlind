@@ -1,19 +1,19 @@
 #tournamentPlayersContainer {
-    background: rgba(255, 255, 255, 0.19);
-    border-radius: 16px;
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-    backdrop-filter: blur(7.8px);
-    -webkit-backdrop-filter: blur(7.8px);
-    border: 1px solid rgba(255, 255, 255, 0.31);
 
-    width: 30em;
-
-    margin-top: 5em;
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
 
     #player {
         padding-left: 1em;
         padding-top: 1em;
         font-size: x-large;
+    }
+
+    #dropdown {
+        display: flex;
+        flex-direction: row;
+        margin-left: 0.2em;
     }
 }
 

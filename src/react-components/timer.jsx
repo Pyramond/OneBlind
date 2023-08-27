@@ -1,6 +1,7 @@
 import { useTimer } from 'react-timer-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeStep, prevStep } from '../redux/slices/tournamentPage/steps';
+import { set } from '../redux/slices/tournamentPage/timer';
 import { useEffect, useState, useMemo } from 'react';
 import { Button, Form } from 'react-bootstrap';
 
@@ -39,6 +40,7 @@ export default function MyTimer() {
             setIsFinish(false)
             const newExpiryTimestamp = new Date(new Date().getTime() + t.currentStep.time * 60000 - 1 * 1000);
             restart(newExpiryTimestamp);
+            dispatch(set(t.currentStep.type))
         }
 
         if(isPlay === false) {
@@ -70,7 +72,6 @@ export default function MyTimer() {
                <span>{hours < 10 ? "0" + hours : hours}</span>:<span>{minutes < 10 ? "0" + minutes : minutes}</span>:<span>{seconds < 10 ? "0" + seconds : seconds}</span>
             </div>
 
-            <p id="info">{isFinish ? "Partie Terminée" : t.currentStep.type}</p>
             <p id="info">{isFinish ? `${Object.keys(t.steps).length} / ${Object.keys(t.steps).length}` : `${t.currentStep.order} / ${Object.keys(t.steps).length}`}</p>
             
             <Button variant="secondary" onClick={() => {

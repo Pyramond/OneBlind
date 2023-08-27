@@ -12,7 +12,7 @@ import Blind from '../react-components/blind';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
-import { TournamentPlayers } from '../react-components/tournamentPlayers';
+import Other from '../react-components/tournamentOther';
 import AvStack from '../react-components/avStack';
 import BlindTab from '../react-components/blindTab';
 
@@ -50,13 +50,8 @@ export default function TournamentPage() {
           <Col> <MyTimer /> </Col>
         </Row>
         <Row>
-          <Col> <TournamentPlayers id={id} /> </Col>
-          <Col>
-            <div>
-              <AvStack />
-              {blindTabComponent}
-            </div>
-          </Col>
+          <Col> <Other id={id} /> </Col>
+          <Col> <AvStack /> </Col>
         </Row>
       </Container>
 
