@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Dropdown, Button, Form, CloseButton, Modal, Alert } from "react-bootstrap";
-import { getDate, getHours, getTimeStamp } from "../utils/date";
+import { getDate, getTimeStamp } from "../utils/date";
 import { getAllPlayer } from "../utils/players";
 import { getAllModels } from "../utils/models";
 
@@ -111,7 +111,7 @@ export default function CreateTournament() {
             </Form.Group>
 
             <Form.Group className="mb-3" id="formGroup">
-                <Form.Label id="label">Jetons de départ: </Form.Label>
+                <Form.Label id="label">Tapis de départ: </Form.Label>
                 <Form.Control type="number" data-bs-theme="dark" onChange={handleChangeInitialChips}></Form.Control>
             </Form.Group>
 
@@ -149,7 +149,7 @@ export default function CreateTournament() {
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{tempPlayer} a déjà été ajouté.e</Modal.Title>
+          <Modal.Title>{tempPlayer} a déjà été ajouté</Modal.Title>
         </Modal.Header>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}> ingorer </Button>

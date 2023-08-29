@@ -48,7 +48,7 @@ export default function Profile(props) {
 
 
             <div id="tournamentsPlayer">
-                <h3>Historique de tournois de {playerData.name}:</h3>
+                <h3>Historique des tournois de {playerData.name}:</h3>
                 <Table striped bordered hover variant='dark' id="tournamentsPlayerTable">
                     <thead>
                         <tr>

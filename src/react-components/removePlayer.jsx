@@ -68,7 +68,7 @@ export default function RemovePlayer() {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>êtes-vous sûr de vouloir supprimer le joueur {player.name}</Modal.Title>
+                    <Modal.Title>Êtes-vous sûr de vouloir supprimer le joueur {player.name} ?</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <p id="modalText">

@@ -52,10 +52,10 @@ export default function AddPlayer() {
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>
-                    <Modal.Title>{playerName} a été ajouté.e</Modal.Title>
+                    <Modal.Title>{playerName} a été ajouté</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <p id="modalText">{playerName} a été ajouté.e avec l'identifant {id} et 0 points de départ</p>
+                    <p id="modalText">{playerName} a été ajouté avec l'identifant {id} et 0 points de départ</p>
                 </Modal.Body>
             </Modal>
 

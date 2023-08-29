@@ -1,7 +1,6 @@
 import NavigationBar from '../react-components/navbar'
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import { Table } from 'react-bootstrap';
 import BlindTab from '../react-components/blindTab';
 
 function Blind() {
@@ -30,7 +29,7 @@ function Blind() {
     <>
       <NavigationBar />
 
-      <h2>Détails du model: <span id="modelName">{name}</span></h2>
+      <h2>Détails du modèle: <span id="modelName">{name}</span></h2>
       <BlindTab id={id} theme="dark" />
       
     </>

@@ -21,7 +21,7 @@ export default function history() {
         <>
             <NavigationBar />
             <div id="historyContainer">
-                <h2 id="title">Historique de parties: </h2>
+                <h2 id="title">Historique des parties: </h2>
 
                 <Table striped bordered hover variant='dark'>
                     <thead>
