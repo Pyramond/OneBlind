@@ -15,7 +15,7 @@ export default function history() {
             setAllTournaments(tournaments)
         }
         fetchData()
-    })
+    }, [])
 
     return(
         <>
