@@ -1,6 +1,8 @@
 import { FormGroup, Form, Button, Modal } from 'react-bootstrap';
 import { getTimeStamp } from '../utils/date';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { change } from "../redux/slices/reload";
 
 export default function AddPlayer() {
 
@@ -8,6 +10,8 @@ export default function AddPlayer() {
     const [show, setShow] = useState(false);
     const [id, setId] = useState()
     const [showError, setShowError] = useState(false)
+
+    const dispatch = useDispatch()
 
     function handleChangeName(event) { setPLayerName(event.target.value) }
     const handleClose = () => setShow(false);
@@ -36,6 +40,7 @@ export default function AddPlayer() {
             .then(res => {
                 setId(res.id)
                 handleShow()
+                dispatch(change())
             })
         }
     }
