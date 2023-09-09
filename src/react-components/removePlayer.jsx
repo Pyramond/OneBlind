@@ -1,6 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from 'react';
 import { FormGroup, Form, Button, Modal, Dropdown } from 'react-bootstrap';
 import { getAllPlayer } from "../utils/players";
+import { useDispatch, useSelector } from 'react-redux';
+import { change } from "../redux/slices/reload";
 
 export default function RemovePlayer() {
 
@@ -9,6 +11,10 @@ export default function RemovePlayer() {
     const [player, setPlayer] = useState({})
     const [show, setShow] = useState(false);
 
+    const t = useSelector((state) => state.reload);
+    const dispatch = useDispatch();
+    const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
+
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -16,7 +22,7 @@ export default function RemovePlayer() {
         getAllPlayer().then(players => {
             setAllPlayers(players);
           });
-    }, [])
+    }, [effectDependency])
 
     const handlePlayer = (selectedPlayerId) => {
         const selectedPlayer = allPlayers.find(player => player.id === parseInt(selectedPlayerId));
@@ -40,6 +46,7 @@ export default function RemovePlayer() {
           .then(res => {
                 setAllPlayers((prevAllPLayers) => prevAllPLayers.filter((player) => player !== player.name))
                 setPlayerToRemove("Joueur")
+                dispatch(change())
           })
     }
  
