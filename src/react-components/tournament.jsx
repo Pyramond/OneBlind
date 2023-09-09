@@ -1,13 +1,21 @@
-import { useState, useEffect } from "react"
+import { useEffect, useState, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import { Dropdown, Button, Card, CloseButton, Modal } from "react-bootstrap"
 import { getTournamentPlayers, deleteTournament } from "../utils/tournaments"
 import { convertTimeStamp } from "../utils/date"
+import { useDispatch } from "react-redux"
+import { change } from '../redux/slices/reload';
+
 
 
 export default function Tournament(props) {
 
     const [players, setPlayers] = useState([])
     const [show, setShow] = useState(false);
+
+    const t = useSelector((state) => state.reload);
+    const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
+    const dispatch = useDispatch()
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -16,7 +24,7 @@ export default function Tournament(props) {
         getTournamentPlayers(props.tournament.id).then(players => {
             setPlayers(players)
         })
-    }, [])
+    }, [effectDependency])
 
     return(
         <>
@@ -56,7 +64,7 @@ export default function Tournament(props) {
                     <Modal.Body>Tu es sur le point de supprimer ce tournoi de la liste des tournois actuels. <br/>Il restera cependant dans l'historique des tournois.</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>Annuler</Button>
-                        <Button variant="danger" onClick={() => { handleClose() ; deleteTournament(props.tournament.id) }}>Supprimer</Button>
+                        <Button variant="danger" onClick={() => { handleClose() ; deleteTournament(props.tournament.id) ; dispatch(change()) }}>Supprimer</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
