@@ -1,10 +1,18 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Button, Form, CloseButton, Modal, Alert } from "react-bootstrap";
 import { getDate, getTimeStamp } from "../utils/date";
 import { getAllPlayer } from "../utils/players";
 import { getAllModels } from "../utils/models";
+import { change } from "../redux/slices/reload";
 
 export default function CreateTournament() {
+
+
+  const t = useSelector((state) => state.reload);
+  const dispatch = useDispatch();
+  const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
+  
   const date = getDate()
   const [blind, setBlind] = useState("Modèle");
   const [players, setPlayers] = useState([]);
@@ -69,25 +77,24 @@ export default function CreateTournament() {
           initialChips: parseInt(initialChips)
         })
       })
-      .then(res => res.json())
-      .then(res => {
-      })
-      setShowErrorAlert(false)
-      setShowAlert(true)
-    }
+        .then(res => res.json())
+        .then(res => {
+        })
+        setShowErrorAlert(false)
+        setShowAlert(true)
+        dispatch(change())
+      }
   }
 
   useEffect(() => {
       getAllPlayer().then(players => {
         setAllPlayers(players)
-      })
-  }, [])
+      });
 
-  useEffect(() => {
-    getAllModels().then(models => {
-      setAllModels(models)
-    })
-  }, [])
+      getAllModels().then(models => {
+        setAllModels(models)
+      });
+  }, [effectDependency])
 
   return (
     <div id="createTournament">
