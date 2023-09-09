@@ -1,9 +1,17 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState, useMemo } from 'react';
 import { Button, Form, Alert, Modal, CloseButton } from "react-bootstrap";
 import { getDate } from "../utils/date";
 import { getAllModels } from "../utils/models";
+import { useDispatch, useSelector } from 'react-redux';
+import { change } from "../redux/slices/reload";
 
 export default function CreateBlindModel() {
+
+
+
+    const t = useSelector((state) => state.reload);
+    const dispatch = useDispatch();
+    const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
 
     const date = getDate()
     const [name, setName] = useState(`Modèle du ${date}`)
@@ -79,6 +87,7 @@ export default function CreateBlindModel() {
               .then(res => {
                     setShowAlert(true)
                     setShowErrorAlert(false)
+                    dispatch(change())
               })
         }
     }
@@ -98,6 +107,7 @@ export default function CreateBlindModel() {
           .then(res => res.json())
           .then(res => {
                 setAllModels((prevAllModels) => prevAllModels.filter((model) => model !== modelToDelete))
+                dispatch(change())
           })
     }
 
@@ -105,7 +115,7 @@ export default function CreateBlindModel() {
         getAllModels().then(models => {
             setAllModels(models);
         })
-      }, []);
+      }, [effectDependency]);
 
     
     return (
