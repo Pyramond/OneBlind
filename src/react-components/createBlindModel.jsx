@@ -13,6 +13,7 @@ export default function CreateBlindModel() {
     const [pauseTime, setPauseTime] = useState(0)
     const [show, setShow] = useState(false);
     const [showAlert, setShowAlert] = useState(false)
+    const [showErrorAlert, setShowErrorAlert] = useState(false)
     const [order, setOrder] = useState(1)
     const [showDel, setShowDel] = useState(false)
     const [allModels, setAllModels] = useState([])
@@ -24,6 +25,7 @@ export default function CreateBlindModel() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const closeAlert = () => setShowAlert(false)
+    const closeErrorAlert = () => setShowErrorAlert(false)
 
     const handleCloseDel = () => setShowDel(false);
     const handleShowDel = () => setShowDel(true);
@@ -58,21 +60,27 @@ export default function CreateBlindModel() {
     function createModel(event) {
         event.preventDefault()
 
-        fetch("http://localhost:8000/addBlindModel", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: name,
-                steps: steps
-            })
-          })
-          .then(res => res.json())
-          .then(res => {
-                setShowAlert(true)
-          })
+        if(steps.length === 0) {
+            setShowErrorAlert(true)
+            setShowAlert(false)
+        } else {
+            fetch("http://localhost:8000/addBlindModel", {
+                method: "POST",
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    name: name,
+                    steps: steps
+                })
+              })
+              .then(res => res.json())
+              .then(res => {
+                    setShowAlert(true)
+                    setShowErrorAlert(false)
+              })
+        }
     }
 
     function deleteModel(modelToDelete) {
@@ -104,7 +112,8 @@ export default function CreateBlindModel() {
         <>
             <div id="createBlindModel">
                 <Form>
-                    <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le modèle a été créer</p> <CloseButton variant="dark" onClick={closeAlert}/></div> </Alert>
+                    <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le modèle a été créer.</p> <CloseButton variant="dark" onClick={closeAlert}/></div> </Alert>
+                    <Alert show={showErrorAlert} variant="danger"><div id="alert"> <p id="alertText">Certains champs obligatoires n'ont pas été remplis.</p> <CloseButton variant="dark" onClick={closeErrorAlert}/></div> </Alert>
 
                     <h2>Créer une structure de blind</h2>
 
