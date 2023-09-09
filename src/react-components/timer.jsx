@@ -54,8 +54,8 @@ export default function MyTimer() {
 
   useEffect(() => {
     setCounter(counter + 1)
-    if(hours == 0 && minutes == 0 && seconds ==  10) {
-        new Audio("/sounds/escargotPhoneAlarm.mp3").play()
+    if(hours == 0 && minutes == 0 && seconds ==  6) {
+        new Audio("/sounds/timerSound.mp3").play()
     }
   }, [seconds])
 
