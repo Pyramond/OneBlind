@@ -30,9 +30,9 @@ export default function BlindTab(props) {
                     <tr>
                         <th>#</th>
                         <th>Type</th>
-                        <th>time</th>
-                        <th>Small Blind</th>
-                        <th>Big Blind</th>
+                        <th>Time</th>
+                        <th>Petite Blind</th>
+                        <th>Grande Blind</th>
                     </tr>
                 </thead>
                 <tbody>

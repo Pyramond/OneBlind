@@ -3,6 +3,7 @@ import tournamentPlayerReducer from "./slices/tournamentPage/players";
 import tournamentStepsReducer from "./slices/tournamentPage/steps";
 import tournamentInfoReducer from "./slices/tournamentPage/info"
 import tournamentTimer from "./slices/tournamentPage/timer";
+import reload from "./slices/reload";
 
 
 export default configureStore({
@@ -10,6 +11,7 @@ export default configureStore({
         tournamentPlayers: tournamentPlayerReducer,
         tournamentSteps: tournamentStepsReducer,
         tournamentInfo: tournamentInfoReducer,
-        tournamentTimer: tournamentTimer
+        tournamentTimer: tournamentTimer,
+        reload: reload
     },
 });

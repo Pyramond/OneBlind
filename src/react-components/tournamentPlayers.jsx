@@ -33,6 +33,15 @@ export function TournamentPlayers(props) {
     const handleCloseFinal = () => setShowFinal(false)
 
 
+    // Eliminate Modal
+    const [showEliminate, setShowEliminate] = useState(false)
+    const handleShowEliminate = () => setShowEliminate(true)
+    const handleCloseEliminate = () => {
+        setShowEliminate(false)
+        setPlayerToRemove("Éliminer")
+    }
+
+
     const handlePlayer = (selectedPlayerId) => {
         const selectedPlayer = t.value.find(player => player.id === parseInt(selectedPlayerId));
         setPlayerToRemove(selectedPlayer.name)
@@ -45,7 +54,6 @@ export function TournamentPlayers(props) {
         switch (Object.keys(t.value).length) {
             case 1:
                 setIsWinner(true)
-                setShowDrop(false)
                 eliminatePlayer(t.value[0].id, false)
                 break;
             case 2:
@@ -73,7 +81,10 @@ export function TournamentPlayers(props) {
           })
           .then(res => res.json())
           .then(res => {
-            if(remove) dispatch(removePlayer(id))
+            if(remove) {
+                dispatch(removePlayer(id))
+                handleShowEliminate()
+            }
           })
     }
 
@@ -81,7 +92,7 @@ export function TournamentPlayers(props) {
         <>
 
             <div id="tournamentPlayersContainer" >
-                <h4>Éliminer un joueur.euse: </h4>
+                <h4>Éliminer un joueur: </h4>
                 <div id="dropdown">
                     <Dropdown data-bs-theme="dark" className="me-2" onSelect={handlePlayer} id="dropdown">
                         <Dropdown.Toggle variant="dark">{playerToRemove}</Dropdown.Toggle>
@@ -117,16 +128,24 @@ export function TournamentPlayers(props) {
                         <Modal.Title>Il ne reste plus que deux joueurs</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <p id="modalText">Les deux joueurs restant sont:</p>
+                        <p id="modalText">Les deux joueurs restants sont:</p>
                         <ul>
                         {t.value.map((player, index) => (
                             <li id="modalText" key={index}>{player.name}</li>
                         ))}
                         </ul>
-                        <p id="modalText">Le tapis moyen est de {tournamentInfo.avStack} avec un total de {tournamentInfo.totalChips} Jetons</p>
+                        <p id="modalText">Le tapis moyen est de {tournamentInfo.avStack} avec un total de {tournamentInfo.totalChips} jetons</p>
                         <img src="/images/fight.gif" alt="finalGif" id="finalGif"/>
 
                     </Modal.Body>
+            </Modal>
+
+            
+            {/* Eliminate Modal */}
+            <Modal show={showEliminate} onHide={handleCloseEliminate}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>{playerToRemove} à été éliminé</Modal.Title>
+                    </Modal.Header>
             </Modal>
         </>
     )

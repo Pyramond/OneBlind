@@ -1,16 +1,25 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Dropdown, Button, Form, CloseButton, Modal, Alert } from "react-bootstrap";
-import { getDate, getHours, getTimeStamp } from "../utils/date";
+import { getDate, getTimeStamp } from "../utils/date";
 import { getAllPlayer } from "../utils/players";
 import { getAllModels } from "../utils/models";
+import { change } from "../redux/slices/reload";
 
 export default function CreateTournament() {
+
+
+  const t = useSelector((state) => state.reload);
+  const dispatch = useDispatch();
+  const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
+  
   const date = getDate()
   const [blind, setBlind] = useState("Modèle");
   const [players, setPlayers] = useState([]);
   const [tournamentName, setTournamentName] = useState(`Tournoi ${date}`)
   const [show, setShow] = useState(false);
   const [showAlert, setShowAlert] = useState(false)
+  const [showErrorAlert, setShowErrorAlert] = useState(false)
   const [tempPlayer, setTempPlayer] = useState("")
   const [allPLayers, setAllPlayers] = useState([])
   const [initialChips, setInitialChips] = useState(0)
@@ -20,6 +29,7 @@ export default function CreateTournament() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const closeAlert = () => setShowAlert(false)
+  const closeErrorAlert = () => setShowErrorAlert(false)
 
   
   const handlePlayers = (selectedItemId) => {
@@ -46,47 +56,52 @@ export default function CreateTournament() {
     event.preventDefault()
 
 
-    fetch("http://localhost:8000/tournament/create", {
-      method: "POST",
-      headers: {
-          "Accept": "application/json",
-          "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        name: tournamentName,
-        date: getTimeStamp(),
-        blind: {
-          "name": selectedModel.name,
-          "id": selectedModel.id
+    if(players.length <= 2 || initialChips === 0 || Object.keys(selectedModel).length === 0) {
+      setShowErrorAlert(true)
+      setShowAlert(false)
+    } else {
+      fetch("http://localhost:8000/tournament/create", {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         },
-        players: players,
-        initialChips: parseInt(initialChips)
+        body: JSON.stringify({
+          name: tournamentName,
+          date: getTimeStamp(),
+          blind: {
+            "name": selectedModel.name,
+            "id": selectedModel.id
+          },
+          players: players,
+          initialChips: parseInt(initialChips)
+        })
       })
-    })
-    .then(res => res.json())
-    .then(res => {
-    })
-
-    setShowAlert(true)
+        .then(res => res.json())
+        .then(res => {
+        })
+        setShowErrorAlert(false)
+        setShowAlert(true)
+        dispatch(change())
+      }
   }
 
   useEffect(() => {
       getAllPlayer().then(players => {
         setAllPlayers(players)
-      })
-  }, [])
+      });
 
-  useEffect(() => {
-    getAllModels().then(models => {
-      setAllModels(models)
-    })
-  }, [])
+      getAllModels().then(models => {
+        setAllModels(models)
+      });
+  }, [effectDependency])
 
   return (
     <div id="createTournament">
       <Form>
 
         <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le tournoi a été créé</p> <CloseButton variant="dark" onClick={closeAlert}/></div> </Alert>
+        <Alert show={showErrorAlert} variant="danger"><div id="alert"> <p id="alertText">Certains champs obligatoires n'ont pas été remplis.</p> <CloseButton variant="dark" onClick={closeErrorAlert}/></div> </Alert>
 
         <h2>Créer un tournoi</h2>
 
@@ -111,7 +126,7 @@ export default function CreateTournament() {
             </Form.Group>
 
             <Form.Group className="mb-3" id="formGroup">
-                <Form.Label id="label">Jetons de départ: </Form.Label>
+                <Form.Label id="label">Tapis de départ: </Form.Label>
                 <Form.Control type="number" data-bs-theme="dark" onChange={handleChangeInitialChips}></Form.Control>
             </Form.Group>
 
@@ -144,12 +159,12 @@ export default function CreateTournament() {
 
             </Form.Group>
 
-        <Button variant="primary" type="" onClick={create}>Créer</Button>
+        <Button variant="primary" type="submit" onClick={create}>Créer</Button>
       </Form>
 
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>{tempPlayer} a déjà été ajouté.e</Modal.Title>
+          <Modal.Title>{tempPlayer} a déjà été ajouté</Modal.Title>
         </Modal.Header>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}> ingorer </Button>
