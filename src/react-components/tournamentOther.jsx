@@ -4,6 +4,7 @@ import { BlindTabModal } from "./blindTabModal"
 import { Container, Row, Col } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import { convertTimeStamp } from "../utils/date"
+import TablePlace from "./tablePlace"
 
 export default function Other(props) {
 
@@ -22,6 +23,7 @@ export default function Other(props) {
                             <div id="buttonGroupContainer">
                                 <div id="blindTabModalComponent"> <BlindTabModal /> </div>
                                 <div id="recaveButton"> <RecaveButton /> </div>
+                                <div id="tableButton"> <TablePlace /> </div>
                             </div>
                             </Row>
                         </Col>
