@@ -54,7 +54,7 @@ export default function MyTimer() {
 
   useEffect(() => {
     setCounter(counter + 1)
-    if(hours == 0 && minutes == 0 && seconds ==  10) {
+    if(hours == 0 && minutes == 0 && seconds ==  6) {
         new Audio("/sounds/timerSound.mp3").play()
     }
   }, [seconds])
