@@ -4,7 +4,7 @@ import { BlindTabModal } from "./blindTabModal"
 import { Container, Row, Col } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import { convertTimeStamp } from "../utils/date"
-import TablePlace from "./tablePlace"
+import { TablePlace } from "./tablePlace"
 
 export default function Other(props) {
 
