@@ -14,6 +14,7 @@ export default function MyTimer() {
     const [isPlay, setIsPlay] = useState(false)
     const [counter, setCounter] = useState(0)
     const [isDisabled, setIsDisabled] = useState(false)
+    const [nextStepComponent, setNextStepComponent] = useState(<p></p>)
 
     const effectDependency = useMemo(() => ({ currentStep: t.currentStep, random: Math.random() }), [t.currentStep]);
     
@@ -45,6 +46,8 @@ export default function MyTimer() {
 
             if(t.currentStep.order == 1) setIsDisabled(true)
             else setIsDisabled(false)
+            
+            setNextStepComponent(<p style={{ color: "white", fontSize: "30px"}}>Prochaine étape: {t.steps[t.index].time} minutes de {t.steps[t.index].type == "game" ? `jeu, petite blind ${t.steps[t.index].sb}` : "pause"}</p>)
         }
 
         if(isPlay === false) {
@@ -84,7 +87,10 @@ export default function MyTimer() {
 
     return (
         <div style={{textAlign: 'center'}}>
-            <div style={{fontSize: '180px', color: "white"}}>
+
+            {nextStepComponent}
+
+            <div style={{fontSize: '150px', color: "white"}}>
                <span>{hours < 10 ? "0" + hours : hours}</span>:<span>{minutes < 10 ? "0" + minutes : minutes}</span>:<span>{seconds < 10 ? "0" + seconds : seconds}</span>
             </div>
 
