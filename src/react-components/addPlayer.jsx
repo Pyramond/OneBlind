@@ -45,9 +45,14 @@ export default function AddPlayer() {
         }
     }
 
+    function handleFormSubmit(event) {
+        event.preventDefault()
+        newPlayer()
+    }
+
     return(
         <>
-            <Form className="d-flex">
+            <Form className="d-flex" onSubmit={handleFormSubmit}>
                 <FormGroup className='mb-5'>
                     <Form.Label>Ajout d'un joueur: </Form.Label>
                     <div id="formControl">
@@ -57,7 +62,7 @@ export default function AddPlayer() {
                             aria-label="Search"
                             onChange={handleChangeName}
                         />
-                        <Button variant="outline-success" onClick={newPlayer}>Ajouter</Button>
+                        <Button variant="outline-success" type="submit">Ajouter</Button>
                     </div>
                 </FormGroup>
             </Form>
