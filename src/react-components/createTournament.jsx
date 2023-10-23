@@ -83,6 +83,9 @@ export default function CreateTournament() {
         setShowErrorAlert(false)
         setShowAlert(true)
         dispatch(change())
+        setTimeout(() => {
+          setShowAlert(false)
+        }, 4 * 1000)
       }
   }
 

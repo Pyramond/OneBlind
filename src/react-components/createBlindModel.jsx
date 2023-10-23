@@ -88,6 +88,9 @@ export default function CreateBlindModel() {
                     setShowAlert(true)
                     setShowErrorAlert(false)
                     dispatch(change())
+                    setTimeout(() => {
+                        setShowAlert(false)
+                      }, 4 * 1000)
               })
         }
     }
