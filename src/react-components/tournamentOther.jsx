@@ -36,8 +36,7 @@ export default function Other(props) {
                                         <span> date: </span> {convertTimeStamp(parseInt(t.date))} <br />
                                         <span> structure de blind: </span> {t.blindName} <br />
                                         <span> Tapis initial: </span> {t.initialChip} <br />
-                                        <span> Nombre de joueur: </span> {Object.keys(tournamentPlayers.value).length}
-
+                                        <span> Nombre de joueur: </span> {Object.keys(tournamentPlayers.value).length} / {t.nbPlayer}
                                     </p>
                                 </div>
                             </div>
