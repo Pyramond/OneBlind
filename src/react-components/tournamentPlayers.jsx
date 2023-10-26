@@ -70,7 +70,7 @@ export function TournamentPlayers(props) {
 
         const place = Object.keys(t.value).length
 
-        const points = calculatePoints(place)
+        const points = calculatePoints(place, tournamentInfo.nbPlayer)
 
         fetch("http://localhost:8000/tournament/eliminate", {
             method: "POST",
