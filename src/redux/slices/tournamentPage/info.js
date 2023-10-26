@@ -8,9 +8,9 @@ export const tournamentInfo = createSlice({
         blindName: "",
         blindId: 0,
         initialChip: 0,
-
         avStack: 0,
-        totalChips: 0
+        totalChips: 0,
+        nbStack: 0
     },
     reducers: {
         setInfos: (state, action) => {
@@ -26,9 +26,13 @@ export const tournamentInfo = createSlice({
         recave: (state, action) => {
             state.totalChips = state.totalChips + state.initialChip
             state.avStack = state.totalChips / action.payload
+            state.nbStack = state.nbStack + 1
         },
         updateAvStack: (state, action) => {
             state.avStack = state.totalChips / action.payload
+        },
+        setnbStack: (state, action) => {
+            state.nbStack = nbStack + state.action
         }
     },
 });
