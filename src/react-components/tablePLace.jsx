@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux"
 
 
-export default function TablePlace() {
+export function TablePlace() {
 
     const t = useSelector((state) => state.tournamentPlayers);
     const [playerList, setPlayerList] = useState([])

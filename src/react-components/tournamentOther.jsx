@@ -4,7 +4,7 @@ import { BlindTabModal } from "./blindTabModal"
 import { Container, Row, Col } from "react-bootstrap"
 import { useSelector } from "react-redux"
 import { convertTimeStamp } from "../utils/date"
-import TablePlace from "./tablePlace"
+import { TablePlace } from "./tablePlace"
 
 export default function Other(props) {
 
@@ -36,8 +36,7 @@ export default function Other(props) {
                                         <span> date: </span> {convertTimeStamp(parseInt(t.date))} <br />
                                         <span> structure de blind: </span> {t.blindName} <br />
                                         <span> Tapis initial: </span> {t.initialChip} <br />
-                                        <span> Nombre de joueur: </span> {Object.keys(tournamentPlayers.value).length}
-
+                                        <span> Nombre de joueur: </span> {Object.keys(tournamentPlayers.value).length} / {t.nbPlayer}
                                     </p>
                                 </div>
                             </div>

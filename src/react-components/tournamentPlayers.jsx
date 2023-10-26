@@ -5,6 +5,7 @@ import { removePlayer } from '../redux/slices/tournamentPage/players';
 import { updateAvStack } from '../redux/slices/tournamentPage/info';
 import { deleteTournament } from "../utils/tournaments"
 import { useNavigate } from 'react-router-dom';
+import { calculatePoints } from '../utils/points';
 
 
 export function TournamentPlayers(props) {
@@ -65,7 +66,11 @@ export function TournamentPlayers(props) {
 
     }, [Object.keys(t.value).length])
 
-    function eliminatePlayer(id, remove) {
+    async function eliminatePlayer(id, remove) {
+
+        const place = Object.keys(t.value).length
+
+        const points = calculatePoints(place, tournamentInfo.nbPlayer)
 
         fetch("http://localhost:8000/tournament/eliminate", {
             method: "POST",
@@ -75,8 +80,9 @@ export function TournamentPlayers(props) {
             },
             body: JSON.stringify({
                 id: id,
-                place: Object.keys(t.value).length,
-                tournament: parseInt(props.id)
+                place: place,
+                tournament: parseInt(props.id),
+                points: points
             })
           })
           .then(res => res.json())
