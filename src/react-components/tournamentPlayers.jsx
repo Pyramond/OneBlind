@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
-import { Button, Modal, Dropdown } from 'react-bootstrap';
+import { Button, Modal, Dropdown, Table } from 'react-bootstrap';
 import { removePlayer } from '../redux/slices/tournamentPage/players';
 import { updateAvStack } from '../redux/slices/tournamentPage/info';
 import { deleteTournament } from "../utils/tournaments"
@@ -20,6 +20,8 @@ export function TournamentPlayers(props) {
     const [isWinner, setIsWinner] = useState(false)
     const [playerToRemove, setPlayerToRemove] = useState("Éliminer")
     const [playerToRemoveId, setPlayerToRemoveId] = useState()
+
+    const [eliminationsTab, setEliminationsTab] = useState([])
     
 
     // Ending modal
@@ -43,6 +45,12 @@ export function TournamentPlayers(props) {
     }
 
 
+    // Classement Modal
+    const [showClassementModal, setShowClassementModal] = useState(false)
+    const handleShowClassementModal = () => setShowClassementModal(true)
+    const handleCloseClassementModal = () => setShowClassementModal(false)
+
+
     const handlePlayer = (selectedPlayerId) => {
         const selectedPlayer = t.value.find(player => player.id === parseInt(selectedPlayerId));
         setPlayerToRemove(selectedPlayer.name)
@@ -55,7 +63,9 @@ export function TournamentPlayers(props) {
         switch (Object.keys(t.value).length) {
             case 1:
                 setIsWinner(true)
-                eliminatePlayer(t.value[0].id, false)
+                eliminatePlayer(t.value[0].id, false, t.value[0].name)
+                handleShowClassementModal()
+                setPlayerToRemove(t.value[0].name)
                 break;
             case 2:
                 new Audio("/sounds/overtaken.mp3").play()
@@ -66,11 +76,19 @@ export function TournamentPlayers(props) {
 
     }, [Object.keys(t.value).length])
 
-    async function eliminatePlayer(id, remove) {
+    async function eliminatePlayer(id, remove, name) {
 
         const place = Object.keys(t.value).length
-
         const points = calculatePoints(place, tournamentInfo.nbPlayer)
+
+        const playerStats = {
+            "name": name,
+            "place": place,
+            "points": points
+        }
+        console.warn(playerStats)
+        setEliminationsTab([...eliminationsTab, playerStats]);
+
 
         fetch("http://localhost:8000/tournament/eliminate", {
             method: "POST",
@@ -88,6 +106,7 @@ export function TournamentPlayers(props) {
           .then(res => res.json())
           .then(res => {
             if(remove) {
+                console.log(res)
                 dispatch(removePlayer(id))
                 handleShowEliminate()
             }
@@ -96,7 +115,6 @@ export function TournamentPlayers(props) {
 
     return (
         <>
-
             <div id="tournamentPlayersContainer" >
                 <h4>Éliminer un joueur: </h4>
                 <div id="dropdown">
@@ -110,7 +128,7 @@ export function TournamentPlayers(props) {
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    {isWinner ? <div> <p>{t.value[0].name} Gagnant</p> <Button variant="primary" onClick={handleShow}>Terminer le tournois</Button> </div> : <Button variant="danger" onClick={() => { eliminatePlayer(playerToRemoveId, true)}}>Éliminer</Button>}
+                    {isWinner ? <div> <p>{t.value[0].name} Gagnant</p> <Button variant="primary" onClick={handleShow}>Terminer le tournois</Button> </div> : <Button variant="danger" onClick={() => { eliminatePlayer(playerToRemoveId, true, playerToRemove)}}>Éliminer</Button>}
                 </div>
             </div>
 
@@ -152,6 +170,33 @@ export function TournamentPlayers(props) {
                     <Modal.Header closeButton>
                         <Modal.Title>{playerToRemove} à été éliminé</Modal.Title>
                     </Modal.Header>
+            </Modal>
+
+            {/* Classement Modal */}
+            <Modal show={showClassementModal} onHide={handleCloseClassementModal}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Classement de la partie</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                    <Table striped bordered hover variant={props.theme}>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Nom</th>
+                                <th>Points gagnés</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {eliminationsTab.map((player, index) => (
+                                <tr key={index}>
+                                    <td>{player.place}</td>
+                                    <td>{player.name}</td>
+                                    <td>+{player.points}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                    </Modal.Body>
             </Modal>
         </>
     )
