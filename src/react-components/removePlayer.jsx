@@ -54,7 +54,7 @@ export default function RemovePlayer() {
         <>
 
             <Form className="d-flex">
-                <FormGroup className='mb-3'>
+                <FormGroup className='mb-5'>
                     <Form.Label>Supprimer un joueur: </Form.Label>
                     <div id="formControl">
                         <Dropdown data-bs-theme="dark" className="me-2" onSelect={handlePlayer}>
@@ -68,7 +68,7 @@ export default function RemovePlayer() {
 
                         </Dropdown>
 
-                        <Button variant="outline-danger" onClick={handleShow}>Suprimer</Button>
+                        <Button variant="outline-danger" onClick={handleShow}>Supprimer</Button>
                     </div>
                 </FormGroup>
             </Form>
