@@ -13,7 +13,7 @@ export default function NavigationBar() {
       {[false,].map((expand) => (
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
           <Container fluid>
-            <Navbar.Brand href="/"> <img src="/images/OneBlind.svg" alt="one blind image" id="oneBlindImage"/> </Navbar.Brand>
+            <Navbar.Brand href="/dashboard"> <img src="/images/OneBlind.svg" alt="one blind image" id="oneBlindImage"/> </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
 
             <Navbar.Offcanvas
