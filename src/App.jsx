@@ -7,13 +7,14 @@ import Blind from "./pages/blind"
 import TournamentPage from "./pages/tournamentPage"
 import AllProfiles from "./pages/allProfiles"
 import Profile from "./pages/profile"
+import Home from "./pages/home"
 
 function App() {
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<Dashboard />} />
+        <Route path="/" element={<Home />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/classement" element={<Classement />} />
         <Route path="/history" element={<History />} />
