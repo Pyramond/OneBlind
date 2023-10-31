@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom"
-import Home from "./pages/home"
+import Dashboard from "./pages/dashboard"
 import Classement from "./pages/classement"
 import History from "./pages/history"
 import PageNotFound from "./pages/404"
@@ -13,8 +13,8 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Home />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/classement" element={<Classement />} />
         <Route path="/history" element={<History />} />
         <Route path="/blind/:id" element={<Blind />} />
