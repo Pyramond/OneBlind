@@ -31,7 +31,7 @@ export default function RemovePlayer() {
     }
 
     function deletePlayer() {
-        fetch("http://localhost:8000/deletePlayer", {
+        fetch("http://localhost:8000/player/delete", {
             method: "DELETE",
             headers: {
                 "Accept": "application/json",

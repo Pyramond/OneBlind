@@ -1,5 +1,5 @@
 export function getAllCurrentTournaments() {
-    return fetch("http://localhost:8000/tournament/getAllCurrent", {
+    return fetch("http://localhost:8000/tournament/get_currents", {
         method: "GET",
         headers: {
           "Accept": "application/json",
@@ -13,7 +13,7 @@ export function getAllCurrentTournaments() {
 }
 
 export function getAllTournaments() {
-  return fetch("http://localhost:8000/tournament/getAll", {
+  return fetch("http://localhost:8000/tournament/get_all", {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -28,7 +28,7 @@ export function getAllTournaments() {
 
 
 export function getTournamentPlayers(id) {
-    return fetch("http://localhost:8000/tournament/getPlayers", {
+    return fetch("http://localhost:8000/tournament/get_players", {
         method: "POST",
         headers: {
           "Accept": "application/json",
@@ -62,7 +62,7 @@ export function deleteTournament(id) {
 }
 
 export function getTournamentById(id) {
-  return fetch("http://localhost:8000/tournament/getById", {
+  return fetch("http://localhost:8000/tournament/get_id", {
     method: "POST",
     headers: {
       "Accept": "application/json",
@@ -79,7 +79,7 @@ export function getTournamentById(id) {
 }
 
 export function getTournamentPlayer(id) {
-  return fetch("http://localhost:8000/tournament/getTournamentPlayer", {
+  return fetch("http://localhost:8000/tournament/get_player_tournaments", {
     method: "POST",
     headers: {
       "Accept": "application/json",

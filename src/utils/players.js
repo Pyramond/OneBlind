@@ -1,5 +1,5 @@
 export function getAllPlayer() {
-    return fetch("http://127.0.0.1:8000/getAllPlayers", {
+    return fetch("http://127.0.0.1:8000/player/get_all", {
       method: "GET",
       headers: {
         "Accept": "application/json",
@@ -13,7 +13,7 @@ export function getAllPlayer() {
 }
 
 export function getPlayerById(id) {
-    return fetch("http://localhost:8000/player/getById", {
+    return fetch("http://localhost:8000/player/get_id", {
       method: "POST",
       headers: {
         "Accept": "application/json",
