@@ -2,15 +2,36 @@ import { TournamentPlayers } from "./tournamentPlayers"
 import { RecaveButton } from "./recaveButton"
 import { BlindTabModal } from "./blindTabModal"
 import { Container, Row, Col } from "react-bootstrap"
-import { useSelector } from "react-redux"
-import { convertTimeStamp } from "../utils/date"
 import { TablePlace } from "./tablePlace"
+import PlayerSpotify from "./spotify/playerSpotify"
+import TournementInfo from "./tournamentInfo"
+import { useEffect, useState, useMemo } from "react"
+import { useSelector } from 'react-redux';
 
 export default function Other(props) {
 
-    const t = useSelector((state) => state.tournamentInfo);
-    const tournamentPlayers = useSelector((state) => state.tournamentPlayers);
+    const [secondaryComponent, setSecondaryComponent] = useState(null)
+    const t = useSelector((state) => state.reload);
+    const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
 
+    useEffect(() => {
+        const component = window.localStorage.getItem("secondary-component")
+        if (component) {
+            switch(component) {
+                case "TournamentInfo":
+                    setSecondaryComponent(<TournementInfo/>);
+                    break;
+                case "SpotifyPlayerState":
+                    setSecondaryComponent(<PlayerSpotify/>);
+                    break;
+                default:
+                    setSecondaryComponent(<TournementInfo/>)
+                    break;
+            }
+        } else {
+            setSecondaryComponent(<TournementInfo/>)
+        }
+    }, [effectDependency])
 
     return(
         <>
@@ -27,20 +48,7 @@ export default function Other(props) {
                             </div>
                             </Row>
                         </Col>
-                        <Col>
-                            <div id="informationsContainer">
-                                <h4>Informations:</h4>
-                                <div id="infos">
-                                    <p>
-                                        <span> Nom du tournois: </span> {t.name} <br />
-                                        <span> date: </span> {convertTimeStamp(parseInt(t.date))} <br />
-                                        <span> structure de blind: </span> {t.blindName} <br />
-                                        <span> Tapis initial: </span> {t.initialChip} <br />
-                                        <span> Nombre de joueur: </span> {Object.keys(tournamentPlayers.value).length} / {t.nbPlayer}
-                                    </p>
-                                </div>
-                            </div>
-                        </Col>
+                        <Col> {secondaryComponent} </Col>
                     </Row>
                 </Container>
             </div>
