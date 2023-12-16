@@ -23,8 +23,9 @@ export default function NavigationBar() {
               bg="dark"
               data-bs-theme="dark"
             >
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}> Paramètres </Offcanvas.Title>
+              <Offcanvas.Header>
+                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}> Barre d'outils </Offcanvas.Title>
+                <Button href="/settings" variant="link"> <img src="/images/settingsIcon.svg" alt="settings_icon" id="settingsButton" /> </Button>
               </Offcanvas.Header>
 
               <Offcanvas.Body>
