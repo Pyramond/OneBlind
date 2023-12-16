@@ -5,6 +5,7 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import AddPlayer from './addPlayer';
 import RemovePlayer from './removePlayer';
 import RemoveTournament from './removeTournament';
+import SelectSecondaryComponent from './navbar/components/secondaryComponent';
 
 export default function NavigationBar() {
 
@@ -39,6 +40,7 @@ export default function NavigationBar() {
                 <AddPlayer />
                 <RemovePlayer />
                 <RemoveTournament />
+                <SelectSecondaryComponent />
 
               </Offcanvas.Body>
 
