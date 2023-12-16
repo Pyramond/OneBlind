@@ -1,0 +1,17 @@
+#spotifyPlayer {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2em;
+
+
+    p {
+        color: white;
+        font-size: 2em;
+        margin-left: 0.5em;
+    }
+
+    img { 
+        width: 25%;
+        height: 25%;
+    }
+}
