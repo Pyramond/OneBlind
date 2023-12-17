@@ -6,6 +6,7 @@ import AddPlayer from './addPlayer';
 import RemovePlayer from './removePlayer';
 import RemoveTournament from './removeTournament';
 import SelectSecondaryComponent from './navbar/components/secondaryComponent';
+import ChangeVolume from './navbar/components/volume';
 
 export default function NavigationBar() {
 
@@ -41,6 +42,7 @@ export default function NavigationBar() {
                 <RemovePlayer />
                 <RemoveTournament />
                 <SelectSecondaryComponent />
+                <ChangeVolume />
 
               </Offcanvas.Body>
 

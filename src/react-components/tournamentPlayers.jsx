@@ -68,7 +68,13 @@ export function TournamentPlayers(props) {
                 setPlayerToRemove(t.value[0].name)
                 break;
             case 2:
-                new Audio("/sounds/overtaken.mp3").play()
+                let audio = new Audio("/sounds/overtaken.mp3")
+                if(!window.localStorage.getItem("volume")) {
+                    audio.volume = 1
+                } else {
+                    audio.volume = window.localStorage.getItem("volume")
+                }
+                audio.play()
                 handleShowFinal()
                 break;
         }
