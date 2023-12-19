@@ -25,7 +25,7 @@ export default function AddPlayer() {
         if(playerName == "") {
             handleShowError()
         } else {
-            fetch("http://localhost:8000/addPlayer", {
+            fetch("http://localhost:8000/player/add", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",

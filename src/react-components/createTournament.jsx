@@ -55,7 +55,6 @@ export default function CreateTournament() {
   function create(event) {
     event.preventDefault()
 
-
     if(players.length <= 2 || initialChips === 0 || Object.keys(selectedModel).length === 0) {
       setShowErrorAlert(true)
       setShowAlert(false)

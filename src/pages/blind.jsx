@@ -9,7 +9,7 @@ function Blind() {
     const [name, setName] = useState("")
 
     useEffect(() => {
-        fetch("http://localhost:8000/blind/findById", {
+        fetch("http://localhost:8000/blind/get_id", {
             method: "POST",
             headers: {
               "Accept": "application/json",

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom"
-import Home from "./pages/home"
+import Dashboard from "./pages/dashboard"
 import Classement from "./pages/classement"
 import History from "./pages/history"
 import PageNotFound from "./pages/404"
@@ -7,14 +7,16 @@ import Blind from "./pages/blind"
 import TournamentPage from "./pages/tournamentPage"
 import AllProfiles from "./pages/allProfiles"
 import Profile from "./pages/profile"
+import Settings from "./pages/settings"
 
 function App() {
 
   return (
     <>
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/dashboard" element={<Home />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/classement" element={<Classement />} />
         <Route path="/history" element={<History />} />
         <Route path="/blind/:id" element={<Blind />} />

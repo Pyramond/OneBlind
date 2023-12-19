@@ -7,7 +7,7 @@ export default function RemoveTournament() {
     const [tournamentId, setTournamentId] = useState(0)
 
     const remove = () => {
-        fetch("http://localhost:8000/tournament/forceDelete", {
+        fetch("http://localhost:8000/tournament/delete/force", {
             method: "POST",
             headers: {
                 "Accept": "application/json",

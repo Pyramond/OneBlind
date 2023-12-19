@@ -1,5 +1,5 @@
 export function getAllModels() {
-    return fetch("http://localhost:8000/getModels", {
+    return fetch("http://localhost:8000/blind/get_models", {
         method: "GET",
         headers: {
             "Accept": "application/json",
@@ -13,7 +13,7 @@ export function getAllModels() {
 }
 
 export function getModelById(id) {
-    return fetch("http://localhost:8000/blind/findById", {
+    return fetch("http://localhost:8000/blind/get_id", {
         method: "POST",
         headers: {
             "Accept": "application/json",

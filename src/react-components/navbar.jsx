@@ -5,6 +5,8 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import AddPlayer from './addPlayer';
 import RemovePlayer from './removePlayer';
 import RemoveTournament from './removeTournament';
+import SelectSecondaryComponent from './navbar/components/secondaryComponent';
+import ChangeVolume from './navbar/components/volume';
 
 export default function NavigationBar() {
 
@@ -13,7 +15,7 @@ export default function NavigationBar() {
       {[false,].map((expand) => (
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
           <Container fluid>
-            <Navbar.Brand href="/"> <img src="/images/OneBlind.svg" alt="one blind image" id="oneBlindImage"/> </Navbar.Brand>
+            <Navbar.Brand href="/dashboard"> <img src="/images/OneBlind.svg" alt="one blind image" id="oneBlindImage"/> </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
 
             <Navbar.Offcanvas
@@ -23,8 +25,9 @@ export default function NavigationBar() {
               bg="dark"
               data-bs-theme="dark"
             >
-              <Offcanvas.Header closeButton>
-                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}> Paramètres </Offcanvas.Title>
+              <Offcanvas.Header>
+                <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}> Barre d'outils </Offcanvas.Title>
+                <Button href="/settings" variant="link"> <img src="/images/settingsIcon.svg" alt="settings_icon" id="settingsButton" /> </Button>
               </Offcanvas.Header>
 
               <Offcanvas.Body>
@@ -38,6 +41,8 @@ export default function NavigationBar() {
                 <AddPlayer />
                 <RemovePlayer />
                 <RemoveTournament />
+                <SelectSecondaryComponent />
+                <ChangeVolume />
 
               </Offcanvas.Body>
 

@@ -72,7 +72,7 @@ export default function CreateBlindModel() {
             setShowErrorAlert(true)
             setShowAlert(false)
         } else {
-            fetch("http://localhost:8000/addBlindModel", {
+            fetch("http://localhost:8000/blind/add", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
@@ -96,7 +96,7 @@ export default function CreateBlindModel() {
     }
 
     function deleteModel(modelToDelete) {
-        fetch("http://localhost:8000/deleteModel", {
+        fetch("http://localhost:8000/blind/delete", {
             method: "DELETE",
             headers: {
                 "Accept": "application/json",

@@ -58,7 +58,13 @@ export default function MyTimer() {
   useEffect(() => {
     setCounter(counter + 1)
     if(hours == 0 && minutes == 0 && seconds ==  6) {
-        new Audio("/sounds/timerSound.mp3").play()
+        let audio = new Audio("/sounds/timerSound.mp3")
+        if(!window.localStorage.getItem("volume")) {
+            audio.volume = 1
+        } else {
+            audio.volume = window.localStorage.getItem("volume")
+        }
+        audio.play()
     }
   }, [seconds])
 
