@@ -7,7 +7,7 @@ import { change } from '../../../redux/slices/reload';
 export default function SelectSecondaryComponent() {
 
     const secondaryList = ["TournamentInfo", "SpotifyPlayerState"]
-    const [selectedComponent, setSelectedComponent] = useState("Composant")
+    const [selectedComponent, setSelectedComponent] = useState(window.localStorage.getItem("secondary-component"))
     const [show, setShow] = useState(false)
     const dispatch = useDispatch()
 
