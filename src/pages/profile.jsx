@@ -36,7 +36,7 @@ export default function Profile(props) {
 
             <Card style={{ width: "28rem"}} bg="dark" id="profileCard">
                 <Card.Body>
-                    <Card.Title style={{ color: "white" }}>Informations sur {playerData.name}: </Card.Title>
+                    <Card.Title style={{ color: "white" }}>Informations sur {playerData.name} </Card.Title>
 
                     <div id="infosContainer">
                         <Card.Text>Id: {playerData.id}</Card.Text>

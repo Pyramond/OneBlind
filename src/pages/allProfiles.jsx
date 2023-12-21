@@ -19,7 +19,7 @@ export default function AllProfiles() {
     return (
         <>
           <NavigationBar />
-          <h2 id="title">Tout les profils: </h2>
+          <h2 id="title">Tout les profils </h2>
 
           <div id="allPlayersContainer">
 

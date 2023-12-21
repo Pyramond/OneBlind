@@ -22,7 +22,7 @@ function Classement() {
     <>
       <NavigationBar />
       <div id="classementContainer">
-        <h2 id="title">Classement des joueurs:</h2>
+        <h2 id="title">Classement des joueurs</h2>
 
         <Table striped bordered hover variant='dark'>
           <thead>

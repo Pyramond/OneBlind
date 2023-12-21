@@ -28,7 +28,7 @@ export default function SelectSecondaryComponent() {
         <>
             <Form className="d-flex">
                 <FormGroup className='mb-5'>
-                    <Form.Label>Composant secondaire: </Form.Label>
+                    <Form.Label>Composant secondaire </Form.Label>
                     <div id="formControl">
                         <Dropdown data-bs-theme="dark" className="me-2" onSelect={handleComponent}>
                             <Dropdown.Toggle variant="dark">{selectedComponent}</Dropdown.Toggle>

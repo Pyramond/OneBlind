@@ -54,7 +54,7 @@ export default function AddPlayer() {
         <>
             <Form className="d-flex" onSubmit={handleFormSubmit}>
                 <FormGroup className='mb-5'>
-                    <Form.Label>Ajout d'un joueur: </Form.Label>
+                    <Form.Label>Ajout d'un joueur </Form.Label>
                     <div id="formControl">
                         <Form.Control
                             placeholder="Nom du joueur"
