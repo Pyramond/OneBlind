@@ -15,7 +15,7 @@ export default function PlayerSpotify() {
             fetch("https://api.spotify.com/v1/me/player", {
                 method: "GET",
                 headers: {
-                    "Authorization": `Bearer azs`
+                    "Authorization": `Bearer ${token}`
                 },
             })
             .then(res => res.json())
