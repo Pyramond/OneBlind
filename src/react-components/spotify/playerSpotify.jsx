@@ -7,6 +7,7 @@ export default function PlayerSpotify() {
     const [musicName, setMusicName] = useState("")
     const[artist, setArtist] = useState("")
     const [imageUrl, setImageUrl] = useState("")
+    const [error, setError] = useState("")
 
     useEffect(() => {
         const fetchData = () => {
@@ -14,12 +15,13 @@ export default function PlayerSpotify() {
             fetch("https://api.spotify.com/v1/me/player", {
                 method: "GET",
                 headers: {
-                    "Authorization": `Bearer ${token}`
+                    "Authorization": `Bearer azs`
                 },
             })
             .then(res => res.json())
             .then(res => {
                 if(res.error) {
+                    setError(`${res.error.status} - ${res.error.message}`)
                     console.error(res.error)
                     const options = {
                         method: 'POST',
@@ -54,8 +56,8 @@ export default function PlayerSpotify() {
     return (
         <>
             <div id="spotifyPlayer">
-                <img src={imageUrl} alt={`${musicName} - ${artist} Image`} />
-                <p>{musicName} <br /> {artist}</p>
+                {imageUrl === "" ? <img src="/images/spotify.svg" alt="Spotify logo" id="spotifyLogo"/> : <img src={imageUrl} alt={`${musicName} - ${artist} Image`} />}
+                {musicName === "" ? <p>Composant Indisponible <br /> {error}</p> : <p>{musicName} <br /> {artist}</p>}
             </div>
         </>
     )
