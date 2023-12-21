@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react"
+import { Button } from "react-bootstrap"
+import { useDispatch } from 'react-redux';
+import { change } from '../../redux/slices/reload';
 
 
 export default function PlayerSpotify() {
@@ -9,9 +12,10 @@ export default function PlayerSpotify() {
     const [imageUrl, setImageUrl] = useState("")
     const [error, setError] = useState("")
 
+    const dispatch = useDispatch()
+
     useEffect(() => {
         const fetchData = () => {
-            setToken(window.localStorage.getItem("spotify_access_token"))
             fetch("https://api.spotify.com/v1/me/player", {
                 method: "GET",
                 headers: {
@@ -22,6 +26,8 @@ export default function PlayerSpotify() {
             .then(res => {
                 if(res.error) {
                     setError(`${res.error.status} - ${res.error.message}`)
+                    setMusicName("")
+                    setImageUrl("")
                     console.error(res.error)
                     const options = {
                         method: 'POST',
@@ -49,15 +55,32 @@ export default function PlayerSpotify() {
                 }
             })
         }
-        const intervalId = setInterval(fetchData, 3000)
+        const intervalId = setInterval(() => {
+            setToken(window.localStorage.getItem("spotify_access_token"))
+            fetchData()
+        }, 3000)
         return () => clearInterval(intervalId)
     }, [])
+
+    function setDefaultComponent() {
+        window.localStorage.setItem("secondary-component", "TournamentInfo")
+        dispatch(change())
+    }
 
     return (
         <>
             <div id="spotifyPlayer">
                 {imageUrl === "" ? <img src="/images/spotify.svg" alt="Spotify logo" id="spotifyLogo"/> : <img src={imageUrl} alt={`${musicName} - ${artist} Image`} />}
-                {musicName === "" ? <p>Composant Indisponible <br /> {error}</p> : <p>{musicName} <br /> {artist}</p>}
+                {musicName === "" ?
+                <div>
+                    <p>Composant Indisponible <br /> {error}</p> 
+                    <div id="errorButtons">
+                        <Button variant="primary" href="/settings" id="errorButton">Paramètres</Button>
+                        <Button variant="secondary" onClick={setDefaultComponent} id="errorButton">Changer le composant</Button>
+                    </div>
+                </div>
+                :
+                <p>{musicName} <br /> {artist}</p>}
             </div>
         </>
     )
