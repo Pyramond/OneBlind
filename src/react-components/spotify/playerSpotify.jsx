@@ -46,21 +46,24 @@ export default function PlayerSpotify() {
                       
                       fetch('https://accounts.spotify.com/api/token', options)
                         .then(response => response.json())
-                        .then(response => window.localStorage.setItem("spotify_access_token", response.access_token))
+                        .then(response => {
+                            window.localStorage.setItem("spotify_access_token", response.access_token)
+                            setToken(response.access_token)
+                        })
                         .catch(err => console.error(err));
                 } else {
                     setMusicName(res.item.name)
                     setArtist(res.item.artists[0].name)
                     setImageUrl(res.item.album.images[2].url)
+                    setToken(window.localStorage.getItem("spotify_access_token"))
                 }
             })
         }
         const intervalId = setInterval(() => {
-            setToken(window.localStorage.getItem("spotify_access_token"))
             fetchData()
         }, 3000)
         return () => clearInterval(intervalId)
-    }, [])
+    }, [token])
 
     function setDefaultComponent() {
         window.localStorage.setItem("secondary-component", "TournamentInfo")
