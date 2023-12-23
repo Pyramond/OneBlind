@@ -47,8 +47,7 @@ export default function MyTimer() {
             if(t.currentStep.order == 1) setIsDisabled(true)
             else setIsDisabled(false)
             
-            setNextStepComponent(<p style={{ color: "white", fontSize: "30px"}}>Prochaine étape: {t.currentStep.time} minutes de {t.currentStep.type == "game" ? `jeu, petite blind ${t.currentStep.sb}` : "pause"}</p>)
-        }
+            setNextStepComponent(<p style={{ color: "white", fontSize: "30px"}}>Prochaine étape: {t.steps[t.index].time} minutes de {t.steps[t.index].type == "game" ? `jeu, petite blind ${t.steps[t.index].sb}` : "pause"}</p>)        }
 
         if(isPlay === false) {
             pause()
