@@ -14,14 +14,14 @@ clone this repo
 
 -  Install dependencies ```npm i```
 
-### Run dev server
+#### Run dev server
 
-- Run ```npm run dev```
+- Run server ```npm run dev```
 
-### Run preview
+#### Run preview
 
-1. Run ```npm run buid```
-2. Run ```npm run preview```
+1. Build server ```npm run buid```
+2. Run preview server ```npm run preview```
 
 
 ## Run with docker
