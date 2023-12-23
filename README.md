@@ -27,4 +27,10 @@ clone this repo
 ## Run with docker
 
 1. Create image ```docker buid -t oneblind .```
-2. Run image ```docker run -p 8080:8080 oneblind``` 
+2. Run image ```docker run -p 8080:8080 oneblind```
+
+
+## Screen
+![oneBlind2](https://github.com/Pyramond/OneBlind/assets/83555414/30f38276-9889-41a2-83b5-1ef541980829)
+
+![oneBlind](https://github.com/Pyramond/OneBlind/assets/83555414/b0e7a2a5-e026-49fd-88e0-8f7909c8bc9f)
