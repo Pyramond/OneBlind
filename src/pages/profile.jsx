@@ -80,7 +80,7 @@ export default function Profile(props) {
                                     <Card.Text>top #3: {(Math.round((top3 / nbTournament) * 100 * 100) / 100).toFixed(2)}%</Card.Text>
                                 </div>
                                 <div id="OtherStats">
-                                    <Card.Text>Podium: {((top1 + top2 + top3) / tournaments.length) * 100}%</Card.Text>
+                                    <Card.Text>Podium: {(Math.round(((top1 + top2 + top3) / nbTournament) * 100 * 100) / 100).toFixed(2)}%</Card.Text>
                                     <Card.Text>Meilleure position: {Math.min(...position)}</Card.Text>
                                     <Card.Text>Pire position: {Math.max(...position)}</Card.Text>
                                 </div>
