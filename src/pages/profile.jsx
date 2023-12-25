@@ -16,6 +16,7 @@ export default function Profile(props) {
     const [top2, setTop2] = useState(0)
     const [top3, setTop3] = useState(0)
     const [position, setPosition] = useState([])
+    const [nbTournament, setNbTournament] = useState(0)
 
     useEffect(() => {
         async function fetchData() {
@@ -30,7 +31,10 @@ export default function Profile(props) {
 
             tournaments.forEach(element => {
 
-                if(element.place != 0) { setPosition((prevPosition) => [...prevPosition, element.place]) }
+                if(element.place != 0) {
+                    setPosition((prevPosition) => [...prevPosition, element.place])
+                    setNbTournament(prevNbTournament => prevNbTournament + 1);
+                }
                 if(element.place == 1) {
                     setTop1(top1 + 1)
                 } else if(element.place == 2) {
@@ -43,7 +47,6 @@ export default function Profile(props) {
 
         fetchData()
         fetchTournament()
-        console.warn(position)
     }, [])
 
     return(
@@ -69,12 +72,12 @@ export default function Profile(props) {
                         <Card.Title style={{ color: "white" }}>Statistiques</Card.Title>
 
                         <div id="infosContainer">
-                            <Card.Text>Nombre de tournois: {tournaments.length}</Card.Text>
+                            <Card.Text>Nombre de tournois: {nbTournament}</Card.Text>
                             <div id="statsProfile">
                                 <div id="tops">
-                                    <Card.Text>top #1: {(top1 / tournaments.length) * 100}%</Card.Text>
-                                    <Card.Text>top #2: {(top2 / tournaments.length) * 100}%</Card.Text>
-                                    <Card.Text>top #3: {(top3 / tournaments.length) * 100}%</Card.Text>
+                                    <Card.Text>top #1: {(Math.round((top1 / nbTournament) * 100 * 100) / 100).toFixed(2)}%</Card.Text>
+                                    <Card.Text>top #2: {(Math.round((top2 / nbTournament) * 100 * 100) / 100).toFixed(2)}%</Card.Text>
+                                    <Card.Text>top #3: {(Math.round((top3 / nbTournament) * 100 * 100) / 100).toFixed(2)}%</Card.Text>
                                 </div>
                                 <div id="OtherStats">
                                     <Card.Text>Podium: {((top1 + top2 + top3) / tournaments.length) * 100}%</Card.Text>
