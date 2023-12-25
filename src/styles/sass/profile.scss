@@ -5,6 +5,15 @@
 
     #infosContainer {
         margin-top: 2em;
+
+        #statsProfile {
+            display: flex;
+            flex-direction: row;
+            
+            #OtherStats {
+                margin-left: 20%;
+            }
+        }
     }
 }
 
@@ -13,11 +22,12 @@
     margin: 1em;
     margin-top: 5em;
 
-    #tournamentsPlayerTable {
-
-    }
-
     h3 {
         color: white;
     }
+}
+
+#profileContainer {
+    display: flex;
+    flex-direction: row;
 }
