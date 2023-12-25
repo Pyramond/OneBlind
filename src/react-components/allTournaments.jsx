@@ -2,7 +2,6 @@ import { useEffect, useState, useMemo } from 'react';
 import Tournament from "./tournament"
 import { getAllCurrentTournaments } from "../utils/tournaments"
 import { useSelector } from 'react-redux';
-import { change } from "../redux/slices/reload";
 
 
 export default function AllTournament() {
