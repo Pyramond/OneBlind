@@ -1,7 +1,7 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
 import { Dropdown, Button, Card, CloseButton, Modal } from "react-bootstrap"
-import { getTournamentPlayers, deleteTournament } from "../utils/tournaments"
+import { getTournamentPlayers } from "../utils/tournaments"
 import { convertTimeStamp } from "../utils/date"
 import { useDispatch } from "react-redux"
 import { change } from '../redux/slices/reload';
@@ -25,6 +25,24 @@ export default function Tournament(props) {
             setPlayers(players)
         })
     }, [effectDependency])
+
+    function deleteTournament(id) {
+        fetch("http://localhost:8000/tournament/delete/force", {
+            method: "POST",
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: id
+            })
+            })
+            .then(res => res.json())
+            .then(res => {
+                console.log(res)
+                location.reload()
+            })
+    }
 
     return(
         <>
