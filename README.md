@@ -6,9 +6,9 @@
 
 ## prerequisites
 
-Install backend server 
-Install NodeJs and Npm or Docker
-clone this repo
+- Install backend server 
+- Install NodeJs and Npn
+- Install Docker
 
 ## Run with npm 
 
@@ -26,7 +26,7 @@ clone this repo
 
 ## Run with docker
 
-1. Create image ```docker buid -t oneblind .```
+1. Create image ```docker build -t oneblind .```
 2. Run image ```docker run -p 8080:8080 oneblind```
 
 
