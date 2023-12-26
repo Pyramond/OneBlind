@@ -4,7 +4,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import AddPlayer from './addPlayer';
 import RemovePlayer from './removePlayer';
-import RemoveTournament from './removeTournament';
 import SelectSecondaryComponent from './navbar/components/secondaryComponent';
 import ChangeVolume from './navbar/components/volume';
 
@@ -40,7 +39,6 @@ export default function NavigationBar() {
 
                 <AddPlayer />
                 <RemovePlayer />
-                <RemoveTournament />
                 <SelectSecondaryComponent />
                 <ChangeVolume />
 
