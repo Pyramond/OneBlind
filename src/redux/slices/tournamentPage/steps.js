@@ -15,10 +15,10 @@ export const tournamentSteps = createSlice({
         changeStep: (state) => {
             
             if(state.index >= state.steps.length) {
+                state.index++
                 const x = state.steps[state.steps.length - 1]
                 x.order = state.index
                 state.currentStep = x
-                state.index++
             } else {
                 state.currentStep = state.steps[state.index]
                 state.index++
@@ -26,8 +26,13 @@ export const tournamentSteps = createSlice({
         },
 
         prevStep: (state) => {
-            state.index--
-            state.currentStep = state.steps[state.index]
+            if(state.index >= state.steps.length) {
+                state.index = state.steps.length - 1
+                state.currentStep = state.steps[state.index]
+            } else {
+                state.index--
+                state.currentStep = state.steps[state.index]
+            }
         }
 
     },
