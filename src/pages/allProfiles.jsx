@@ -1,4 +1,4 @@
-import NavigationBar from '../react-components/navbar'
+import NavigationBar from '../react-components/navbar/navbar'
 import { useState, useEffect } from 'react'
 import { getAllPlayer } from '../utils/players'
 import { Card, Button } from 'react-bootstrap'

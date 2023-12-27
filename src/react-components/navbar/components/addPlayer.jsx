@@ -1,8 +1,8 @@
 import { FormGroup, Form, Button, Modal } from 'react-bootstrap';
-import { getTimeStamp } from '../utils/date';
+import { getTimeStamp } from '../../../utils/date';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { change } from "../redux/slices/reload";
+import { change } from "../../../redux/slices/reload";
 
 export default function AddPlayer() {
 

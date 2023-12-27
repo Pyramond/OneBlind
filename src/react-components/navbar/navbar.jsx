@@ -2,10 +2,10 @@ import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
 import Offcanvas from 'react-bootstrap/Offcanvas';
-import AddPlayer from './addPlayer';
-import RemovePlayer from './removePlayer';
-import SelectSecondaryComponent from './navbar/components/secondaryComponent';
-import ChangeVolume from './navbar/components/volume';
+import AddPlayer from './components/addPlayer';
+import RemovePlayer from './components/removePlayer';
+import SelectSecondaryComponent from './components/secondaryComponent';
+import ChangeVolume from './components/volume';
 
 export default function NavigationBar() {
 

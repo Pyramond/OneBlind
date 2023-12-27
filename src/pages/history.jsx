@@ -1,4 +1,4 @@
-import NavigationBar from '../react-components/navbar'
+import NavigationBar from '../react-components/navbar/navbar'
 import { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
 import { getAllTournaments } from '../utils/tournaments'

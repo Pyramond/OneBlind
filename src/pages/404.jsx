@@ -1,4 +1,4 @@
-import NavigationBar from '../react-components/navbar'
+import NavigationBar from '../react-components/navbar/navbar'
 
 function PageNotFound() {
 

@@ -1,8 +1,8 @@
 import { useEffect, useState, useMemo } from 'react';
 import { FormGroup, Form, Button, Modal, Dropdown } from 'react-bootstrap';
-import { getAllPlayer } from "../utils/players";
+import { getAllPlayer } from "../../../utils/players";
 import { useDispatch, useSelector } from 'react-redux';
-import { change } from "../redux/slices/reload";
+import { change } from "../../../redux/slices/reload";
 
 export default function RemovePlayer() {
 

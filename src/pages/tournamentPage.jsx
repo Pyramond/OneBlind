@@ -1,4 +1,4 @@
-import NavigationBar from '../react-components/navbar'
+import NavigationBar from '../react-components/navbar/navbar'
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlayers } from '../redux/slices/tournamentPage/players';

@@ -1,4 +1,4 @@
-import NavigationBar from '../react-components/navbar'
+import NavigationBar from '../react-components/navbar/navbar'
 import { getAllPlayer } from '../utils/players'
 import { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'

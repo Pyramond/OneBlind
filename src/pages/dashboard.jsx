@@ -1,4 +1,4 @@
-import NavigationBar from '../react-components/navbar'
+import NavigationBar from '../react-components/navbar/navbar'
 import CreateTournament from '../react-components/createTournament'
 import CreateBlindModel from '../react-components/createBlindModel'
 import AllTournament from '../react-components/allTournaments'

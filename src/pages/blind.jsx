@@ -1,4 +1,4 @@
-import NavigationBar from '../react-components/navbar'
+import NavigationBar from '../react-components/navbar/navbar'
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import BlindTab from '../react-components/blindTab';
