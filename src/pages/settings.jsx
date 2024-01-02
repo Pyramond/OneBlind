@@ -6,7 +6,7 @@ export default function Settings() {
   return (
     <>
         <NavigationBar />
-        <LoginSpotify />
+        <LoginSpotify path="/settings/" />
     
     </>
   )
