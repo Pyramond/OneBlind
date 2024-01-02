@@ -6,7 +6,7 @@ export default function LoginSpotify(props) {
 
     const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID
     const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
-    const REDIRECT_URI = `http://localhost:${import.meta.env.VITE_PORT}/settings/`
+    const REDIRECT_URI = `http://localhost:${import.meta.env.VITE_PORT}` + props.path
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "code"
     const SCOPES = [
