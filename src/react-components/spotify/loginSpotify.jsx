@@ -5,7 +5,7 @@ import { useEffect } from "react"
 export default function LoginSpotify(props) {
 
     const CLIENT_ID = "8dd5f668beaa4464b701b58a0ba85e59"
-    const REDIRECT_URI = "http://localhost:5173/settings/"
+    const REDIRECT_URI = `http://localhost:${import.meta.env.VITE_PORT}/settings/`
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "code"
     const SCOPES = [
