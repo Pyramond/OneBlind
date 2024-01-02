@@ -5,7 +5,7 @@ import { getTournamentPlayers } from "../utils/tournaments"
 import { convertTimeStamp } from "../utils/date"
 import { useDispatch } from "react-redux"
 import { change } from '../redux/slices/reload';
-
+import { removeTournament } from '../utils/tournaments';
 
 
 export default function Tournament(props) {
@@ -26,22 +26,9 @@ export default function Tournament(props) {
         })
     }, [effectDependency])
 
-    function deleteTournament(id) {
-        fetch("http://localhost:8000/tournament/delete/force", {
-            method: "POST",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id: id
-            })
-            })
-            .then(res => res.json())
-            .then(res => {
-                console.log(res)
-                location.reload()
-            })
+    async function deleteTournament(id) {
+        await removeTournament(id)
+        location.reload()
     }
 
     return(
