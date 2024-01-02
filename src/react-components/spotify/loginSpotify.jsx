@@ -4,7 +4,8 @@ import { useEffect } from "react"
 
 export default function LoginSpotify(props) {
 
-    const CLIENT_ID = "8dd5f668beaa4464b701b58a0ba85e59"
+    const CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID
+    const CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
     const REDIRECT_URI = `http://localhost:${import.meta.env.VITE_PORT}/settings/`
     const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
     const RESPONSE_TYPE = "code"
@@ -12,7 +13,7 @@ export default function LoginSpotify(props) {
         "user-read-playback-state"
     ]
     const LOGIN_URL = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPES}`
-    const AUTHORIZATION_HEADER = "Basic OGRkNWY2NjhiZWFhNDQ2NGI3MDFiNThhMGJhODVlNTk6NGYxM2VjNzkwZGI2NDNiMjg1NmYxMTczMGI0YmY0ZDc="
+    const AUTHORIZATION_HEADER = `Basic ${btoa(`${CLIENT_ID}:${CLIENT_SECRET}`)}`
 
 
     useEffect(() => {
