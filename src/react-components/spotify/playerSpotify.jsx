@@ -76,7 +76,7 @@ export default function PlayerSpotify() {
                 {imageUrl === "" ? <img src="/images/spotify.svg" alt="Spotify logo" id="spotifyLogo"/> : <img src={imageUrl} alt={`${musicName} - ${artist} Image`} />}
                 {musicName === "" ?
                 <div>
-                    <p>Composant Indisponible <br /> {error}</p> 
+                    <p>Composant Indisponible</p> 
                     <div id="errorButtons">
                         <Button variant="primary" href="/settings" id="errorButton">Paramètres</Button>
                         <Button variant="secondary" onClick={setDefaultComponent} id="errorButton">Changer le composant</Button>
