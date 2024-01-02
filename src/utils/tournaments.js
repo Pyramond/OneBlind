@@ -94,3 +94,66 @@ export function getTournamentPlayer(id) {
     return res;
   })
 }
+
+
+export function addTournament(name, date, blind, players, initialChips) {
+  return fetch("http://localhost:8000/tournament/create", {
+    method: "POST",
+    headers: {
+        "Accept": "application/json",
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      name: name,
+      date: date,
+      blind: blind,
+      players: players,
+      initialChips: parseInt(initialChips)
+    })
+  })
+    .then(res => res.json())
+    .then(res => {
+      return res
+    })
+}
+
+export function removeTournament(id) {
+    return fetch("http://localhost:8000/tournament/delete/force", {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            id: id
+        })
+    })
+    .then((res) => res.json())
+    .then((res) => {
+        return res;
+    })
+    .catch((error) => {
+        console.error('Erreur lors de la requête :', error);
+    });
+}
+
+
+export function eliminatePlayer(playerId, place, tournamentId, points) {
+	    return fetch("http://localhost:8000/tournament/eliminate", {
+            method: "POST",
+            headers: {
+              "Accept": "application/json",
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                id: playerId,
+                place: place,
+                tournament: parseInt(tournamentId),
+                points: points
+            })
+          })
+          .then(res => res.json())
+          .then(res => {
+			return res
+        })
+}

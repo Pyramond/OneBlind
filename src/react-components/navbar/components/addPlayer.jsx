@@ -3,6 +3,7 @@ import { getTimeStamp } from '../../../utils/date';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { change } from "../../../redux/slices/reload";
+import { addPlayer } from '../../../utils/players';
 
 export default function AddPlayer() {
 
@@ -25,20 +26,8 @@ export default function AddPlayer() {
         if(playerName == "") {
             handleShowError()
         } else {
-            fetch("http://localhost:8000/player/add", {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: playerName,
-                    date: date
-                })
-            })
-            .then(res => res.json())
-            .then(res => {
-                setId(res.id)
+            addPlayer(playerName, date).then((val) => {
+                setId(val.id)
                 handleShow()
                 dispatch(change())
             })

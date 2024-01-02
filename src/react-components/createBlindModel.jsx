@@ -1,9 +1,11 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Button, Form, Alert, Modal, CloseButton } from "react-bootstrap";
 import { getDate } from "../utils/date";
-import { getAllModels } from "../utils/models";
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../redux/slices/reload";
+import { addModel, removeModel, getAllModels } from '../utils/models';
+
+
 
 export default function CreateBlindModel() {
 
@@ -65,53 +67,28 @@ export default function CreateBlindModel() {
         setOrder(order - 1)
     };
 
-    function createModel(event) {
-        event.preventDefault()
-
+    async function createModel(event) {
+        event.preventDefault();
+    
         if(steps.length === 0) {
-            setShowErrorAlert(true)
-            setShowAlert(false)
+            setShowErrorAlert(true);
+            setShowAlert(false);
         } else {
-            fetch("http://localhost:8000/blind/add", {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: name,
-                    steps: steps
-                })
-              })
-              .then(res => res.json())
-              .then(res => {
-                    setShowAlert(true)
-                    setShowErrorAlert(false)
-                    dispatch(change())
-                    setTimeout(() => {
-                        setShowAlert(false)
-                      }, 4 * 1000)
-              })
+            await addModel(name, steps);
+            setShowAlert(true);
+            setShowErrorAlert(false);
+            dispatch(change());
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 4 * 1000);
         }
     }
 
-    function deleteModel(modelToDelete) {
-        fetch("http://localhost:8000/blind/delete", {
-            method: "DELETE",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: modelToDelete.name,
-                id: modelToDelete.id
-            })
-          })
-          .then(res => res.json())
-          .then(res => {
-                setAllModels((prevAllModels) => prevAllModels.filter((model) => model !== modelToDelete))
-                dispatch(change())
-          })
+    async function deleteModel(modelToDelete) {
+        await removeModel(modelToDelete.name, modelToDelete.id)
+        setAllModels((prevAllModels) => prevAllModels.filter((model) => model !== modelToDelete))
+        dispatch(change())
+
     }
 
     useEffect(() => {

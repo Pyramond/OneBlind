@@ -6,7 +6,7 @@ import { updateAvStack } from '../redux/slices/tournamentPage/info';
 import { deleteTournament } from "../utils/tournaments"
 import { useNavigate } from 'react-router-dom';
 import { calculatePoints } from '../utils/points';
-
+import { eliminatePlayer as utilsEliminatePlayer } from '../utils/tournaments';
 
 export function TournamentPlayers(props) {
 
@@ -95,28 +95,11 @@ export function TournamentPlayers(props) {
         console.warn(playerStats)
         setEliminationsTab([...eliminationsTab, playerStats]);
 
-
-        fetch("http://localhost:8000/tournament/eliminate", {
-            method: "POST",
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id: id,
-                place: place,
-                tournament: parseInt(props.id),
-                points: points
-            })
-          })
-          .then(res => res.json())
-          .then(res => {
-            if(remove) {
-                console.log(res)
-                dispatch(removePlayer(id))
-                handleShowEliminate()
-            }
-          })
+        await utilsEliminatePlayer(id, place, props.id, points)
+        if(remove) {
+            dispatch(removePlayer(id))
+            handleShowEliminate()
+        }
     }
 
     return (

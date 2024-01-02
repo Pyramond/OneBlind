@@ -1,26 +1,8 @@
-import { useState, useEffect } from 'react';
 import { Table } from 'react-bootstrap';
 
 export default function BlindTab(props) {
 
-    const [steps, setSteps] = useState([])
-
-    useEffect(() => {
-        fetch("http://localhost:8000/blind/get_id", {
-            method: "POST",
-            headers: {
-              "Accept": "application/json",
-              "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                id: props.id
-            })
-          })
-          .then(res => res.json())
-          .then(res => {
-            setSteps(res.steps)
-          })
-    }, [])
+    const steps = props.steps
 
     return (
         <>
