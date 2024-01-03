@@ -7,5 +7,5 @@ export default function DownloadDb() {
         window.location.assign(`${import.meta.env.VITE_BACKEND_SERVER}/static/database.db`)
     }
 
-    return <Button variant="primary" onClick={download}>Télécharger la base de donnée</Button>
+    return <Button variant="primary" onClick={download} id="navbarButtons">Télécharger la base de donnée</Button>
 }

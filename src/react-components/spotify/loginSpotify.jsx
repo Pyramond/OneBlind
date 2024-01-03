@@ -65,7 +65,7 @@ export default function LoginSpotify(props) {
 
     return (
         <>
-            <Button variant="success" onClick={openLogin}>Login to Spotify</Button>
+            <Button variant="success" onClick={openLogin}>{props.message ? props.message : "Se connecter à Spotify"}</Button>
         </>
     )
 }
