@@ -1,15 +1,16 @@
 # OneBlind
- Poker Manager like blindValet
 
- Backend => https://github.com/Pyramond/Oneblind-Backend
-
- 
-<p align="center">
+<div align="center">
  <a href='https://react.dev/' target="_blank"><img alt='React' src='https://img.shields.io/badge/React-^18.2.0-100000?style=flat&logo=React&logoColor=white&labelColor=4d4c4c&color=0c84bc'/></a>
  <a href='https://vitejs.dev/' target="_blank"><img alt='Vite' src='https://img.shields.io/badge/Vite-^4.4.5-100000?style=flat&logo=Vite&logoColor=white&labelColor=4d4c4c&color=0c84bc'/></a>
  <a href='https://redux.js.org/' target="_blank"><img alt='Redux' src='https://img.shields.io/badge/Redux-^1.9.5-100000?style=flat&logo=Redux&logoColor=white&labelColor=4d4c4c&color=0c84bc'/></a>
  <a href='https://react-bootstrap.netlify.app/' target="_blank"><img alt='Bootstrap' src='https://img.shields.io/badge/React_Bootstrap-^2.8.0-100000?style=flat&logo=Bootstrap&logoColor=white&labelColor=4d4c4c&color=0c84bc'/></a>
-</p>
+</div>
+
+ Poker Manager like blindValet
+
+ Backend => https://github.com/Pyramond/Oneblind-Backend
+ 
 
 ## prerequisites
 
