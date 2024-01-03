@@ -7,6 +7,7 @@ import RemovePlayer from './components/removePlayer';
 import SelectSecondaryComponent from './components/secondaryComponent';
 import ChangeVolume from './components/volume';
 import NavbarLoginSpotify from './components/navbarLoginSpotify';
+import DownloadDb from './components/downloadDb';
 
 
 export default function NavigationBar() {
@@ -44,6 +45,7 @@ export default function NavigationBar() {
                 <SelectSecondaryComponent />
                 <ChangeVolume />
                 <NavbarLoginSpotify />
+                <DownloadDb />
 
               </Offcanvas.Body>
 
