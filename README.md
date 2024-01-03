@@ -5,10 +5,10 @@
 
  
 <p align="center">
- <a href='https://github.com/shivamkapasia0' target="_blank"><img alt='React' src='https://img.shields.io/badge/React-100000?style=plastic&logo=React&logoColor=FEFFFE&labelColor=696868&color=01A1FD'/></a>
- <a href='https://github.com/shivamkapasia0' target="_blank"><img alt='Vite' src='https://img.shields.io/badge/Vite-100000?style=plastic&logo=Vite&logoColor=FEFFFE&labelColor=696868&color=01A1FD'/></a>
- <a href='https://github.com/shivamkapasia0' target="_blank"><img alt='Redux' src='https://img.shields.io/badge/Redux-100000?style=plastic&logo=Redux&logoColor=FEFFFE&labelColor=696868&color=01A1FD'/></a>
- <a href='https://github.com/shivamkapasia0' target="_blank"><img alt='Bootstrap' src='https://img.shields.io/badge/Bootstrap-100000?style=plastic&logo=Bootstrap&logoColor=FEFFFE&labelColor=696868&color=01A1FD'/></a>
+ <a href='https://react.dev/' target="_blank"><img alt='React' src='https://img.shields.io/badge/React-^18.2.0-100000?style=flat&logo=React&logoColor=white&labelColor=4d4c4c&color=0c84bc'/></a>
+ <a href='https://vitejs.dev/' target="_blank"><img alt='Vite' src='https://img.shields.io/badge/Vite-^4.4.5-100000?style=flat&logo=Vite&logoColor=white&labelColor=4d4c4c&color=0c84bc'/></a>
+ <a href='https://redux.js.org/' target="_blank"><img alt='Redux' src='https://img.shields.io/badge/Redux-^1.9.5-100000?style=flat&logo=Redux&logoColor=white&labelColor=4d4c4c&color=0c84bc'/></a>
+ <a href='https://react-bootstrap.netlify.app/' target="_blank"><img alt='Bootstrap' src='https://img.shields.io/badge/React_Bootstrap-^2.8.0-100000?style=flat&logo=Bootstrap&logoColor=white&labelColor=4d4c4c&color=0c84bc'/></a>
 </p>
 
 ## prerequisites
