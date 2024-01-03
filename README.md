@@ -7,11 +7,11 @@
  <a href='https://react-bootstrap.netlify.app/' target="_blank"><img alt='Bootstrap' src='https://img.shields.io/badge/React_Bootstrap-^2.8.0-100000?style=flat&logo=Bootstrap&logoColor=white&labelColor=4d4c4c&color=0c84bc'/></a>
 </div>
 
- Poker Manager like blindValet
 
- Backend => https://github.com/Pyramond/Oneblind-Backend
- 
+ <p>Poker Manager like blindValet</p>
+ <a href='https://github.com/Pyramond/Oneblind-Backend' target="_blank"><img alt='GitHub' src='https://img.shields.io/badge/Backend_Server-100000?style=for-the-badge&logo=GitHub&logoColor=white&labelColor=black&color=black'/></a>
 
+  
 ## prerequisites
 
 - Install backend server 
