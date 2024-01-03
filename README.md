@@ -44,6 +44,6 @@ VITE_SPOTIFY_CLIENT_SECRET=XXXXXXXXXXX
 
 
 ## Screen
-![oneBlind2](https://github.com/Pyramond/OneBlind/assets/83555414/30f38276-9889-41a2-83b5-1ef541980829)
-
-![oneBlind](https://github.com/Pyramond/OneBlind/assets/83555414/b0e7a2a5-e026-49fd-88e0-8f7909c8bc9f)
+![profile](https://github.com/Pyramond/OneBlind/assets/83555414/4f857815-c681-4b62-a4bb-022047590fb4)
+![home](https://github.com/Pyramond/OneBlind/assets/83555414/9492c042-ae3d-46d2-bd35-8f8210f8c480)
+![dashboard](https://github.com/Pyramond/OneBlind/assets/83555414/c678aaae-f641-40f7-ac01-ff125c6f3158)
