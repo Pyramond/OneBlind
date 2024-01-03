@@ -10,6 +10,19 @@
 - Install NodeJs and Npn
 - Install Docker
 
+
+## Configuration
+
+- Create a .env file at the app's root
+```
+VITE_BACKEND_SERVER=XXXXX
+VITE_PORT=XXXX
+VITE_SPOTIFY_CLIENT_ID=XXXXXXXXXXXXXX
+VITE_SPOTIFY_CLIENT_SECRET=XXXXXXXXXXX
+```
+(VITE_SPOTIFY_CLIENT_SECRET and VITE_SPOTIFY_CLIENT_ID are only required to use Spotify component)
+
+
 ## Run with npm 
 
 -  Install dependencies ```npm i```
