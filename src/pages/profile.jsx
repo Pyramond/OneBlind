@@ -35,11 +35,11 @@ export default function Profile(props) {
                     setNbTournament(prevNbTournament => prevNbTournament + 1);
                 }
                 if(element.place == 1) {
-                    setTop1(top1 + 1)
+                    setTop1(top1 => top1 + 1)
                 } else if(element.place == 2) {
-                    setTop2(top2 + 1)
+                    setTop2(top2 => top2 + 1)
                 } else if(element.place == 3) {
-                    setTop3(top3 + 1)
+                    setTop3(top3 => top3 + 1)
                 }
             });
         }
