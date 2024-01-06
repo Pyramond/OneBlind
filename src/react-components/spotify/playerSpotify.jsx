@@ -92,7 +92,7 @@ export default function PlayerSpotify() {
                     </div>
                 </div>
                 :
-                <p>{musicName} <br /> {artist}</p>}
+                <p> <span id="musicTitle">{musicName}</span> <br /> {artist}</p>}
             </div>
         </>
     )
