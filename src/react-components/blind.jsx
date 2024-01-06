@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 
 
 export default function Blind() {
