@@ -4,12 +4,17 @@ import { getDate } from "../utils/date";
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../redux/slices/reload";
 import { addModel, removeModel, getAllModels } from '../utils/models';
+import { Link } from 'react-router-dom';
 
 
 
 export default function CreateBlindModel() {
 
-
+    
+    const linkStyle = {
+        textDecoration: "none",
+        color: 'black'
+    };
 
     const t = useSelector((state) => state.reload);
     const dispatch = useDispatch();
@@ -156,7 +161,7 @@ export default function CreateBlindModel() {
                     <Modal.Body>
                         <ul>
                             {allModels.map((model, index) => (
-                                <li key={index} className="allModels">{model.name} <Button variant="outline-secondary" href={`/blind/${model.id}`}>Détails</Button> <Button variant="outline-danger" onClick={() => { deleteModel(model) }}>Supprimer</Button></li>
+                                <li key={index} className="allModels">{model.name} <Button variant="outline-secondary" as={Link} to={`/blind/${model.id}`}> Détails </Button> <Button variant="outline-danger" onClick={() => { deleteModel(model) }}>Supprimer</Button></li>
                             ))}
                         </ul>
                     </Modal.Body>
