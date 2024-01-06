@@ -24,11 +24,10 @@ function Classement() {
       <div id="classementContainer">
         <h2 id="title">Classement des joueurs</h2>
 
-        <Table striped bordered hover variant='dark'>
+        <Table striped bordered hover variant='dark' id="classementTable">
           <thead>
             <tr>
               <th>#</th>
-              <th>Id</th>
               <th>Nom</th>
               <th>Points</th>
             </tr>
@@ -37,7 +36,6 @@ function Classement() {
               {allPlayers.map((player, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td>{player.id}</td>
                   <td>{player.name}</td>
                   <td>{player.points}</td>
                 </tr>
