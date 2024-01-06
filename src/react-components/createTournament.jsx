@@ -89,8 +89,8 @@ export default function CreateTournament() {
     <div id="createTournament">
       <Form>
 
-        <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le tournoi a été créé</p> <CloseButton variant="dark" onClick={closeAlert}/></div> </Alert>
-        <Alert show={showErrorAlert} variant="danger"><div id="alert"> <p id="alertText">Certains champs obligatoires n'ont pas été remplis.</p> <CloseButton variant="dark" onClick={closeErrorAlert}/></div> </Alert>
+        <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le tournoi a été créé</p> <CloseButton onClick={closeAlert}/></div> </Alert>
+        <Alert show={showErrorAlert} variant="danger"><div id="alert"> <p id="alertText">Certains champs obligatoires n'ont pas été remplis.</p> <CloseButton onClick={closeErrorAlert}/></div> </Alert>
 
         <h2>Créer un tournoi</h2>
 

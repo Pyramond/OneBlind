@@ -107,8 +107,8 @@ export default function CreateBlindModel() {
         <>
             <div id="createBlindModel">
                 <Form>
-                    <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le modèle a été créer.</p> <CloseButton variant="dark" onClick={closeAlert}/></div> </Alert>
-                    <Alert show={showErrorAlert} variant="danger"><div id="alert"> <p id="alertText">Certains champs obligatoires n'ont pas été remplis.</p> <CloseButton variant="dark" onClick={closeErrorAlert}/></div> </Alert>
+                    <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le modèle a été créer.</p> <CloseButton onClick={closeAlert}/></div> </Alert>
+                    <Alert show={showErrorAlert} variant="danger"><div id="alert"> <p id="alertText">Certains champs obligatoires n'ont pas été remplis.</p> <CloseButton onClick={closeErrorAlert}/></div> </Alert>
 
                     <h2>Créer une structure de blind</h2>
 
