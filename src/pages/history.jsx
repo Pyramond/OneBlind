@@ -1,4 +1,3 @@
-import NavigationBar from '../react-components/navbar/navbar'
 import { useEffect, useState } from 'react'
 import { Table } from 'react-bootstrap'
 import { getAllTournaments } from '../utils/tournaments'
@@ -19,7 +18,6 @@ export default function history() {
 
     return(
         <>
-            <NavigationBar />
             <div id="historyContainer">
                 <h2 id="title">Historique des parties: </h2>
 

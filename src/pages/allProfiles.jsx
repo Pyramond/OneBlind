@@ -1,4 +1,3 @@
-import NavigationBar from '../react-components/navbar/navbar'
 import { useState, useEffect } from 'react'
 import { getAllPlayer } from '../utils/players'
 import { Card, Button } from 'react-bootstrap'
@@ -19,7 +18,6 @@ export default function AllProfiles() {
 
     return (
         <>
-          <NavigationBar />
           <h2 id="title">Tout les profils </h2>
 
           <div id="allPlayersContainer">

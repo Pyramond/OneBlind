@@ -1,4 +1,3 @@
-import NavigationBar from "../react-components/navbar/navbar";
 import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { getPlayerById } from "../utils/players";
@@ -51,7 +50,6 @@ export default function Profile(props) {
 
     return(
         <>
-            <NavigationBar />
             <h2 id="title">Profil de {playerData.name}:</h2>
 
             <div id="profileContainer">

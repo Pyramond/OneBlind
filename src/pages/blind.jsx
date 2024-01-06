@@ -1,4 +1,3 @@
-import NavigationBar from '../react-components/navbar/navbar'
 import { useParams } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import BlindTab from '../react-components/blindTab';
@@ -21,8 +20,6 @@ function Blind() {
 
   return (
     <>
-      <NavigationBar />
-
       <h2>Détails du modèle: <span id="modelName">{name}</span></h2>
       <BlindTab id={id} steps={steps} theme="dark" />
       
