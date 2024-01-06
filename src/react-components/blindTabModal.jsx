@@ -10,8 +10,7 @@ export function BlindTabModal() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
-    const t = useSelector((state) => state.tournamentInfo);
-
+    const t = useSelector((state) => state.tournamentSteps);
 
     return(
         <>
@@ -22,7 +21,7 @@ export function BlindTabModal() {
                     <Modal.Title>Structure de blind</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <BlindTab id={t.blindId} theme="light"/>
+                    <BlindTab steps={t.steps} theme="light"/>
                 </Modal.Body>
             </Modal>
         </>

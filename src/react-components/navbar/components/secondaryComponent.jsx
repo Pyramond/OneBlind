@@ -7,7 +7,7 @@ import { change } from '../../../redux/slices/reload';
 export default function SelectSecondaryComponent() {
 
     const secondaryList = ["TournamentInfo", "SpotifyPlayerState"]
-    const [selectedComponent, setSelectedComponent] = useState("Composant")
+    const [selectedComponent, setSelectedComponent] = useState(window.localStorage.getItem("secondary-component"))
     const [show, setShow] = useState(false)
     const dispatch = useDispatch()
 
@@ -28,7 +28,7 @@ export default function SelectSecondaryComponent() {
         <>
             <Form className="d-flex">
                 <FormGroup className='mb-5'>
-                    <Form.Label>Composant secondaire: </Form.Label>
+                    <Form.Label>Composant secondaire </Form.Label>
                     <div id="formControl">
                         <Dropdown data-bs-theme="dark" className="me-2" onSelect={handleComponent}>
                             <Dropdown.Toggle variant="dark">{selectedComponent}</Dropdown.Toggle>

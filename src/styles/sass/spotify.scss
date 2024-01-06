@@ -8,10 +8,28 @@
         color: white;
         font-size: 2em;
         margin-left: 0.5em;
+
+        #musicTitle {
+            text-decoration: underline;
+        }
     }
 
     img { 
         width: 25%;
         height: 25%;
+    }
+
+    #spotifyLogo {
+        height: 64px;
+        width: 64px;
+    }
+
+    #errorButtons {
+        display: flex;
+        flex-direction: row;
+        
+        #errorButton {
+            margin: 0.5em;
+        }
     }
 }

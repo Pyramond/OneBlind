@@ -5,6 +5,7 @@ import { getDate, getTimeStamp } from "../utils/date";
 import { getAllPlayer } from "../utils/players";
 import { getAllModels } from "../utils/models";
 import { change } from "../redux/slices/reload";
+import { addTournament } from '../utils/tournaments';
 
 export default function CreateTournament() {
 
@@ -52,40 +53,26 @@ export default function CreateTournament() {
   const handleChangeInitialChips = (event) => { setInitialChips(event.target.value) }
 
 
-  function create(event) {
+  async function create(event) {
     event.preventDefault()
 
     if(players.length <= 2 || initialChips === 0 || Object.keys(selectedModel).length === 0) {
       setShowErrorAlert(true)
       setShowAlert(false)
     } else {
-      fetch("http://localhost:8000/tournament/create", {
-        method: "POST",
-        headers: {
-            "Accept": "application/json",
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({
-          name: tournamentName,
-          date: getTimeStamp(),
-          blind: {
-            "name": selectedModel.name,
-            "id": selectedModel.id
-          },
-          players: players,
-          initialChips: parseInt(initialChips)
-        })
-      })
-        .then(res => res.json())
-        .then(res => {
-        })
-        setShowErrorAlert(false)
-        setShowAlert(true)
-        dispatch(change())
-        setTimeout(() => {
-          setShowAlert(false)
-        }, 4 * 1000)
+      const blindObject = {
+        "name": selectedModel.name,
+        "id": selectedModel.id
       }
+      await addTournament(tournamentName, getTimeStamp(), blindObject, players, initialChips)
+      setShowErrorAlert(false)
+      setShowAlert(true)
+      dispatch(change())
+      setTimeout(() => {
+        setShowAlert(false)
+      }, 4 * 1000)
+    
+    }
   }
 
   useEffect(() => {
@@ -102,8 +89,8 @@ export default function CreateTournament() {
     <div id="createTournament">
       <Form>
 
-        <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le tournoi a été créé</p> <CloseButton variant="dark" onClick={closeAlert}/></div> </Alert>
-        <Alert show={showErrorAlert} variant="danger"><div id="alert"> <p id="alertText">Certains champs obligatoires n'ont pas été remplis.</p> <CloseButton variant="dark" onClick={closeErrorAlert}/></div> </Alert>
+        <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le tournoi a été créé</p> <CloseButton onClick={closeAlert}/></div> </Alert>
+        <Alert show={showErrorAlert} variant="danger"><div id="alert"> <p id="alertText">Certains champs obligatoires n'ont pas été remplis.</p> <CloseButton onClick={closeErrorAlert}/></div> </Alert>
 
         <h2>Créer un tournoi</h2>
 

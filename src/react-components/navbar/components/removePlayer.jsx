@@ -1,8 +1,9 @@
 import { useEffect, useState, useMemo } from 'react';
 import { FormGroup, Form, Button, Modal, Dropdown } from 'react-bootstrap';
-import { getAllPlayer } from "../utils/players";
+import { getAllPlayer } from "../../../utils/players";
 import { useDispatch, useSelector } from 'react-redux';
-import { change } from "../redux/slices/reload";
+import { change } from "../../../redux/slices/reload";
+import { removePlayer } from '../../../utils/players';
 
 export default function RemovePlayer() {
 
@@ -30,24 +31,11 @@ export default function RemovePlayer() {
         setPlayer(selectedPlayer)
     }
 
-    function deletePlayer() {
-        fetch("http://localhost:8000/player/delete", {
-            method: "DELETE",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: player.name,
-                id: player.id
-            })
-          })
-          .then(res => res.json())
-          .then(res => {
-                setAllPlayers((prevAllPLayers) => prevAllPLayers.filter((player) => player !== player.name))
-                setPlayerToRemove("Joueur")
-                dispatch(change())
-          })
+    async function deletePlayer() {
+        await removePlayer(player.name, player.id)
+        setAllPlayers((prevAllPLayers) => prevAllPLayers.filter((player) => player !== player.name))
+        setPlayerToRemove("Joueur")
+        dispatch(change())
     }
  
     return(
@@ -55,7 +43,7 @@ export default function RemovePlayer() {
 
             <Form className="d-flex">
                 <FormGroup className='mb-5'>
-                    <Form.Label>Supprimer un joueur: </Form.Label>
+                    <Form.Label>Supprimer un joueur </Form.Label>
                     <div id="formControl">
                         <Dropdown data-bs-theme="dark" className="me-2" onSelect={handlePlayer}>
                             <Dropdown.Toggle variant="dark">{playerToRemove}</Dropdown.Toggle>

@@ -1,4 +1,3 @@
-import NavigationBar from '../react-components/navbar'
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { setPlayers } from '../redux/slices/tournamentPage/players';
@@ -42,9 +41,7 @@ export default function TournamentPage() {
 
   return (
     <>
-      <NavigationBar />
-
-        <Container fluid>
+      <Container fluid>
         <Row>
           <Col> <Blind /> </Col>
           <Col> <MyTimer /> </Col>

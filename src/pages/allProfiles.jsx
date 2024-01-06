@@ -1,7 +1,7 @@
-import NavigationBar from '../react-components/navbar'
 import { useState, useEffect } from 'react'
 import { getAllPlayer } from '../utils/players'
 import { Card, Button } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 
 export default function AllProfiles() {
@@ -18,8 +18,7 @@ export default function AllProfiles() {
 
     return (
         <>
-          <NavigationBar />
-          <h2 id="title">Tout les profils: </h2>
+          <h2 id="title">Tout les profils </h2>
 
           <div id="allPlayersContainer">
 
@@ -29,7 +28,7 @@ export default function AllProfiles() {
                 <Card.Body>
                     <div id="playerCardBody">
                       <Card.Title style={{ color: "white" }}>{player.name}</Card.Title>
-                      <Button variant='primary' href={`/profiles/${player.id}`}>Voir le profil</Button>
+                      <Link to={`/profiles/${player.id}`}> <Button variant='primary'>Voir le profil</Button> </Link>
                     </div>
                 </Card.Body>
               </Card>

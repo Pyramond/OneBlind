@@ -9,7 +9,6 @@ export function TablePlace() {
     const [playerList, setPlayerList] = useState([])
     const [show, setShow] = useState(false)
     const [firstPlace, setFirstPlace] = useState(false)
-    const [number, setNumber] = useState(0)
 
     function handleShow() { setShow(true) }
     function handleClose() { setShow(false) }
@@ -20,7 +19,6 @@ export function TablePlace() {
           const j = Math.floor(Math.random() * (i + 1));
           [shuffledArray[i], shuffledArray[j]] = [shuffledArray[j], shuffledArray[i]];
         }
-        console.warn(shuffledArray);
         return shuffledArray;
       }
 
@@ -32,12 +30,18 @@ export function TablePlace() {
     }
 
     function replace() {
-        setNumber(Math.floor(Math.random() * (1000000 + 1)))
+        const intervalId = setInterval(() => {
+            setPlayerList(shufflePlayers(t.value));
+        }, 50);
+    
+        setTimeout(() => {
+            clearInterval(intervalId);
+        }, 500);
     }
 
     useEffect(() => (
         setPlayerList(shufflePlayers(t.value))
-    ), [number])
+    ), [])
 
 
     return (

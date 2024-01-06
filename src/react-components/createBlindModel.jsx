@@ -1,13 +1,20 @@
 import { useEffect, useState, useMemo } from 'react';
 import { Button, Form, Alert, Modal, CloseButton } from "react-bootstrap";
 import { getDate } from "../utils/date";
-import { getAllModels } from "../utils/models";
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../redux/slices/reload";
+import { addModel, removeModel, getAllModels } from '../utils/models';
+import { Link } from 'react-router-dom';
+
+
 
 export default function CreateBlindModel() {
 
-
+    
+    const linkStyle = {
+        textDecoration: "none",
+        color: 'black'
+    };
 
     const t = useSelector((state) => state.reload);
     const dispatch = useDispatch();
@@ -65,53 +72,28 @@ export default function CreateBlindModel() {
         setOrder(order - 1)
     };
 
-    function createModel(event) {
-        event.preventDefault()
-
+    async function createModel(event) {
+        event.preventDefault();
+    
         if(steps.length === 0) {
-            setShowErrorAlert(true)
-            setShowAlert(false)
+            setShowErrorAlert(true);
+            setShowAlert(false);
         } else {
-            fetch("http://localhost:8000/blind/add", {
-                method: "POST",
-                headers: {
-                    "Accept": "application/json",
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({
-                    name: name,
-                    steps: steps
-                })
-              })
-              .then(res => res.json())
-              .then(res => {
-                    setShowAlert(true)
-                    setShowErrorAlert(false)
-                    dispatch(change())
-                    setTimeout(() => {
-                        setShowAlert(false)
-                      }, 4 * 1000)
-              })
+            await addModel(name, steps);
+            setShowAlert(true);
+            setShowErrorAlert(false);
+            dispatch(change());
+            setTimeout(() => {
+                setShowAlert(false);
+            }, 4 * 1000);
         }
     }
 
-    function deleteModel(modelToDelete) {
-        fetch("http://localhost:8000/blind/delete", {
-            method: "DELETE",
-            headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                name: modelToDelete.name,
-                id: modelToDelete.id
-            })
-          })
-          .then(res => res.json())
-          .then(res => {
-                setAllModels((prevAllModels) => prevAllModels.filter((model) => model !== modelToDelete))
-                dispatch(change())
-          })
+    async function deleteModel(modelToDelete) {
+        await removeModel(modelToDelete.name, modelToDelete.id)
+        setAllModels((prevAllModels) => prevAllModels.filter((model) => model !== modelToDelete))
+        dispatch(change())
+
     }
 
     useEffect(() => {
@@ -125,8 +107,8 @@ export default function CreateBlindModel() {
         <>
             <div id="createBlindModel">
                 <Form>
-                    <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le modèle a été créer.</p> <CloseButton variant="dark" onClick={closeAlert}/></div> </Alert>
-                    <Alert show={showErrorAlert} variant="danger"><div id="alert"> <p id="alertText">Certains champs obligatoires n'ont pas été remplis.</p> <CloseButton variant="dark" onClick={closeErrorAlert}/></div> </Alert>
+                    <Alert show={showAlert} variant="primary"><div id="alert"> <p id="alertText">Le modèle a été créer.</p> <CloseButton onClick={closeAlert}/></div> </Alert>
+                    <Alert show={showErrorAlert} variant="danger"><div id="alert"> <p id="alertText">Certains champs obligatoires n'ont pas été remplis.</p> <CloseButton onClick={closeErrorAlert}/></div> </Alert>
 
                     <h2>Créer une structure de blind</h2>
 
@@ -179,7 +161,7 @@ export default function CreateBlindModel() {
                     <Modal.Body>
                         <ul>
                             {allModels.map((model, index) => (
-                                <li key={index} className="allModels">{model.name} <Button variant="outline-secondary" href={`/blind/${model.id}`}>Détails</Button> <Button variant="outline-danger" onClick={() => { deleteModel(model) }}>Supprimer</Button></li>
+                                <li key={index} className="allModels">{model.name} <Button variant="outline-secondary" as={Link} to={`/blind/${model.id}`}> Détails </Button> <Button variant="outline-danger" onClick={() => { deleteModel(model) }}>Supprimer</Button></li>
                             ))}
                         </ul>
                     </Modal.Body>

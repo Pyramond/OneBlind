@@ -31,28 +31,36 @@ export default function MyTimer() {
     } = useTimer({
         expiryTimestamp: 0,
         onExpire: () => {
+            console.log("EXPIRE")
             dispatch(changeStep())
         },
     });
 
     useEffect(() => {
-        if(!t.currentStep.order) {
-            setIsFinish(true)
-        } else {
-            setIsFinish(false)
-            const newExpiryTimestamp = new Date(new Date().getTime() + t.currentStep.time * 60000 - 1 * 1000);
-            restart(newExpiryTimestamp);
-            dispatch(set(t.currentStep.type))
 
-            if(t.currentStep.order == 1) setIsDisabled(true)
-            else setIsDisabled(false)
-            
-            setNextStepComponent(<p style={{ color: "white", fontSize: "30px"}}>Prochaine étape: {t.steps[t.index].time} minutes de {t.steps[t.index].type == "game" ? `jeu, petite blind ${t.steps[t.index].sb}` : "pause"}</p>)
-        }
-
+        console.log(t.currentStep)
+        setIsFinish(false)
+        const newExpiryTimestamp = new Date(new Date().getTime() + t.currentStep.time * 60000 - 1 * 1000);
+        restart(newExpiryTimestamp);
+        dispatch(set(t.currentStep.type))
+        if(t.currentStep.order == 1) setIsDisabled(true)
+        else setIsDisabled(false)
+        
+        setNextStepComponent(() => {
+            if (t.steps && t.steps.length > t.index && t.steps[t.index]) {
+              return (
+                <p style={{ color: "white", fontSize: "30px" }}>
+                  Prochaine étape: {t.steps[t.index].time} minutes de
+                  {t.steps[t.index].type === "game" ? ` jeu, petite blind ${t.steps[t.index].sb}` : " pause"}
+                </p>
+              );
+            } else return nextStepComponent
+        });
+        
         if(isPlay === false) {
             pause()
         }
+
   }, [effectDependency]);
 
   useEffect(() => {
@@ -81,13 +89,7 @@ export default function MyTimer() {
   function verifyStep(action) {
     if(action === "next") {
         dispatch(changeStep())
-    } else if(action === "prev") {
-        if(t.currentStep.order == 1) {
-
-        } else {
-            dispatch(prevStep())
-        }
-    }
+    } else if(action === "prev") dispatch(prevStep())
   }
 
 
