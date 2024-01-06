@@ -6,10 +6,12 @@ import { convertTimeStamp } from "../utils/date"
 import { useDispatch } from "react-redux"
 import { change } from '../redux/slices/reload';
 import { removeTournament } from '../utils/tournaments';
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Tournament(props) {
 
+    const navigate = useNavigate()
     const [players, setPlayers] = useState([])
     const [show, setShow] = useState(false);
 
@@ -29,6 +31,10 @@ export default function Tournament(props) {
     async function deleteTournament(id) {
         await removeTournament(id)
         location.reload()
+    }
+
+    function openTournament() {
+        navigate(`/tournament/${props.tournament.id}`)
     }
 
     return(
@@ -56,7 +62,7 @@ export default function Tournament(props) {
                                     ))}
                                 </Dropdown.Menu>
                             </Dropdown>
-                            <Button variant="primary" id="button" href={`/tournament/${props.tournament.id}`}>Ouvrir</Button>
+                            <Button variant="primary" id="button" onClick={openTournament}>Ouvrir</Button>
                         </div>
                     </Card.Body>
                 </Card>

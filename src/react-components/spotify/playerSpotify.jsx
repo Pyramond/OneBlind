@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Button } from "react-bootstrap"
 import { useDispatch } from 'react-redux';
 import { change } from '../../redux/slices/reload';
+import { useNavigate } from "react-router-dom";
 
 
 export default function PlayerSpotify() {
@@ -16,6 +17,11 @@ export default function PlayerSpotify() {
     const [error, setError] = useState("")
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    function openSettings() {
+        navigate("/settings")
+    }
 
     useEffect(() => {
         const fetchData = () => {
@@ -81,7 +87,7 @@ export default function PlayerSpotify() {
                 <div>
                     <p>Composant Indisponible</p> 
                     <div id="errorButtons">
-                        <Button variant="primary" href="/settings" id="errorButton">Paramètres</Button>
+                        <Button variant="primary" onClick={openSettings} id="errorButton">Paramètres</Button>
                         <Button variant="secondary" onClick={setDefaultComponent} id="errorButton">Changer le composant</Button>
                     </div>
                 </div>

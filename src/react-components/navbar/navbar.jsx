@@ -8,6 +8,7 @@ import SelectSecondaryComponent from './components/secondaryComponent';
 import ChangeVolume from './components/volume';
 import NavbarLoginSpotify from './components/navbarLoginSpotify';
 import DownloadDb from './components/downloadDb';
+import { Link } from 'react-router-dom';
 
 
 export default function NavigationBar() {
@@ -17,7 +18,7 @@ export default function NavigationBar() {
       {[false,].map((expand) => (
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3" bg="dark" data-bs-theme="dark">
           <Container fluid>
-            <Navbar.Brand href="/dashboard"> <img src="/images/OneBlind.svg" alt="one blind image" id="oneBlindImage"/> </Navbar.Brand>
+            <Navbar.Brand as={Link} to="/dashboard"> <img src="/images/OneBlind.svg" alt="one blind image" id="oneBlindImage"/> </Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
 
             <Navbar.Offcanvas
@@ -29,15 +30,15 @@ export default function NavigationBar() {
             >
               <Offcanvas.Header>
                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}> Barre d'outils </Offcanvas.Title>
-                <Button href="/settings" variant="link"> <img src="/images/settingsIcon.svg" alt="settings_icon" id="settingsButton" /> </Button>
+                <Link to="/settings"> <img src="/images/settingsIcon.svg" alt="settings_icon" id="settingsButton" /> </Link>
               </Offcanvas.Header>
 
               <Offcanvas.Body>
 
                 <div className="mb-5">
-                  <Button href="/classement" variant="link">Classement</Button>
-                  <Button href="/history" variant="link">Historique</Button>
-                  <Button href="/profiles" variant='link'>Profils</Button>
+                  <Link to="/classement" id="linkComponent">Classement</Link>
+                  <Link to="/history" id="linkComponent">Historique</Link>
+                  <Link to="/profiles" id="linkComponent">Profils</Link>
                 </div>
 
                 <AddPlayer />
