@@ -6,6 +6,8 @@ import { getAllPlayer } from "../utils/players";
 import { getAllModels } from "../utils/models";
 import { change } from "../redux/slices/reload";
 import { addTournament } from '../utils/tournaments';
+import { IconDeviceFloppy } from "@tabler/icons-react"
+
 
 export default function CreateTournament() {
 
@@ -148,7 +150,7 @@ export default function CreateTournament() {
 
             </Form.Group>
 
-        <Button variant="primary" type="submit" onClick={create}>Créer</Button>
+        <Button variant="primary" type="submit" onClick={create}>Sauvegarder <IconDeviceFloppy /> </Button>
       </Form>
 
       <Modal show={show} onHide={handleClose}>

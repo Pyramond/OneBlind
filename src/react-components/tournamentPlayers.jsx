@@ -7,6 +7,8 @@ import { deleteTournament } from "../utils/tournaments"
 import { useNavigate } from 'react-router-dom';
 import { calculatePoints } from '../utils/points';
 import { eliminatePlayer as utilsEliminatePlayer } from '../utils/tournaments';
+import { IconSkull } from '@tabler/icons-react';
+
 
 export function TournamentPlayers(props) {
 
@@ -117,7 +119,7 @@ export function TournamentPlayers(props) {
                         </Dropdown.Menu>
                     </Dropdown>
 
-                    {isWinner ? <div> <p>{t.value[0].name} Gagnant</p> <Button variant="primary" onClick={handleShow}>Terminer le tournois</Button> </div> : <Button variant="danger" onClick={() => { eliminatePlayer(playerToRemoveId, true, playerToRemove)}}>Éliminer</Button>}
+                    {isWinner ? <div> <p>{t.value[0].name} Gagnant</p> <Button variant="primary" onClick={handleShow}>Terminer le tournois</Button> </div> : <Button variant="danger" onClick={() => { eliminatePlayer(playerToRemoveId, true, playerToRemove)}}>Éliminer <IconSkull stroke-width="1" /> </Button>}
                 </div>
             </div>
 

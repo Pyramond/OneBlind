@@ -4,7 +4,8 @@ import { getDate } from "../utils/date";
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../redux/slices/reload";
 import { addModel, removeModel, getAllModels } from '../utils/models';
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
+import { IconAdjustmentsAlt, IconDeviceFloppy, IconPlayerPause } from "@tabler/icons-react";
 
 
 
@@ -125,7 +126,7 @@ export default function CreateBlindModel() {
                             <Form.Control type="number" placeholder="Petite Blind" data-bs-theme="dark" id="formControl" onChange={handleChangeSBlind} />
                             <Button variant="dark" id="addButton" onClick={addStep} >Ajouter</Button>
                         </div>
-                        <Button variant="info" id="addPause" onClick={handleShow} >Ajouter une pause</Button>
+                        <Button variant="info" id="addPause" onClick={handleShow} >Ajouter pause <IconPlayerPause /> </Button>
                     </Form.Group>
 
                     <h4>Étapes:</h4>
@@ -136,8 +137,8 @@ export default function CreateBlindModel() {
                     </ol>
              
                     
-                    <Button id="formButtons" variant="primary" type="" onClick={createModel}>Sauvegarder</Button>
-                    <Button id="formButtons" variant="secondary" onClick={handleShowDel}>Options</Button>
+                    <Button id="formButtons" variant="primary" type="" onClick={createModel}>Sauvegarder <IconDeviceFloppy /> </Button>
+                    <Button id="formButtons" variant="secondary" onClick={handleShowDel}>Options <IconAdjustmentsAlt /> </Button>
 
                 </Form>
 

@@ -2,6 +2,8 @@ import BlindTab from "./blindTab";
 import { Modal, Button } from "react-bootstrap";
 import { useState } from "react";
 import { useSelector } from 'react-redux';
+import { IconTable } from "@tabler/icons-react"
+
 
 export function BlindTabModal() {
 
@@ -14,7 +16,7 @@ export function BlindTabModal() {
 
     return(
         <>
-            <Button variant="secondary" onClick={handleShow}>Structure de blind</Button>
+            <Button variant="secondary" onClick={handleShow}>Structure de blind <IconTable /> </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

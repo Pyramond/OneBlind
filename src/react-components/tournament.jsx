@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux"
 import { change } from '../redux/slices/reload';
 import { removeTournament } from '../utils/tournaments';
 import { useNavigate } from 'react-router-dom';
+import { IconArrowUpRight } from "@tabler/icons-react"
 
 
 export default function Tournament(props) {
@@ -62,7 +63,7 @@ export default function Tournament(props) {
                                     ))}
                                 </Dropdown.Menu>
                             </Dropdown>
-                            <Button variant="primary" id="button" onClick={openTournament}>Ouvrir</Button>
+                            <Button variant="primary" id="button" onClick={openTournament}>Ouvrir <IconArrowUpRight /> </Button>
                         </div>
                     </Card.Body>
                 </Card>

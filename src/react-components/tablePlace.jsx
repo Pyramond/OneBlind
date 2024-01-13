@@ -1,6 +1,7 @@
 import { Button, Modal } from "react-bootstrap"
 import { useState, useEffect } from 'react';
 import { useSelector } from "react-redux"
+import { IconDesk } from "@tabler/icons-react"
 
 
 export function TablePlace() {
@@ -46,7 +47,7 @@ export function TablePlace() {
 
     return (
         <>
-            <Button variant="secondary" onClick={() => { handleShow() ; setPlace() }}>Table</Button>
+            <Button variant="secondary" onClick={() => { handleShow() ; setPlace() }}>Table <IconDesk /> </Button>
 
             <Modal show={show} onHide={handleClose}>
                 <Modal.Header closeButton>

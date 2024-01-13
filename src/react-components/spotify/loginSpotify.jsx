@@ -1,5 +1,6 @@
 import { Button } from "react-bootstrap"
 import { useEffect } from "react"
+import { IconBrandSpotify } from "@tabler/icons-react"
 
 
 export default function LoginSpotify(props) {
@@ -65,7 +66,7 @@ export default function LoginSpotify(props) {
 
     return (
         <>
-            <Button variant="success" onClick={openLogin}>{props.message ? props.message : "Se connecter à Spotify"}</Button>
+            <Button variant="success" onClick={openLogin}>{props.message ? props.message : "Se connecter à Spotify"} <IconBrandSpotify stroke-width="2"/> </Button>
         </>
     )
 }
