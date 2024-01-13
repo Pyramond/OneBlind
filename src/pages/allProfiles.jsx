@@ -28,7 +28,7 @@ export default function AllProfiles() {
               <div id="playerCard" key={index}>
 
                 <div id="topCard">
-                  <img src="https://fakeimg.pl/80x80/" id="pp" />
+                  <img src="http://localhost:8000/static/avatars/avatar1.png" id="pp" />
                   <div id='topInfo'>
                     <p id="pseudo">{player.name}</p>
                     <p id="points">{player.points} points</p>
@@ -36,8 +36,8 @@ export default function AllProfiles() {
                 </div>
 
                 <div id="bottomCard">
-					<p> {convertTimeStampDate(player.date)} </p>
-					<Link to={`/profiles/${player.id}`}> <Button variant='primary'>Voir le profil</Button> </Link>
+                    <p> {convertTimeStampDate(player.date)} </p>
+                    <Link to={`/profiles/${player.id}`}> <Button variant='primary'>Voir le profil</Button> </Link>
                 </div>
 
               </div>
