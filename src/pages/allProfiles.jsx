@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react'
 import { getAllPlayer } from '../utils/players'
-import { Card, Button } from 'react-bootstrap'
+import { Card, Button, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { convertTimeStampDate } from '../utils/date'
 
 
 export default function AllProfiles() {
@@ -24,14 +25,22 @@ export default function AllProfiles() {
 
             {players.map((player, index) => (
 
-              <Card style={{ width: "18rem"}} bg="dark" key={index} id="playerCard">
-                <Card.Body>
-                    <div id="playerCardBody">
-                      <Card.Title style={{ color: "white" }}>{player.name}</Card.Title>
-                      <Link to={`/profiles/${player.id}`}> <Button variant='primary'>Voir le profil</Button> </Link>
-                    </div>
-                </Card.Body>
-              </Card>
+              <div id="playerCard" key={index}>
+
+                <div id="topCard">
+                  <img src="https://fakeimg.pl/80x80/" id="pp" />
+                  <div id='topInfo'>
+                    <p id="pseudo">{player.name}</p>
+                    <p id="points">{player.points} points</p>
+                  </div>
+                </div>
+
+                <div id="bottomCard">
+					<p> {convertTimeStampDate(player.date)} </p>
+					<Link to={`/profiles/${player.id}`}> <Button variant='primary'>Voir le profil</Button> </Link>
+                </div>
+
+              </div>
 
             ))}
 

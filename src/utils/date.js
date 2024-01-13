@@ -25,3 +25,12 @@ export function convertTimeStamp(timestamp) {
 
     return dateLisible
 }
+
+export function convertTimeStampDate(timestamp) {
+
+    const date = new Date(timestamp);
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric'};
+    const dateLisible = date.toLocaleString("fr-FR", options);
+
+    return dateLisible
+}
