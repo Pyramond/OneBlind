@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react"
-import { Button } from "react-bootstrap"
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap"
 import { useDispatch } from 'react-redux';
 import { change } from '../../redux/slices/reload';
 import { useNavigate } from "react-router-dom";
-
 
 export default function PlayerSpotify() {
 
@@ -22,6 +21,18 @@ export default function PlayerSpotify() {
     function openSettings() {
         navigate("/settings")
     }
+
+    const renderTooltipMusic = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          {musicName}
+        </Tooltip>
+    );
+
+    const renderTooltipArtist = (props) => (
+        <Tooltip id="button-tooltip" {...props}>
+          {artist}
+        </Tooltip>
+    );
 
     useEffect(() => {
         const fetchData = () => {
@@ -82,17 +93,25 @@ export default function PlayerSpotify() {
     return (
         <>
             <div id="spotifyPlayer">
-                {imageUrl === "" ? <img src="/images/spotify.svg" alt="Spotify logo" id="spotifyLogo"/> : <img src={imageUrl} alt={`${musicName} - ${artist} Image`} />}
+                {imageUrl === "" ? <img src="/images/spotify.svg" alt="Spotify logo" id="spotifyLogo"/> : <img src={imageUrl} alt={`${musicName} - ${artist} Image`} id="albumImage" />}
                 {musicName === "" ?
-                <div>
-                    <p>Composant Indisponible</p> 
-                    <div id="errorButtons">
-                        <Button variant="primary" onClick={openSettings} id="errorButton">Paramètres</Button>
-                        <Button variant="secondary" onClick={setDefaultComponent} id="errorButton">Changer le composant</Button>
+                    <div>
+                        <p>Composant Indisponible</p> 
+                        <div id="errorButtons">
+                            <Button variant="primary" onClick={openSettings} id="errorButton">Paramètres</Button>
+                            <Button variant="secondary" onClick={setDefaultComponent} id="errorButton">Changer le composant</Button>
+                        </div>
                     </div>
-                </div>
-                :
-                <p> <span id="musicTitle">{musicName}</span> <br /> {artist}</p>}
+                    :
+                    <p>
+                        <OverlayTrigger placement="top" overlay={renderTooltipMusic}>
+                            <span id="musicTitle"> {musicName.length > 15 ? musicName.substring(0, 15) + "..." : musicName} </span>
+                        </OverlayTrigger>
+                        <OverlayTrigger placement="bottom" overlay={renderTooltipArtist}>
+                            <span> <br /> {artist.length > 15 ? artist.substring(0, 15) + "..." : artist} </span>
+                        </OverlayTrigger>
+                    </p>
+                }
             </div>
         </>
     )
