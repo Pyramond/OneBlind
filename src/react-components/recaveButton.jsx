@@ -14,5 +14,5 @@ export function RecaveButton() {
     }
 
 
-    return <Button variant="secondary" id="recaveButton" onClick={addRecave}>Recave</Button>
+    return <Button variant="secondary" id="recaveButton" onClick={addRecave}> {t.nbRecave != 0 ? t.nbRecave : null} Recave/Add-On</Button>
 }
