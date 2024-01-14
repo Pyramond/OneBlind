@@ -28,7 +28,7 @@ export default function AllProfiles() {
               <div id="playerCard" key={index}>
 
                 <div id="topCard">
-                  <img src="http://localhost:8000/static/avatars/avatar1.png" id="pp" />
+                  <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${player.avatar}.png`} id="pp" />
                   <div id='topInfo'>
                     <p id="pseudo">{player.name}</p>
                     <p id="points">{player.points} points</p>

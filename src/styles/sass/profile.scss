@@ -2,6 +2,16 @@
 
     margin: 1%;
 
+    #pp {
+        border-radius: 16em;
+        height: 80px;
+        width: 80px;
+        margin-right: 0.5em;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
 
     #infosContainer {
         margin-top: 2em;
@@ -30,4 +40,32 @@
 #profileContainer {
     display: flex;
     flex-direction: row;
+}
+
+
+
+#allPPContainer {
+    display: flex;
+    flex-direction: column;
+
+    #PPContainer {
+        display: flex;
+        flex-direction: row;
+
+        #selectButton {
+            height: 2.5em;
+            margin: 1em;
+        }
+
+        #allPP {
+            border-radius: 16em;
+            height: 80px;
+            width: 80px;
+        }
+    }
+}
+
+
+#avatarBody {
+    color: white;
 }

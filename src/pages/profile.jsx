@@ -1,9 +1,12 @@
 import { useParams } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { getPlayerById } from "../utils/players";
-import { Card, Table } from "react-bootstrap";
+import { Card, Table, Modal, Button, Toast, ToastContainer } from "react-bootstrap";
 import { convertTimeStamp } from "../utils/date";
 import { getTournamentPlayer } from "../utils/tournaments";
+import { getAllAvatar, updateAvatar } from "../utils/players";
+import { useDispatch, useSelector } from 'react-redux';
+import { change } from "../redux/slices/reload";
 
 
 export default function Profile(props) {
@@ -16,6 +19,16 @@ export default function Profile(props) {
     const [top3, setTop3] = useState(0)
     const [position, setPosition] = useState([])
     const [nbTournament, setNbTournament] = useState(0)
+    const [allAvatar, setAllAvatar] = useState([])
+
+    const [show, setShow] = useState(false)
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+    const [showToast, setShowToast] = useState(false)
+
+    const dispatch = useDispatch()
+    const t = useSelector((state) => state.reload);
+    const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
 
     useEffect(() => {
         async function fetchData() {
@@ -46,16 +59,32 @@ export default function Profile(props) {
 
         fetchData()
         fetchTournament()
-    }, [])
+    }, [effectDependency])
+
+    async function avatarModal() {
+        const data = await getAllAvatar()
+        setAllAvatar(data)
+        handleShow()
+    }
+
+    async function selectAvatar(avatar) {
+        const response = await updateAvatar(playerData.id, avatar)
+        dispatch(change())
+        handleClose()
+        setShowToast(true)
+    }
 
     return(
         <>
-            <h2 id="title">Profil de {playerData.name}:</h2>
+            <h2 id="title">Profil de {playerData.name}</h2>
 
             <div id="profileContainer">
                 <Card style={{ width: "28rem"}} bg="dark" id="profileCard">
                     <Card.Body>
-                        <Card.Title style={{ color: "white" }}>Informations sur {playerData.name} </Card.Title>
+                        <Card.Title style={{ color: "white" }}>
+                            <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${playerData.avatar}.png`} id="pp" onClick={avatarModal} />
+                            Informations sur {playerData.name}
+                        </Card.Title>
 
                         <div id="infosContainer">
                             <Card.Text>Id: {playerData.id}</Card.Text>
@@ -110,6 +139,32 @@ export default function Profile(props) {
                     </tbody>
                 </Table>
             </div>
+
+
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Liste des avatars</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div id="allPPContainer">
+                        {allAvatar.map((avatar, index) => (
+                            <div id="PPContainer">
+                                <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${index+1}.png`} id="allPP" />
+                                <Button id="selectButton" onClick={() => { selectAvatar(index+1) }}>Choisir</Button>
+                            </div>
+                        ))}
+                    </div>
+                </Modal.Body>
+            </Modal>
+
+            <ToastContainer position="bottom-end">
+                <Toast onClose={() => setShowToast(false)} show={showToast} delay={5000} autohide data-bs-theme="dark">
+                    <Toast.Header>
+                        <strong className="me-auto">Avatar</strong>
+                    </Toast.Header>
+                    <Toast.Body id="avatarBody">Avatar modifié avec succès</Toast.Body>
+                </Toast>
+            </ToastContainer>
         </>
     )
 }
