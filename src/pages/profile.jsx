@@ -119,25 +119,31 @@ export default function Profile(props) {
 
 
             <div id="tournamentsPlayer">
-                <h3>Historique des tournois de {playerData.name}:</h3>
-                <Table striped bordered hover variant='dark' id="tournamentsPlayerTable">
-                    <thead>
-                        <tr>
-                            <th>Nom</th>
-                            <th>Date</th>
-                            <th>Place</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {tournaments.map((tournament, index) => (
-                            <tr key={index}>
-                                <td>{tournament.name}</td>
-                                <td>{convertTimeStamp(parseInt(tournament.date))}</td>
-                                <td>{tournament.place == 0 ? "En attente" : tournament.place}</td>
+                {tournaments.length == 0 ? 
+                <div> <h3>Historique des tournois vide</h3></div>
+                :
+                    <div>
+                    <h3>Historique des tournois de {playerData.name}:</h3>
+                    <Table striped bordered hover variant='dark' id="tournamentsPlayerTable">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Date</th>
+                                <th>Place</th>
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
+                        </thead>
+                        <tbody>
+                            {tournaments.map((tournament, index) => (
+                                <tr key={index}>
+                                    <td>{tournament.name}</td>
+                                    <td>{convertTimeStamp(parseInt(tournament.date))}</td>
+                                    <td>{tournament.place == 0 ? "En attente" : tournament.place}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                    </div>
+                }
             </div>
 
 
