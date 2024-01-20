@@ -1,32 +1,36 @@
 #createBlindModel {
     margin-left: 10em;
 
-    #addStep {
-        display: flex;
-        flex-direction: row;
-    }
+    // #addStep {
+    //     display: flex;
+    //     flex-direction: row;
+    // }
 
-    #formControl {
-        margin: 0.5em;
-        margin-bottom: 1em;
-    }
+    // #formControl {
+    //     margin: 0.5em;
+    //     margin-bottom: 1em;
+    // }
 
-    #formControl2 {
-        margin-bottom: 1em;
-        margin-top: 0.5em;
-        margin-right: 0.5em;
-    }
+    // #formControl2 {
+    //     margin-bottom: 1em;
+    //     margin-top: 0.5em;
+    //     margin-right: 0.5em;
+    // }
 
-    #addButton {
-        margin: 0.5em;
-        height: 2.5em;
-    }
+    // #addButton {
+    //     margin: 0.5em;
+    //     height: 2.5em;
+    // }
 
-    #step {
-        color: white;
-    }
+    // #step {
+    //     color: white;
+    // }
 
-    #formButtons {
-        margin: 0.3em;
+    // #formButtons {
+    //     margin: 0.3em;
+    // }
+
+    #addStepButton, #pauseButton {
+        margin-top: 1.6em;
     }
 }
