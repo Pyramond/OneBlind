@@ -2,6 +2,7 @@ import { useEffect, useState, useMemo } from 'react';
 import Tournament from "./tournament"
 import { getAllCurrentTournaments } from "../utils/tournaments"
 import { useSelector } from 'react-redux';
+import { Title } from '@mantine/core';
 
 
 export default function AllTournament() {
@@ -19,7 +20,7 @@ export default function AllTournament() {
     return(
         <>
             <div id="allTournaments">
-                <h2 id="allTournamentsTitle">Tournois: </h2>
+                {allTournaments.length === 0 ? "" : <Title order={2} size="h2">Tournois</Title>}
 
                 <div id="tournamentsCards">
                     {allTournaments.map((tournament, index) => (
