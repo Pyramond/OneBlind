@@ -1,15 +1,16 @@
 #allTournaments {
-    margin: 0.5em;
-    margin-top: 4em;
+    // margin: 0.5em;
+    // margin-top: 4em;
 
-    #allTournamentsTitle {
-        margin: 1em;
-    }
+    // #allTournamentsTitle {
+    //     margin: 1em;
+    // }
 
     #tournamentsCards {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
+        margin-top: 5em;
     }
 }
 
@@ -45,6 +46,10 @@
 
         #stack {
             padding: 0.5em;
+        }
+
+        #textInfo {
+            margin-left: 0.7em;
         }
     }
 
