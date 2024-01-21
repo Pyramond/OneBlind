@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { getAllPlayer } from '../utils/players'
-import { Card, Button, Image } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { convertTimeStampDate } from '../utils/date'
-
+import { Button } from '@mantine/core'
 
 export default function AllProfiles() {
 
