@@ -20,7 +20,7 @@ function Classement() {
   return (
     <Stack>
 		<Title order={1}>Classement</Title>
-    	<Table>
+    	<Table verticalSpacing="sm" highlightOnHover>
 	  		<Table.Thead>
 				<Table.Tr>
 					<Table.Th>#</Table.Th>
