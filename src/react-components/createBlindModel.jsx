@@ -1,22 +1,17 @@
-import { useEffect, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { getDate } from "../utils/date";
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../redux/slices/reload";
-import { addModel, removeModel, getAllModels } from '../utils/models';
-import { Link } from 'react-router-dom'
+import { addModel } from '../utils/models';
 import { IconDeviceFloppy } from "@tabler/icons-react";
-
 import { TextInput, NumberInput, Text, Button, Title, Group, Stack, CloseButton, Modal, Notification } from '@mantine/core';
 import { notifications } from '@mantine/notifications'
-import { useDisclosure } from '@mantine/hooks';
 
 
 
 export default function CreateBlindModel() {
 
-    const t = useSelector((state) => state.reload);
     const dispatch = useDispatch();
-    const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
 
     const date = getDate()
     const [name, setName] = useState(`Modèle du ${date}`)
@@ -25,9 +20,7 @@ export default function CreateBlindModel() {
     const [time, setTime] = useState(0)
     const [pauseTime, setPauseTime] = useState(0)
     const [order, setOrder] = useState(1)
-    const [allModels, setAllModels] = useState([])
     function handleChangeName(event) { setName(event.target.value) }
-    const [opened, { open, close }] = useDisclosure(false);
  
     function addStep() {
         const step = {
@@ -75,27 +68,13 @@ export default function CreateBlindModel() {
         }
     }
 
-    async function deleteModel(modelToDelete) {
-        await removeModel(modelToDelete.name, modelToDelete.id)
-        setAllModels((prevAllModels) => prevAllModels.filter((model) => model !== modelToDelete))
-        dispatch(change())
-
-    }
-
-    useEffect(() => {
-        getAllModels().then(models => {
-            setAllModels(models);
-        })
-      }, [effectDependency]);
-
     
     return (
         <>
-            <div id="createBlindModel">
+            <div id="createBlindModel" style={{ marginRight: "10em"}}>
                 <Stack>
 
                     <Title order={1}>Créer une structure de blind</Title>
-
 
                     <Stack>
                         <Title order={5}>Nom de la structure</Title>
@@ -149,28 +128,9 @@ export default function CreateBlindModel() {
                     
                     <Group>
                         <Button id="formButtons" variant="primary" onClick={createModel} rightSection={<IconDeviceFloppy />}> Sauvegarder </Button>
-                        <Button id="formButtons" variant="secondary" onClick={open}>Options </Button>
                     </Group>
 
                 </Stack>
-
-                <Modal opened={opened} onClose={close} title="Options" size="lg">
-                    {allModels.length === 0 ? 
-                        <Text>Aucune structure enregistrée</Text>
-                    :
-                        <ul>
-                            {allModels.map((model, index) => (
-                                <li key={index} className="allModels">
-                                    <Group>
-                                        <Text>{model.name}</Text>
-                                        <Link to={`/blind/${model.id}`}> <Button variant="outline-secondary"> Détails </Button> </Link>
-                                        <Button variant="outline-danger" onClick={() => { deleteModel(model) }}>Supprimer</Button>
-                                    </Group>
-                                </li>
-                            ))}
-                        </ul>
-                    }
-                </Modal>
             </div>
         </>
     )
