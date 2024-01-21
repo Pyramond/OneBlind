@@ -60,10 +60,10 @@ export default function Tournament(props) {
                         </Flex>
 
 
-                        <Text>
-                                - Structure de blind: {props.tournament.blindName} <br/>
-                                - Date:  {convertTimeStamp(props.tournament.date)} <br/>
-                                - Jetons de départ: {props.tournament.initialChip} <br/>
+                        <Text id="textInfo">
+                            Structure de blind: {props.tournament.blindName} <br/>
+                            Date:  {convertTimeStamp(props.tournament.date)} <br/>
+                            Jetons de départ: {props.tournament.initialChip} <br/>
                         </Text>
 
 
