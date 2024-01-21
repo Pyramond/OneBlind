@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { change } from "../redux/slices/reload";
 import { addPlayer } from '../utils/players';
 
-import { Title, TextInput, Button, Group, Space } from '@mantine/core';
+import { Title, TextInput, Button, Group, Space, Stack } from '@mantine/core';
 import { notifications } from '@mantine/notifications';
 
 export default function AddPlayer() {
@@ -34,9 +34,9 @@ export default function AddPlayer() {
     }
 
     return(
-        <>
+        <Stack style={{ marginRight: "40%"}}>
             <Title order={1}>Créer un joueur</Title>
-            <Space h="xl" />
+            <Space h="xs" />
             <Group>
                 <TextInput 
                     placeholder="Nom du joueur"
@@ -45,6 +45,6 @@ export default function AddPlayer() {
                 />
                 <Button onClick={newPlayer}>Créer</Button>
             </Group>
-        </>
+        </Stack>
     )
 }
