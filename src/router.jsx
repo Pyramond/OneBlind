@@ -9,6 +9,10 @@ import TournamentPage from "./pages/tournamentPage"
 import AllProfiles from "./pages/allProfiles"
 import Profile from "./pages/profile"
 import Settings from "./pages/settings"
+import CreateTournament from "./pages/createTournament";
+import BlindModelManagement from "./pages/blindModelManagement";
+import AllTournament from "./pages/allTournaments";
+import PlayerManagement from "./pages/playerManagement";
 
 
 const router = createBrowserRouter([
@@ -48,6 +52,22 @@ const router = createBrowserRouter([
             {
                 path: "/profiles/:id",
                 element: <Profile />
+            },
+            {
+                path: "/tournament/create",
+                element: <CreateTournament />
+            },
+            {
+                path: "/blind/create",
+                element: <BlindModelManagement />
+            },
+            {
+                path: "/tournament/all",
+                element: <AllTournament />
+            },
+            {
+                path: "/players",
+                element: <PlayerManagement />
             }
         ]
     }
