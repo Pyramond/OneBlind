@@ -1,11 +1,12 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Layout } from "./layout";
+import { TournamentLayout } from "./pages/tournament/tournament.layout";
 import Dashboard from "./pages/dashboard"
 import Classement from "./pages/classement"
 import History from "./pages/history"
 import PageNotFound from "./pages/404"
 import Blind from "./pages/blind"
-import TournamentPage from "./pages/tournamentPage"
+import TournamentPage from "./pages/tournament/tournamentPage"
 import AllProfiles from "./pages/allProfiles"
 import Profile from "./pages/profile"
 import Settings from "./pages/settings"
@@ -42,10 +43,6 @@ const router = createBrowserRouter([
                 element: <Blind />
             },
             {
-                path: "/tournament/:id",
-                element: <TournamentPage />
-            },
-            {
                 path: "/profiles",
                 element: <AllProfiles />
             },
@@ -68,6 +65,16 @@ const router = createBrowserRouter([
             {
                 path: "/players",
                 element: <PlayerManagement />
+            }
+        ]
+    },
+    {
+        path: "/tournament/:id",
+        element: <TournamentLayout />,
+        children: [
+            {
+                path: "/tournament/:id",
+                element: <TournamentPage />
             }
         ]
     }
