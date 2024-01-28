@@ -8,19 +8,15 @@ import { getModelById } from '../../utils/models';
 import { setSteps, changeStep } from '../../redux/slices/tournamentPage/steps';
 import MyTimer from '../../react-components/timer';
 import Blind from '../../react-components/blind';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import Other from '../../react-components/tournamentOther';
 import AvStack from '../../react-components/avStack';
 import BlindTab from '../../react-components/blindTab';
+import { SimpleGrid } from '@mantine/core';
 
 export default function TournamentPage() {
 
     const { id } = useParams();
     const dispatch = useDispatch()
-    const t = useSelector((state) => state.tournamentPlayers);
-    const [blindTabComponent, setBlindTabComponent] = useState(<p></p>)
 
     useEffect(() => {
       async function fetchData() {
@@ -29,7 +25,6 @@ export default function TournamentPage() {
 
         const infos = await getTournamentById(id);
         infos.number = players.length;
-        setBlindTabComponent(<BlindTab id={infos.blindId}/>)
         dispatch(setInfos(infos));
 
         const steps = await getModelById(infos.blindId);
@@ -41,18 +36,12 @@ export default function TournamentPage() {
 
   return (
     <>
-      <Container fluid>
-        <Row>
-          <Col> <Blind /> </Col>
-          <Col> <MyTimer /> </Col>
-        </Row>
-        <Row>
-          <Col> <Other id={id} /> </Col>
-          <Col> <AvStack /> </Col>
-        </Row>
-      </Container>
-
-      
+      <SimpleGrid cols={2}>
+          <Blind />
+          <MyTimer />
+          <Other id={id} />
+          <AvStack />
+      </SimpleGrid>
     </>
   )
 }
