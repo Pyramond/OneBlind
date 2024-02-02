@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-// import { Table } from 'react-bootstrap'
 import { getAllTournaments } from '../utils/tournaments'
 import { convertTimeStamp } from '../utils/date'
 import { Stack, Table, Title } from '@mantine/core'
