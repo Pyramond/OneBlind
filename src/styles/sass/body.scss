@@ -1,6 +1,6 @@
-body {
-    background-color: #26292B;
-}
+// body {
+//     background-color: #26292B;
+// }
 
 h2, #label, p, h4 {
     color: white;
@@ -27,4 +27,12 @@ li {
 
 #modalText {
     color: black;
+}
+
+.title {
+    color: light-dark(var(--mantine-color-black), var(--mantine-color-white));
+    font-size: rem(100px);
+    font-weight: 900;
+    // letter-spacing: rem(-2px);
+    
 }

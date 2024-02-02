@@ -1,18 +1,12 @@
 #createTournament {
     width: 25em;
-
-    #addPlayer {
-        display: flex;
-        flex-direction: row;
-    }
     
-    #form-container {
-        display: flex;
-        flex-direction: row;
+    #form-component {
+        margin: 0.2em;
     }
 
-    #players {
-        color: white;
+    #form-button {
+        max-width: 50%;
     }
 
 }

@@ -1,35 +1,32 @@
-import { Table } from 'react-bootstrap';
+import { Table } from "@mantine/core"
 
 export default function BlindTab(props) {
 
     const steps = props.steps
 
     return (
-        <>
-            <div id="blindTabContainer">
-            <Table striped bordered hover variant={props.theme}>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Type</th>
-                        <th>Time</th>
-                        <th>Petite Blind</th>
-                        <th>Grande Blind</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {steps.map((step, index) => (
-                        <tr key={index}>
-                            <td>{step.order}</td>
-                            <td>{step.type}</td>
-                            <td>{step.time} Minutes</td>
-                            <td>{step.sb}</td>
-                            <td>{step.sb * 2}</td>
-                        </tr>
-                    ))}
-                </tbody>
-            </Table>
-            </div>
-        </>
+        <Table verticalSpacing="sm" highlightOnHover>
+
+            <Table.Thead>
+                <Table.Tr>
+                    <Table.Th>#</Table.Th>
+                    <Table.Th>Type</Table.Th>
+                    <Table.Th>Temps</Table.Th>
+                    <Table.Th>Petite Blind</Table.Th>
+                    <Table.Th>Grande Blind</Table.Th>
+                </Table.Tr>
+            </Table.Thead>
+            <Table.Tbody>
+                {steps.map((step, index) => (
+                    <Table.Tr key={index}>
+                        <Table.Td> {step.order} </Table.Td>
+                        <Table.Td> {step.type} </Table.Td>
+                        <Table.Td> {step.time} Minutes </Table.Td>
+                        <Table.Td> {step.sb} </Table.Td>
+                        <Table.Td> {step.sb * 2} </Table.Td>
+                    </Table.Tr>
+                ))}
+            </Table.Tbody>
+        </Table>
     )
 }

@@ -1,12 +1,14 @@
 import { useParams } from "react-router-dom";
 import { useState, useEffect, useMemo } from "react";
 import { getPlayerById } from "../utils/players";
-import { Card, Table, Modal, Button, Toast, ToastContainer } from "react-bootstrap";
 import { convertTimeStamp } from "../utils/date";
 import { getTournamentPlayer } from "../utils/tournaments";
 import { getAllAvatar, updateAvatar } from "../utils/players";
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../redux/slices/reload";
+import { Title, Stack, Table, Group, Text, Modal, Button } from "@mantine/core"
+import { useDisclosure } from "@mantine/hooks";
+import { notifications } from "@mantine/notifications";
 
 
 export default function Profile(props) {
@@ -20,11 +22,7 @@ export default function Profile(props) {
     const [position, setPosition] = useState([])
     const [nbTournament, setNbTournament] = useState(0)
     const [allAvatar, setAllAvatar] = useState([])
-
-    const [show, setShow] = useState(false)
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-    const [showToast, setShowToast] = useState(false)
+    const [opened, { open, close }] = useDisclosure(false)
 
     const dispatch = useDispatch()
     const t = useSelector((state) => state.reload);
@@ -64,57 +62,65 @@ export default function Profile(props) {
     async function avatarModal() {
         const data = await getAllAvatar()
         setAllAvatar(data)
-        handleShow()
+        open()
     }
 
     async function selectAvatar(avatar) {
         const response = await updateAvatar(playerData.id, avatar)
         dispatch(change())
-        handleClose()
-        setShowToast(true)
+        close()
+        notifications.show({
+            title: `Avatar ${avatar}`,
+            message: "Avatar modifié avec succès"
+        })
     }
 
     return(
         <>
-            <h2 id="title">Profil de {playerData.name}</h2>
+            <Title order={1} size="h1"> Profil de {playerData.name} </Title>
 
             <div id="profileContainer">
-                <Card style={{ width: "28rem"}} bg="dark" id="profileCard">
-                    <Card.Body>
-                        <Card.Title style={{ color: "white" }}>
+                <div style={{ width: "28rem"}} id="profileCard">
+                    <Stack id="stackInfo">
+                        <Group style={{ color: "white" }}>
                             <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${playerData.avatar}.png`} id="pp" onClick={avatarModal} />
-                            Informations sur {playerData.name}
-                        </Card.Title>
+                            <Title order={2} size="h2"> {playerData.name} </Title>
+                        </Group>
+
+                        <Text> 
+                            <Text>Id: {playerData.id}</Text>
+                            <Text>Date de création: {convertTimeStamp(parseInt(playerData.date))}</Text>
+                            <Text>Points: {playerData.points}</Text>
+                        </Text>
+
+                    </Stack>
+                </div>
+
+                <div style={{ width: "28rem"}} id="profileCard">
+                    <Stack id="stackInfo">
+                        <Title order={2} size="h2">Statistiques</Title>
 
                         <div id="infosContainer">
-                            <Card.Text>Id: {playerData.id}</Card.Text>
-                            <Card.Text>Date de création: {convertTimeStamp(parseInt(playerData.date))}</Card.Text>
-                            <Card.Text>Points: {playerData.points}</Card.Text>
+                            <Text>Nombre de tournois: {nbTournament}</Text>
+                            <Group>
+                                <Stack>
+                                    <Text>
+                                        <Text id="textStats"> top #1: {(Math.round((top1 / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
+                                        <Text id="textStats"> top #2: {(Math.round((top2 / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
+                                        <Text id="textStats"> top #3: {(Math.round((top3 / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
+                                    </Text>
+                                </Stack>
+                                <Stack>
+                                    <Text>
+                                        <Text id="textStats"> Podium: {(Math.round(((top1 + top2 + top3) / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
+                                        <Text id="textStats"> Meilleure position: {Math.min(...position)} </Text>
+                                        <Text id="textStats"> Pire position: {Math.max(...position)} </Text>
+                                    </Text>
+                                </Stack>
+                            </Group>
                         </div>
-                    </Card.Body>
-                </Card>
-
-                <Card style={{ width: "28rem"}} bg="dark" id="profileCard">
-                    <Card.Body>
-                        <Card.Title style={{ color: "white" }}>Statistiques</Card.Title>
-
-                        <div id="infosContainer">
-                            <Card.Text>Nombre de tournois: {nbTournament}</Card.Text>
-                            <div id="statsProfile">
-                                <div id="tops">
-                                    <Card.Text>top #1: {(Math.round((top1 / nbTournament) * 100 * 100) / 100).toFixed(2)}%</Card.Text>
-                                    <Card.Text>top #2: {(Math.round((top2 / nbTournament) * 100 * 100) / 100).toFixed(2)}%</Card.Text>
-                                    <Card.Text>top #3: {(Math.round((top3 / nbTournament) * 100 * 100) / 100).toFixed(2)}%</Card.Text>
-                                </div>
-                                <div id="OtherStats">
-                                    <Card.Text>Podium: {(Math.round(((top1 + top2 + top3) / nbTournament) * 100 * 100) / 100).toFixed(2)}%</Card.Text>
-                                    <Card.Text>Meilleure position: {Math.min(...position)}</Card.Text>
-                                    <Card.Text>Pire position: {Math.max(...position)}</Card.Text>
-                                </div>
-                            </div>
-                        </div>
-                    </Card.Body>
-                </Card>
+                    </Stack>
+                </div>
             </div>
 
 
@@ -122,36 +128,32 @@ export default function Profile(props) {
                 {tournaments.length == 0 ? 
                 <div> <h3>Historique des tournois vide</h3></div>
                 :
-                    <div>
-                    <h3>Historique des tournois de {playerData.name}:</h3>
-                    <Table striped bordered hover variant='dark' id="tournamentsPlayerTable">
-                        <thead>
-                            <tr>
-                                <th>Nom</th>
-                                <th>Date</th>
-                                <th>Place</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {tournaments.map((tournament, index) => (
-                                <tr key={index}>
-                                    <td>{tournament.name}</td>
-                                    <td>{convertTimeStamp(parseInt(tournament.date))}</td>
-                                    <td>{tournament.place == 0 ? "En attente" : tournament.place}</td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </Table>
-                    </div>
+                    <Stack>
+                        <Title order={3} size="h3">Historique des tournois de {playerData.name}</Title>
+                        <Table verticalSpacing="sm" highlightOnHover withTableBorder >
+                            <Table.Thead>
+                                <Table.Tr>
+                                    <Table.Th> Nom </Table.Th>
+                                    <Table.Th> Date </Table.Th>
+                                    <Table.Th> Place </Table.Th>
+                                </Table.Tr>
+                            </Table.Thead>
+                            <Table.Tbody>
+                                {tournaments.map((tournament, index) => (
+                                    <Table.Tr key={index}>
+                                        <Table.Td> {tournament.name} </Table.Td>
+                                        <Table.Td> {convertTimeStamp(parseInt(tournament.date))} </Table.Td>
+                                        <Table.Td> {tournament.place == 0 ? "En attente" : tournament.place} </Table.Td>
+                                    </Table.Tr>
+                                ))}
+                            </Table.Tbody>
+                        </Table>
+                    </Stack>
                 }
             </div>
 
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Liste des avatars</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
+            <Modal opened={opened} onClose={close} title="Liste des avatars">
+                <Stack>
                     <div id="allPPContainer">
                         {allAvatar.map((avatar, index) => (
                             <div id="PPContainer">
@@ -160,17 +162,8 @@ export default function Profile(props) {
                             </div>
                         ))}
                     </div>
-                </Modal.Body>
+                </Stack>
             </Modal>
-
-            <ToastContainer position="bottom-end">
-                <Toast onClose={() => setShowToast(false)} show={showToast} delay={5000} autohide data-bs-theme="dark">
-                    <Toast.Header>
-                        <strong className="me-auto">Avatar</strong>
-                    </Toast.Header>
-                    <Toast.Body id="avatarBody">Avatar modifié avec succès</Toast.Body>
-                </Toast>
-            </ToastContainer>
         </>
     )
 }

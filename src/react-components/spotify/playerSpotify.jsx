@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react"
-import { Button, OverlayTrigger, Tooltip } from "react-bootstrap"
 import { useDispatch } from 'react-redux';
 import { change } from '../../redux/slices/reload';
 import { useNavigate } from "react-router-dom";
+import { HoverCard, Text, Button } from "@mantine/core";
+
 
 export default function PlayerSpotify() {
 
@@ -23,18 +24,6 @@ export default function PlayerSpotify() {
     function openSettings() {
         navigate("/settings")
     }
-
-    const renderTooltipMusic = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-          {musicName}
-        </Tooltip>
-    );
-
-    const renderTooltipArtist = (props) => (
-        <Tooltip id="button-tooltip" {...props}>
-          {artist}
-        </Tooltip>
-    );
 
     function openArtistPage() {
         console.log(artistUrl)
@@ -111,19 +100,30 @@ export default function PlayerSpotify() {
                     <div>
                         <p>Composant Indisponible</p> 
                         <div id="errorButtons">
-                            <Button variant="primary" onClick={openSettings} id="errorButton">Paramètres</Button>
-                            <Button variant="secondary" onClick={setDefaultComponent} id="errorButton">Changer le composant</Button>
+                            <Button onClick={openSettings} id="errorButton">Paramètres</Button>
+                            <Button variant="default" onClick={setDefaultComponent} id="errorButton">Changer le composant</Button>
                         </div>
                     </div>
                     :
-                    <p>
-                        <OverlayTrigger placement="top" overlay={renderTooltipMusic}>
-                            <span id="musicTitle" onClick={openMusicPage}> {musicName.length > 15 ? musicName.substring(0, 15) + "..." : musicName} </span>
-                        </OverlayTrigger>
-                        <OverlayTrigger placement="bottom" overlay={renderTooltipArtist}>
-                            <span onClick={openArtistPage}> <br /> {artist.length > 15 ? artist.substring(0, 15) + "..." : artist} </span>
-                        </OverlayTrigger>
-                    </p>
+                    <Text>
+                        <HoverCard>
+                            <HoverCard.Target>
+                                <span id="musicTitle" onClick={openMusicPage}> {musicName.length > 20 ? musicName.substring(0, 20) + "..." : musicName} </span>
+                            </HoverCard.Target>
+                            <HoverCard.Dropdown>
+                                {musicName}
+                            </HoverCard.Dropdown>
+                        </HoverCard>
+
+                        <HoverCard>
+                            <HoverCard.Target>
+                                <span onClick={openArtistPage}> <br /> {artist.length > 20 ? artist.substring(0, 20) + "..." : artist} </span>
+                            </HoverCard.Target>
+                            <HoverCard.Dropdown>
+                                {artist}
+                            </HoverCard.Dropdown>
+                        </HoverCard>
+                    </Text>
                 }
             </div>
         </>

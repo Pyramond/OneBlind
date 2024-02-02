@@ -1,5 +1,4 @@
-import { Button } from "react-bootstrap"
-import { IconDownload } from "@tabler/icons-react"
+import { Button } from "@mantine/core"
 
 
 export default function DownloadDb() {
@@ -8,5 +7,5 @@ export default function DownloadDb() {
         window.location.assign(`${import.meta.env.VITE_BACKEND_SERVER}/static/database.db`)
     }
 
-    return <Button variant="primary" onClick={download} id="navbarButtons">Télécharger la base de donnée <IconDownload /> </Button>
+    return <Button variant="light" onClick={download} id="navbarButtons">Télécharger la base de donnée </Button>
 }

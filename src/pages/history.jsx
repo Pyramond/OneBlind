@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Table } from 'react-bootstrap'
 import { getAllTournaments } from '../utils/tournaments'
 import { convertTimeStamp } from '../utils/date'
+import { Stack, Table, Title } from '@mantine/core'
 
 export default function history() {
 
@@ -17,31 +17,29 @@ export default function history() {
     }, [])
 
     return(
-        <>
-            <div id="historyContainer">
-                <h2 id="title">Historique des parties: </h2>
+        <Stack>
+            <Title order={1}>Historique des parties</Title>
 
-                <Table striped bordered hover variant='dark'>
-                    <thead>
-                        <tr>
-                            <th>Id</th>
-                            <th>Nom</th>
-                            <th>Date</th>
-                            <th>Modèle de blind</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {allTournaments.map((tournament, index) => (
-                            <tr key={index}>
-                                <td>{tournament.id}</td>
-                                <td>{tournament.name}</td>
-                                <td>{convertTimeStamp(tournament.date)}</td>
-                                <td>{tournament.blindName}</td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </div>
-        </>
+            <Table verticalSpacing="sm" highlightOnHover>
+                <Table.Thead>
+                    <Table.Tr>
+                        <Table.Th>Id</Table.Th>
+                        <Table.Th>Nom</Table.Th>
+                        <Table.Th>Date</Table.Th>
+                        <Table.Th>Modèle de blind</Table.Th>
+                    </Table.Tr>
+                </Table.Thead>
+                <Table.Tbody>
+                    {allTournaments.map((tournament, index) => (
+                        <Table.Tr key={index}>
+                            <Table.Td>{tournament.id}</Table.Td>
+                            <Table.Td>{tournament.name}</Table.Td>
+                            <Table.Td>{convertTimeStamp(tournament.date)}</Table.Td>
+                            <Table.Td>{tournament.blindName}</Table.Td>
+                        </Table.Tr>
+                    ))}
+                </Table.Tbody>
+    	    </Table>
+        </Stack>
     )
 }
