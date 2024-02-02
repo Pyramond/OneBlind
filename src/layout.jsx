@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import { AppShell, Burger, Group, Button, Image, Stack, Title, Space } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { useNavigate, Link } from 'react-router-dom';
+import DownloadDb from "./react-components/navbar/components/downloadDb";
 
 
 export function Layout() {
@@ -48,7 +49,11 @@ export function Layout() {
                 <Button variant="light" onClick={() => { navigate("/players") }}>Joueurs</Button>
                 <Button variant="light" onClick={() => { navigate("/blind/create") }}>Structure de blind</Button>
                 <Button variant="light" onClick={() => { navigate("/tournament/create") }}>Créer tournoi</Button>
-                <Button variant="light" onClick={() => { navigate("/tournament/all")}}>Tournoi</Button>
+                <Button variant="light" onClick={() => { navigate("/tournament/all")}}>Tournois</Button>
+
+                <Space h="xl" />
+
+                <DownloadDb />
             </Stack>
           
 
