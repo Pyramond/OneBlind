@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeStep, prevStep } from '../redux/slices/tournamentPage/steps';
 import { set } from '../redux/slices/tournamentPage/timer';
 import { useEffect, useState, useMemo } from 'react';
-import { Button, Form } from 'react-bootstrap';
+import { Button, Slider } from '@mantine/core';
 
 
 export default function MyTimer() {
@@ -104,30 +104,32 @@ export default function MyTimer() {
 
             <p id="info">{isFinish ? `${Object.keys(t.steps).length} / ${Object.keys(t.steps).length}` : `${t.currentStep.order} / ${Object.keys(t.steps).length}`}</p>
             
-            <Button variant="secondary" disabled={isDisabled} onClick={() => {
+            <Button variant="default" disabled={isDisabled} onClick={() => {
                 verifyStep("prev")
             }}> <img src="/images/timer-icons/PreviousArrowBackward.svg" alt="Prev_button_icon" /> </Button>
 
-            {isPlay ? <Button variant="danger" onClick={() => { pause() ; setIsPlay(false)}} id="timerButtons"> <img src="/images/timer-icons/Pause.svg" alt="Pause_button_image" /> </Button> : <Button variant='success' onClick={() => { resume() ; setIsPlay(true)}} id="timerButtons"> <img src="/images/timer-icons/Play.svg" alt="Play_button_image" /> </Button>}
+            {isPlay ? <Button variant="filled" color="red" onClick={() => { pause() ; setIsPlay(false)}} id="timerButtons"> <img src="/images/timer-icons/Pause.svg" alt="Pause_button_image" /> </Button> : <Button variant='filled' color="#1ed760" onClick={() => { resume() ; setIsPlay(true)}} id="timerButtons"> <img src="/images/timer-icons/Play.svg" alt="Play_button_image" /> </Button>}
 
-            <Button variant="secondary" onClick={() => {
+            <Button variant="default" onClick={() => {
                 const time = new Date(new Date().getTime() + t.currentStep.time * 60000);
                 restart(time);
             }} id="timerButtons" > <img src="/images/timer-icons/restart.svg" alt="Restart_button_image" id="Restart_button_image" /> </Button>
 
-            <Button variant="secondary" onClick={() => {
+            <Button variant="default" onClick={() => {
                 verifyStep("next")
             }}> <img src="/images/timer-icons/NextArrowForward.svg" alt="Next_button_image" /> </Button>
 
             <div id="sliderContainer">
-                <Form.Range 
-                    id="slider"
+
+                <input type="range" 
+                    className="slider"
                     value={minutes * 60 + seconds}
                     step={1}
                     min={0}
                     max={t.currentStep.time * 60}
                     onChange={handleSliderChange}
                 />
+
             </div>
         </div>
     );
