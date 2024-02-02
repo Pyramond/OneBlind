@@ -1,6 +1,5 @@
-import { Button } from "react-bootstrap"
 import { useEffect } from "react"
-import { IconBrandSpotify } from "@tabler/icons-react"
+import { Button } from "@mantine/core"
 
 
 export default function LoginSpotify(props) {
@@ -55,8 +54,8 @@ export default function LoginSpotify(props) {
     }, [])
 
     function openLogin() {
-        const width = 600;
-        const height = 400;
+        const width = 800;
+        const height = 500;
 
         const left = window.innerWidth / 2 - width / 2;
         const top = window.innerHeight / 2 - height / 2;
@@ -64,9 +63,13 @@ export default function LoginSpotify(props) {
         window.open(LOGIN_URL, '_blank', `width=${width},height=${height},left=${left},top=${top}`);
     }
 
-    return (
-        <>
-            <Button variant="success" onClick={openLogin}>{props.message ? props.message : "Se connecter à Spotify"} <IconBrandSpotify stroke-width="2"/> </Button>
-        </>
-    )
+    if (props.button) {
+        return (
+            <>
+                <Button variant="light" color="#1fdf64" onClick={openLogin}>{props.message ? props.message : "Se connecter à Spotify"} </Button>
+            </>
+        )
+    } else {
+        return null
+    }
 }

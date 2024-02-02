@@ -1,4 +1,5 @@
 import { Title, Flex, Text, Image } from "@mantine/core"
+import LoginSpotify from "../react-components/spotify/loginSpotify"
 
 
 export default function Dashboard() {
@@ -19,6 +20,8 @@ export default function Dashboard() {
         </Title>
 
         <Image src="/images/pokerLuffy.png" alt="pokerLuffy" ta="center" mt={100} style={{maxWidth: "30em", borderRadius: "3em"  }} />
+
+        <LoginSpotify path="/" />
     </Flex>
   )
 }
