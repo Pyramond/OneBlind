@@ -45,13 +45,14 @@ export function getTournamentPlayer(id) {
   return fetchWrapper("/tournament/get_player_tournaments", "POST", { id });
 }
 
-export function addTournament(name, date, blind, players, initialChips) {
+export function addTournament(name, date, blind, players, initialChips, points) {
   const body = {
     name,
     date,
     blind,
     players,
-    initialChips: parseInt(initialChips)
+    initialChips: parseInt(initialChips),
+    points: points
   };
   return fetchWrapper("/tournament/create", "POST", body);
 }

@@ -58,8 +58,13 @@ export function TournamentPlayers(props) {
 
     async function eliminatePlayer(id, remove, name) {
 
+        let points;
         const place = Object.keys(t.value).length
-        const points = calculatePoints(place, tournamentInfo.nbPlayer)
+        if(tournamentInfo.points == false) {
+            points = 0
+        } else {
+            points = calculatePoints(place, tournamentInfo.nbPlayer)
+        }
 
         const playerStats = {
             "name": name,

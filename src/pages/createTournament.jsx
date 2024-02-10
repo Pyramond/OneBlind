@@ -6,7 +6,7 @@ import { getAllModels } from "../utils/models";
 import { change } from "../redux/slices/reload";
 import { addTournament } from '../utils/tournaments';
 import { IconDeviceFloppy } from "@tabler/icons-react"
-import { TextInput, NumberInput, Menu, Button, Title, Group, Stack, CloseButton, Text, Notification } from '@mantine/core';
+import { TextInput, NumberInput, Menu, Button, Title, Group, Stack, CloseButton, Checkbox } from '@mantine/core';
 import { notifications } from '@mantine/notifications'
 
 
@@ -25,6 +25,7 @@ export default function CreateTournament() {
   const [initialChips, setInitialChips] = useState(0)
   const [allModels, setAllModels] = useState([])
   const [selectedModel, setSelectedModel] = useState({})
+  const [ points, setPoints ] = useState(true)
 
   
   const handlePlayers = (selectedItemId) => {
@@ -64,7 +65,7 @@ export default function CreateTournament() {
         "name": selectedModel.name,
         "id": selectedModel.id
       }
-      await addTournament(tournamentName, getTimeStamp(), blindObject, players, initialChips)
+      await addTournament(tournamentName, getTimeStamp(), blindObject, players, initialChips, points)
       dispatch(change())
       
 	  notifications.show({
@@ -110,7 +111,7 @@ export default function CreateTournament() {
 					</Menu.Target>
 					<Menu.Dropdown>
 						{allModels.map((model, index) => (
-						<Menu.Item key={index} eventKey={model.id} onClick={() => { handleBlindSelect(model.id)}}>{model.name}</Menu.Item>
+						<Menu.Item key={index} onClick={() => { handleBlindSelect(model.id)}}>{model.name}</Menu.Item>
 						))}
 					</Menu.Dropdown>
 				</Menu>
@@ -137,7 +138,7 @@ export default function CreateTournament() {
 					
 					<Menu.Dropdown>
 						{allPLayers.map((player, index) => (
-							<Menu.Item key={index} eventKey={player.id} onClick={() => { handlePlayers(player.id)}}>{player.name}</Menu.Item>
+							<Menu.Item key={index} onClick={() => { handlePlayers(player.id)}}>{player.name}</Menu.Item>
 						))}
 					</Menu.Dropdown>
 				</Menu>
@@ -155,6 +156,12 @@ export default function CreateTournament() {
         	))}
         	</ul>
 
+			
+			<Checkbox 
+				checked={points}
+				onChange={(event) => setPoints(event.currentTarget.checked)}
+				label="Compter les points pour ce tournoi"
+			/>
 
         <Button variant="primary" onClick={create} rightSection={<IconDeviceFloppy />} id="form-button">Sauvegarder</Button>
 
