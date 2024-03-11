@@ -20,6 +20,7 @@ export function TournamentPlayers(props) {
     const [ endingOpened, { toggle: endingModal }] = useDisclosure(false)
     const [ finalPlayersOpened, { toggle: finalPlayersModal }] = useDisclosure(false)
     const [classementOpened, { toggle: classementModal }] = useDisclosure(false)
+    const [ firstPlayerEliminatedOpened, { toggle: firstPlayerEliminatedModal }] = useDisclosure(false)
 
     // Redux
     const t = useSelector((state) => state.tournamentPlayers);
@@ -58,8 +59,10 @@ export function TournamentPlayers(props) {
 
     async function eliminatePlayer(id, remove, name) {
 
-        let points;
+        
         const place = Object.keys(t.value).length
+
+        let points;
         if(tournamentInfo.points == false) {
             points = 0
         } else {
@@ -71,7 +74,6 @@ export function TournamentPlayers(props) {
             "place": place,
             "points": points
         }
-        console.warn(playerStats)
         setEliminationsTab([...eliminationsTab, playerStats]);
 
         await utilsEliminatePlayer(id, place, props.id, points)
@@ -82,6 +84,17 @@ export function TournamentPlayers(props) {
                 message: "Joueur éliminé avec succès"
             })
             close()
+
+            if(place === tournamentInfo.nbPlayer) {
+                firstPlayerEliminatedModal()
+                let audio = new Audio("/sounds/luffy_laugh.mp3")
+                if(!window.localStorage.getItem("volume")) {
+                    audio.volume = 1
+                } else {
+                    audio.volume = window.localStorage.getItem("volume")
+                }
+                audio.play()
+            }
         }
     }
 
@@ -138,6 +151,7 @@ export function TournamentPlayers(props) {
                     <img src="/images/fight.gif" alt="finalGif" id="finalGif"/>
                 </Stack>
             </Modal>
+            
 
 
             {/* Classement Modal */}
@@ -160,6 +174,12 @@ export function TournamentPlayers(props) {
                         ))}
                     </Table.Tbody>
                 </Table>
+            </Modal>
+
+
+            {/* 1st player eliminated */}
+            <Modal opened={firstPlayerEliminatedOpened} onClose={firstPlayerEliminatedModal} size="lg" title="Premier joueur éliminé">
+                <img src="/images/firstPlayerEliminatedImage.png" alt="firstPlayedEliminatedImage" id="firstPlayerEliminatedImage" />
             </Modal>
         </>
     )
