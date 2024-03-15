@@ -60,11 +60,13 @@
 
 #allPPContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-wrap: wrap;
 
     #PPContainer {
         display: flex;
         flex-direction: row;
+        margin: 0.6em;
 
         #selectButton {
             height: 2.5em;
@@ -75,6 +77,10 @@
             border-radius: 16em;
             height: 80px;
             width: 80px;
+
+            &:hover {
+                opacity: 0.5;
+            }
         }
     }
 }

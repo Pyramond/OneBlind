@@ -6,9 +6,10 @@ import { getTournamentPlayer } from "../utils/tournaments";
 import { getAllAvatar, updateAvatar } from "../utils/players";
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../redux/slices/reload";
-import { Title, Stack, Table, Group, Text, Modal, Button } from "@mantine/core"
+import { Title, Stack, Table, Group, Text, Modal } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
+import { getDiceBearAvatar } from "../utils/avatars";
 
 
 export default function Profile(props) {
@@ -70,7 +71,7 @@ export default function Profile(props) {
         dispatch(change())
         close()
         notifications.show({
-            title: `Avatar ${avatar}`,
+            title: avatar === 0 ? "Avatar DiceBear" : `Avatar ${avatar}`,
             message: "Avatar modifié avec succès"
         })
     }
@@ -83,8 +84,11 @@ export default function Profile(props) {
                 <div style={{ width: "28rem"}} id="profileCard">
                     <Stack id="stackInfo">
                         <Group style={{ color: "white" }}>
-                            <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${playerData.avatar}.png`} id="pp" onClick={avatarModal} />
+
+                            <img src={playerData.avatar === 0 ? getDiceBearAvatar(playerData.name) : `${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${playerData.avatar}.png`} id="pp" onClick={avatarModal} />
+
                             <Title order={2} size="h2"> {playerData.name} </Title>
+
                         </Group>
 
                         <Text> 
@@ -155,12 +159,20 @@ export default function Profile(props) {
             <Modal opened={opened} onClose={close} title="Liste des avatars">
                 <Stack>
                     <div id="allPPContainer">
+
                         {allAvatar.map((avatar, index) => (
+
                             <div id="PPContainer">
-                                <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${index+1}.png`} id="allPP" />
-                                <Button id="selectButton" onClick={() => { selectAvatar(index+1) }}>Choisir</Button>
+
+                                {index === 0 ?
+                                    <img src={getDiceBearAvatar(playerData.name)} id="allPP" onClick={() => { selectAvatar(index) }} />
+                                    :
+                                    <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${index}.png`} id="allPP" onClick={() => { selectAvatar(index) }} />
+                                }
                             </div>
+
                         ))}
+
                     </div>
                 </Stack>
             </Modal>
