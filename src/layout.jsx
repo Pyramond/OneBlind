@@ -3,6 +3,7 @@ import { AppShell, Burger, Group, Button, Image, Stack, Title, Space } from '@ma
 import { useDisclosure } from '@mantine/hooks';
 import { useNavigate, Link } from 'react-router-dom';
 import DownloadDb from "./react-components/navbar/components/downloadDb";
+import { IconBrandGithub } from "@tabler/icons-react"
 
 
 export function Layout() {
@@ -55,6 +56,8 @@ export function Layout() {
                 <Title order={3} size="h3">Autres</Title>
                 <DownloadDb />
                 <Button variant="light" onClick={() => { navigate("/changelogs")}}>Changelogs</Button>
+                <Button variant="light" leftSection={<IconBrandGithub size={25}/>} onClick={() => window.location.assign("https://github.com/Pyramond/OneBlind")}>Github</Button>
+
             </Stack>
           
 
