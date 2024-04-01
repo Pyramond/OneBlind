@@ -24,7 +24,6 @@ export function Layout() {
         <AppShell.Header>
           <Group h="100%" px="md">
             <Burger opened={mobileOpened} onClick={toggleMobile} hiddenFrom="sm" size="sm" />
-            {/* <Burger opened={desktopOpened} onClick={toggleDesktop} visibleFrom="sm" size="sm" /> */}
             
             <Link to="/">
                 <Image
@@ -53,7 +52,9 @@ export function Layout() {
 
                 <Space h="xl" />
 
+                <Title order={3} size="h3">Autres</Title>
                 <DownloadDb />
+                <Button variant="light" onClick={() => { navigate("/changelogs")}}>Changelogs</Button>
             </Stack>
           
 

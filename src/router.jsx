@@ -14,6 +14,7 @@ import BlindModelManagement from "./pages/blindModelManagement";
 import AllTournament from "./pages/allTournaments";
 import PlayerManagement from "./pages/playerManagement";
 import { ErrorPage } from "./pages/error/errorPage";
+import ChangelogsPage from "./pages/changelogs";
 
 
 const router = createBrowserRouter([
@@ -65,6 +66,10 @@ const router = createBrowserRouter([
             {
                 path: "/players",
                 element: <PlayerManagement />
+            },
+            {
+                path: "/changelogs",
+                element: <ChangelogsPage />
             }
         ]
     },
