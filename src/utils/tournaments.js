@@ -70,3 +70,20 @@ export function eliminatePlayer(playerId, place, tournamentId, points) {
   };
   return fetchWrapper("/tournament/eliminate", "POST", body);
 }
+
+
+export function addPlayerTournament(Pid, Tid) {
+  const body = {
+    Tid: Tid,
+    Pid: Pid
+  }
+  return fetchWrapper("/tournament/add/player", "POST", body)
+}
+
+export function removePlayerTournament(Pid, Tid) {
+  const body = {
+    Tid: Tid,
+    Pid: Pid
+  }
+  return fetchWrapper("/tournament/remove/player", "POST", body)
+}

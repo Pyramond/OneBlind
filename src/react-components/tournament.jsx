@@ -4,12 +4,11 @@ import { getTournamentPlayers } from "../utils/tournaments"
 import { convertTimeStamp } from "../utils/date"
 import { useDispatch } from "react-redux"
 import { change } from '../redux/slices/reload';
-import { removeTournament } from '../utils/tournaments';
+import { removeTournament, addPlayerTournament, removePlayerTournament } from '../utils/tournaments';
 import { useNavigate } from 'react-router-dom';
-import { IconArrowUpRight } from "@tabler/icons-react"
-
-
-import { Button, Title, CloseButton, Popover, Text, Stack, Group, Flex, Modal, Space } from '@mantine/core';
+import { IconArrowUpRight, IconDots, IconTrash, IconUsers } from "@tabler/icons-react"
+import { getAllPlayer } from '../utils/players';
+import { Button, Title, Menu, Popover, Text, Stack, Group, Flex, Modal, Space, ActionIcon, rem, CloseButton } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 
 
@@ -17,6 +16,7 @@ export default function Tournament(props) {
 
     const navigate = useNavigate()
     const [players, setPlayers] = useState([])
+    const [allPlayers, setAllPlayers] = useState([])
 
     const t = useSelector((state) => state.reload);
     const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
@@ -24,6 +24,7 @@ export default function Tournament(props) {
 
     const [opened, { close, open }] = useDisclosure(false);
     const [openedModal, setOpenedModal] = useState(false)
+    const [openedPlayerModal, { toggle: playerModalToggle }] = useDisclosure(false)
     
     function openModal() { setOpenedModal(true)}
     function closeModal() { setOpenedModal(false)}
@@ -32,6 +33,18 @@ export default function Tournament(props) {
         getTournamentPlayers(props.tournament.id).then(players => {
             setPlayers(players)
         })
+
+        getAllPlayer().then(result => {
+
+            function elementsUniques(tableau1, tableau2) {
+                return tableau2.filter(element2 => {
+                    return !tableau1.some(element1 => element1.id === element2.id);
+                });
+            }
+
+            setAllPlayers(elementsUniques(players, result))
+        });
+
     }, [effectDependency])
 
     async function deleteTournament(id) {
@@ -56,7 +69,33 @@ export default function Tournament(props) {
                             
                         >
                             <Title order={4}>{props.tournament.name}</Title>
-                            <CloseButton onClick={openModal}/>
+                            <Menu trigger="hover" position="right-start">
+
+                                <Menu.Target>
+                                    <ActionIcon variant="transparent" color="gray">
+                                        <IconDots />
+                                    </ActionIcon>
+                                </Menu.Target>
+
+                                <Menu.Dropdown>
+
+                                    <Menu.Item
+                                        leftSection={<IconUsers style={{ width: rem(14), height: rem(14) }} />}
+                                        onClick={() => { playerModalToggle(); dispatch(change())}}
+                                        >
+                                        Joueurs
+                                    </Menu.Item>
+
+                                    <Menu.Item
+                                        color="red"
+                                        leftSection={<IconTrash style={{ width: rem(14), height: rem(14) }} />}
+                                        onClick={openModal}
+                                        >
+                                        Supprimer
+                                    </Menu.Item>
+
+                                </Menu.Dropdown>
+                            </Menu>
                         </Flex>
 
 
@@ -93,6 +132,33 @@ export default function Tournament(props) {
                     <Group>
                         <Button variant="default" onClick={closeModal}>Annuler</Button>
                         <Button color='red' onClick={() => { closeModal() ; deleteTournament(props.tournament.id) ; dispatch(change())}}>Supprimer</Button>
+                    </Group>
+                </Modal>
+
+
+                <Modal opened={openedPlayerModal} onClose={playerModalToggle} size="30%" title="Gérer les joueurs">
+                    <Group id="managePlayerGroup">
+                        <Stack>
+                            {players.map((player, index) => (
+                                <Group key={index} disabled={true} id="player"> <CloseButton onClick={() => { removePlayerTournament(player.id, props.tournament.id); dispatch(change()) }}/> {player.name} </Group>
+                            ))}
+                        </Stack>
+
+                        <Stack id="addPlayer">
+                            <Text>Ajouter un joueur</Text>
+                            <Menu>
+                                
+                                <Menu.Target>
+                                    <Button variant="default">Joueurs</Button>
+                                </Menu.Target>
+
+                                <Menu.Dropdown>
+                                    {allPlayers.map((player, index) => (
+                                        <Menu.Item key={index} onClick={() => { addPlayerTournament(player.id, props.tournament.id); dispatch(change()) }}>{player.name}</Menu.Item>
+                                    ))}
+                                </Menu.Dropdown>
+                            </Menu>
+                        </Stack>
                     </Group>
                 </Modal>
 
