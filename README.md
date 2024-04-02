@@ -14,7 +14,7 @@
 ## prerequisites
 
 - Install [backend server](https://github.com/Pyramond/Oneblind-Backend)
-- Install NodeJs and Npn
+- Install NodeJs and Npm
 - Install Docker
 
 
