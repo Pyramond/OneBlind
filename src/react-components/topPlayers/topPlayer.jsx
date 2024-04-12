@@ -1,12 +1,15 @@
 import { getAllPlayer } from "../../utils/players"
 import { useEffect, useState } from 'react'
 import Player from "./player"
-import { Skeleton } from '@mantine/core';
 
 
 export default function TopPlayer() {
 
-    const [allPlayers, setAllPlayers] = useState([])
+    const [allPlayers, setAllPlayers] = useState([
+        {"name": "Unknown", "points": 0, "place": 1},
+        {"name": "Unknown", "points": 0, "place": 2},
+        {"name": "Unknown", "points": 0, "place": 3}
+    ])
 
     useEffect(() => {
       async function fetchData() {
@@ -20,19 +23,12 @@ export default function TopPlayer() {
     return (
         <>
 
-            {allPlayers.length == 0 ? 
-                <div id="topPlayers">
-                    <Skeleton height={50} id="skeleton" />
-                    <Skeleton height={50} id="skeleton" />
-                    <Skeleton height={50} id="skeleton" />
-                </div>
-            :
-                <div id="topPlayers">
-                {allPlayers.map((player, index) => (
-                    <Player key={index} name={player.name} points={player.points} place={index + 1} />
-                ))}
-                </div>
-            }
+            <div id="topPlayers">
+            {allPlayers.map((player, index) => (
+                <Player key={index} name={player.name} points={player.points} place={index + 1} />
+            ))}
+            </div>
+            
         </>
     )
 }
