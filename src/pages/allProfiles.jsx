@@ -3,7 +3,7 @@ import { getAllPlayer } from '../utils/players'
 import { Link } from 'react-router-dom'
 import { convertTimeStampDate } from '../utils/date'
 import { Button } from '@mantine/core'
-import { getDiceBearAvatar } from '../utils/avatars'
+import { defineAvatar } from '../utils/avatars'
 
 export default function AllProfiles() {
 
@@ -28,7 +28,7 @@ export default function AllProfiles() {
               <div id="playerCard" key={index}>
 
                 <div id="topCard">
-                <img src={player.avatar === 0 ? getDiceBearAvatar(player.name) : `${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${player.avatar}.png`} id="pp" />
+                <img src={defineAvatar(player.name, player.avatar)} id="pp" />
                   <div id='topInfo'>
                     <p id="pseudo">{player.name}</p>
                     <p id="points">{player.points} points</p>

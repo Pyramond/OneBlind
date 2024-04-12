@@ -9,7 +9,7 @@ import { change } from "../redux/slices/reload";
 import { Title, Stack, Table, Group, Text, Modal } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
-import { getDiceBearAvatar } from "../utils/avatars";
+import { defineAvatar, getOxroAvatar } from "../utils/avatars";
 
 
 export default function Profile(props) {
@@ -24,6 +24,7 @@ export default function Profile(props) {
     const [nbTournament, setNbTournament] = useState(0)
     const [allAvatar, setAllAvatar] = useState([])
     const [opened, { open, close }] = useDisclosure(false)
+    const [avatarURL, setAvatarURL] = useState("")
 
     const dispatch = useDispatch()
     const t = useSelector((state) => state.reload);
@@ -33,6 +34,11 @@ export default function Profile(props) {
         async function fetchData() {
             const data = await getPlayerById(id)
             setPlayerData(data)
+            
+            setAvatarURL(defineAvatar(data.name, data.avatar))
+
+            console.log(avatarURL)
+
         }
 
         async function fetchTournament() {
@@ -68,10 +74,22 @@ export default function Profile(props) {
 
     async function selectAvatar(avatar) {
         const response = await updateAvatar(playerData.id, avatar)
+        let message = ""
+        switch(avatar) {
+            case 0:
+                message = "DiceBear"
+                break
+            case -1:
+                message = "initiale"
+                break
+            case avatar > 0:
+                message = avatar
+
+        }
         dispatch(change())
         close()
         notifications.show({
-            title: avatar === 0 ? "Avatar DiceBear" : `Avatar ${avatar}`,
+            title: `Avatar ${message}`,
             message: "Avatar modifié avec succès"
         })
     }
@@ -85,7 +103,7 @@ export default function Profile(props) {
                     <Stack id="stackInfo">
                         <Group style={{ color: "white" }}>
 
-                            <img src={playerData.avatar === 0 ? getDiceBearAvatar(playerData.name) : `${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${playerData.avatar}.png`} id="pp" onClick={avatarModal} />
+                            <img src={playerData.avatar > 0 ? `${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${playerData.avatar}.png` : avatarURL} id="pp" onClick={avatarModal} />
 
                             <Title order={2} size="h2"> {playerData.name} </Title>
 
@@ -170,8 +188,11 @@ export default function Profile(props) {
                                     <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${index}.png`} id="allPP" onClick={() => { selectAvatar(index) }} />
                                 }
                             </div>
-
                         ))}
+                        
+                        <div id="PPContainer">
+                            <img src={getOxroAvatar(playerData.name)} id="allPP" onClick={() => { selectAvatar(-1) }} />
+                        </div>
 
                     </div>
                 </Stack>
