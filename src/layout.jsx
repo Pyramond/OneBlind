@@ -39,6 +39,7 @@ export function Layout() {
         <AppShell.Navbar p="md">
             <Stack>
                 <Title order={3} size="h3">Pages</Title>
+                <Button variant="light" onClick={() => { navigate("/") }}>Accueil</Button>
                 <Button variant="light" onClick={() => { navigate("/classement") }}>Classement</Button>
                 <Button variant="light" onClick={() => { navigate("/history") }}>Historique</Button>
                 <Button variant="light" onClick={() => { navigate("/profiles") }}>Profils</Button>
