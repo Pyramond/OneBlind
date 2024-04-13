@@ -9,7 +9,7 @@ import { change } from "../redux/slices/reload";
 import { Title, Stack, Table, Group, Text, Modal } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
-import { defineAvatar, getOxroAvatar } from "../utils/avatars";
+import { defineAvatar, getOxroAvatar, getDiceBearAvatar } from "../utils/avatars";
 
 
 export default function Profile(props) {
