@@ -7,6 +7,7 @@
 
     padding: 0.4em;
     max-width: 40%;
+    min-width: 40%;
 
     #player {
         display: flex;
@@ -17,12 +18,5 @@
         margin: 1em;
         padding: 1em;
         border-radius: 16px;
-    }
-
-    #skeleton {
-        margin: 1em;
-        border-radius: 16px;
-        padding: 1em;
-        max-width: 95%;
     }
 }
