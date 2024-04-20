@@ -141,12 +141,11 @@ export function TournamentPlayers(props) {
             <Modal opened={finalPlayersOpened} onClose={finalPlayersModal} size="xl" title="Plus que 2 joueurs restant">
                 <Stack>
 
-                        <ul>
+                        <Group>
                             {t.value.map((player, index) => (
-                                // <li key={index}>{player.name}</li>
-                                <Text key={index}> - {player.name} </Text>
+                                <Text key={index}>{player.name}</Text>
                             ))}
-                        </ul>
+                        </Group>
 
                     <img src="/images/fight.gif" alt="finalGif" id="finalGif"/>
                 </Stack>
