@@ -78,22 +78,11 @@ export default function Profile(props) {
 
     async function selectAvatar(avatar) {
         const response = await updateAvatar(playerData.id, avatar)
-        let message = ""
-        switch(avatar) {
-            case 0:
-                message = "DiceBear"
-                break
-            case -1:
-                message = "initiale"
-                break
-            case avatar > 0:
-                message = avatar
 
-        }
         dispatch(change())
         close()
         notifications.show({
-            title: `Avatar ${message}`,
+            title: `Avatar`,
             message: "Avatar modifié avec succès"
         })
     }
@@ -103,19 +92,30 @@ export default function Profile(props) {
         oxroModalToggle()
     }
 
-    function defineColor() {
+    async function defineColor() {
         oxroModalToggle()
 
         let finalColor = null
+        let message = null
 
         if(randomColor) {
             finalColor = "-1"
+            message = "avec une couleur aléatoire"
+
         } else {
             finalColor = color.substring(1)
+            message = `avec la couleur ${color}`
         }
 
-        const response = updateAvatarColor(id, finalColor)
+        const updateColor = await updateAvatarColor(id, finalColor)
+        const update = await updateAvatar(playerData.id, -1)
+
         dispatch(change())
+
+        notifications.show({
+            title: `Avatar`,
+            message: `Avatar modifié avec succès ${message}`
+        })
     }
 
     return(
@@ -202,21 +202,16 @@ export default function Profile(props) {
                 <Stack>
                     <div id="allPPContainer">
 
+                        <div id="PPContainer"> <img src={getOxroAvatar(playerData.name, playerData.avatarColor)} id="allPP" onClick={() => { selectColor() }} /> </div>
+                        <div id="PPContainer"> <img src={getDiceBearAvatar(playerData.name)} id="allPP" onClick={() => { selectAvatar(0) }} /> </div>
+
                         {allAvatar.map((avatar, index) => (
 
                             <div id="PPContainer">
-
-                                {index === 0 ?
-                                    <img src={getDiceBearAvatar(playerData.name)} id="allPP" onClick={() => { selectAvatar(index) }} />
-                                    :
-                                    <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${index}.png`} id="allPP" onClick={() => { selectAvatar(index) }} />
-                                }
+                                <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${index+1}.png`} id="allPP" onClick={() => { selectAvatar(index+1) }} />
                             </div>
                         ))}
                         
-                        <div id="PPContainer">
-                            <img src={getOxroAvatar(playerData.name, playerData.avatarColor)} id="allPP" onClick={() => { selectColor() }} />
-                        </div>
 
                     </div>
                 </Stack>
