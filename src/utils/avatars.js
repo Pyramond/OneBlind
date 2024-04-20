@@ -2,8 +2,10 @@ export function getDiceBearAvatar(seed) {
     return `https://api.dicebear.com/7.x/avataaars/svg?seed=${seed}&backgroundColor=65c9ff,b6e3f4`
 }
 
-export function getOxroAvatar(name) {
-    return `https://avatar.oxro.io/avatar.svg?name=${name}&background=${getRandomHexColor()}&length=1`
+export function getOxroAvatar(name, color) {
+    
+    if(color === "-1") color = getRandomHexColor()
+    return `https://avatar.oxro.io/avatar.svg?name=${name}&background=${color}&length=1`
 }
 
 function getRandomHexColor() {
@@ -24,11 +26,11 @@ function getRandomHexColor() {
   }
   
 
-export function defineAvatar(name, avatar) {
+export function defineAvatar(name, avatar, avatarColor) {
 
     switch(avatar) {
         case -1: 
-            return `https://avatar.oxro.io/avatar.svg?name=${name}&background=${getRandomHexColor()}&length=1`
+            return getOxroAvatar(name, avatarColor)
         case 0:
             return `https://api.dicebear.com/7.x/avataaars/svg?seed=${name}&backgroundColor=65c9ff,b6e3f4`
     }

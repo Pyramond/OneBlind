@@ -106,3 +106,21 @@ export function updateAvatar(id, avatar) {
 		return res
 	})
 }
+
+export function updateAvatarColor(id, color) {
+	return fetch(`${baseEndpoint}/player/avatar/change_color`, {
+		method: "POST",
+		headers: {
+			"Accept": "application/json",
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			userId: id,
+			color: color
+		})
+	  })
+	  .then(res => res.json())
+	  .then(res => {
+		return res
+	})
+}

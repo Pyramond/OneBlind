@@ -28,7 +28,7 @@ export default function AllProfiles() {
               <div id="playerCard" key={index}>
 
                 <div id="topCard">
-                <img src={defineAvatar(player.name, player.avatar)} id="pp" />
+                <img src={defineAvatar(player.name, player.avatar, player.avatarColor)} id="pp" />
                   <div id='topInfo'>
                     <p id="pseudo">{player.name}</p>
                     <p id="points">{player.points} points</p>

@@ -3,10 +3,10 @@ import { useState, useEffect, useMemo } from "react";
 import { getPlayerById } from "../utils/players";
 import { convertTimeStamp } from "../utils/date";
 import { getTournamentPlayer } from "../utils/tournaments";
-import { getAllAvatar, updateAvatar } from "../utils/players";
+import { getAllAvatar, updateAvatar, updateAvatarColor } from "../utils/players";
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../redux/slices/reload";
-import { Title, Stack, Table, Group, Text, Modal } from "@mantine/core"
+import { Title, Stack, Table, Group, Text, Modal, ColorInput, Checkbox, Button } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { defineAvatar, getOxroAvatar, getDiceBearAvatar } from "../utils/avatars";
@@ -17,6 +17,8 @@ export default function Profile(props) {
     const { id } = useParams();
     const [playerData, setPlayerData] = useState({})
     const [tournaments, setTournaments] = useState([])
+    const [color, setColor] = useState("")
+    const [randomColor, setRandomColor] = useState(false)
     const [top1, setTop1] = useState(0)
     const [top2, setTop2] = useState(0)
     const [top3, setTop3] = useState(0)
@@ -24,6 +26,7 @@ export default function Profile(props) {
     const [nbTournament, setNbTournament] = useState(0)
     const [allAvatar, setAllAvatar] = useState([])
     const [opened, { open, close }] = useDisclosure(false)
+    const [oxroModalOpened, { toggle: oxroModalToggle }] = useDisclosure(false)
     const [avatarURL, setAvatarURL] = useState("")
 
     const dispatch = useDispatch()
@@ -34,8 +37,9 @@ export default function Profile(props) {
         async function fetchData() {
             const data = await getPlayerById(id)
             setPlayerData(data)
+            setColor(data.avatarColor)
             
-            setAvatarURL(defineAvatar(data.name, data.avatar))
+            setAvatarURL(defineAvatar(data.name, data.avatar, data.avatarColor))
 
             console.log(avatarURL)
 
@@ -92,6 +96,26 @@ export default function Profile(props) {
             title: `Avatar ${message}`,
             message: "Avatar modifié avec succès"
         })
+    }
+
+    function selectColor() {
+        close()
+        oxroModalToggle()
+    }
+
+    function defineColor() {
+        oxroModalToggle()
+
+        let finalColor = null
+
+        if(randomColor) {
+            finalColor = "-1"
+        } else {
+            finalColor = color.substring(1)
+        }
+
+        const response = updateAvatarColor(id, finalColor)
+        dispatch(change())
     }
 
     return(
@@ -191,10 +215,46 @@ export default function Profile(props) {
                         ))}
                         
                         <div id="PPContainer">
-                            <img src={getOxroAvatar(playerData.name)} id="allPP" onClick={() => { selectAvatar(-1) }} />
+                            <img src={getOxroAvatar(playerData.name, playerData.avatarColor)} id="allPP" onClick={() => { selectColor() }} />
                         </div>
 
                     </div>
+                </Stack>
+            </Modal>
+
+
+            <Modal opened={oxroModalOpened} onClose={oxroModalToggle} title="Choix de la couleur pour l'avatar">
+                <Stack>
+                    {randomColor ? 
+                        <ColorInput 
+                            label="Choisir la couleur de l'avatar"
+                            placeholder="Code Hexadécimal"
+                            value={color}
+                            onChange={setColor}
+                            disabled
+                        />
+                    :
+                        <ColorInput 
+                            label="Choisir la couleur de l'avatar"
+                            placeholder="Code Hexadécimal"
+                            value={color}
+                            onChange={setColor}
+                        />
+                    }
+
+                    <Checkbox 
+                        checked={randomColor}
+                        onChange={(event) => setRandomColor(event.currentTarget.checked)}
+                        label="Couleur aléatoire"
+                        style={{marginTop: "1em"}}
+                    />
+
+                    <Button
+                     variant="filled"
+                     style={{maxWidth: "30%", marginTop: "1em"}}
+                     onClick={() => { defineColor() }}
+                     >Valider</Button>
+
                 </Stack>
             </Modal>
         </>
