@@ -1,10 +1,13 @@
 import { getAllPlayer } from '../utils/players'
 import { useEffect, useState } from 'react'
 import { Title, Table, Stack } from '@mantine/core'
+import { useNavigate } from 'react-router-dom'
+
 
 function Classement() {
 
   const [allPlayers, setAllPlayers] = useState([])
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function fetchData() {
@@ -30,7 +33,7 @@ function Classement() {
 			</Table.Thead>
 			<Table.Tbody>
 	  			{allPlayers.map((player, index) => (
-					<Table.Tr key={index}>
+					<Table.Tr key={index} onClick={() => { navigate(`/profiles/${player.id}`) }} id="classementLine">
 						<Table.Td>{index + 1}</Table.Td>
 						<Table.Td>{player.name}</Table.Td>
 						<Table.Td>{player.points}</Table.Td>
