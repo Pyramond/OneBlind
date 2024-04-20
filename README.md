@@ -52,6 +52,7 @@ VITE_SPOTIFY_CLIENT_SECRET=XXXXXXXXXXX
 
 ## Screen
 ![profile](https://github.com/Pyramond/OneBlind/assets/83555414/cfedbcfe-38c5-4a1f-8b27-f01250fe24d1)
+![profilesPage](https://github.com/Pyramond/OneBlind/assets/83555414/311b02f9-c33d-4b83-9dba-d7bced88a062)
 ![createTournament](https://github.com/Pyramond/OneBlind/assets/83555414/bd084c5e-29c8-455d-8113-636680239808)
 ![tournament](https://github.com/Pyramond/OneBlind/assets/83555414/6ba72188-ec85-437f-93b4-1fb6a6f93a86)
 
