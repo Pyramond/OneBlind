@@ -5,7 +5,7 @@ import { updateAvStack } from '../redux/slices/tournamentPage/info';
 import { deleteTournament } from "../utils/tournaments"
 import { useNavigate } from 'react-router-dom';
 import { calculatePoints } from '../utils/points';
-import { eliminatePlayer as utilsEliminatePlayer } from '../utils/tournaments';
+import { eliminatePlayer as utilsEliminatePlayer, createRecap } from '../utils/tournaments';
 
 import { Button, Modal, Table, Group, Text, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
@@ -41,6 +41,7 @@ export function TournamentPlayers(props) {
                 setIsWinner(true)
                 eliminatePlayer(t.value[0].id, false, t.value[0].name)
                 classementModal()
+                console.log(createRecap(props.id, tournamentInfo.avStack.toString(), tournamentInfo.nbRecave, tournamentInfo.startTimestamp, Date.now()))
                 break;
             case 2:
                 let audio = new Audio("/sounds/overtaken.mp3")
