@@ -2,8 +2,9 @@ import { useTimer } from 'react-timer-hook';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeStep, prevStep } from '../redux/slices/tournamentPage/steps';
 import { set } from '../redux/slices/tournamentPage/timer';
+import { setTimestamp } from "../redux/slices/tournamentPage/info"
 import { useEffect, useState, useMemo } from 'react';
-import { Button, Slider } from '@mantine/core';
+import { Button } from '@mantine/core';
 
 
 export default function MyTimer() {
@@ -15,6 +16,7 @@ export default function MyTimer() {
     const [counter, setCounter] = useState(0)
     const [isDisabled, setIsDisabled] = useState(false)
     const [nextStepComponent, setNextStepComponent] = useState(<p></p>)
+    const [hasBegun, setHasBegun] = useState(false)
 
     const effectDependency = useMemo(() => ({ currentStep: t.currentStep, random: Math.random() }), [t.currentStep]);
     
@@ -61,36 +63,45 @@ export default function MyTimer() {
             pause()
         }
 
-  }, [effectDependency]);
+    }, [effectDependency]);
 
-  useEffect(() => {
-    setCounter(counter + 1)
-    if(hours == 0 && minutes == 0 && seconds ==  6) {
-        let audio = new Audio("/sounds/timerSound.mp3")
-        if(!window.localStorage.getItem("volume")) {
-            audio.volume = 1
-        } else {
-            audio.volume = window.localStorage.getItem("volume")
-        }
-        audio.play()
+    useEffect(() => {
+      setCounter(counter + 1)
+      if(hours == 0 && minutes == 0 && seconds ==  6) {
+          let audio = new Audio("/sounds/timerSound.mp3")
+          if(!window.localStorage.getItem("volume")) {
+              audio.volume = 1
+          } else {
+              audio.volume = window.localStorage.getItem("volume")
+          }
+          audio.play()
+      }
+    }, [seconds])
+
+    const handleSliderChange = (event) => {
+      const newValue = parseInt(event.target.value, 10);    
+      const newExpiryTimestamp = new Date(
+        new Date().getTime() + newValue * 1000
+      );
+      restart(newExpiryTimestamp);
+      setIsPlay(true)
+    };  
+
+    function verifyStep(action) {
+      if(action === "next") {
+          dispatch(changeStep())
+      } else if(action === "prev") dispatch(prevStep())
     }
-  }, [seconds])
 
-  const handleSliderChange = (event) => {
-    const newValue = parseInt(event.target.value, 10);
+    function play() {
+        resume()
+        setIsPlay(true)
 
-    const newExpiryTimestamp = new Date(
-      new Date().getTime() + newValue * 1000
-    );
-    restart(newExpiryTimestamp);
-    setIsPlay(true)
-  };
-
-  function verifyStep(action) {
-    if(action === "next") {
-        dispatch(changeStep())
-    } else if(action === "prev") dispatch(prevStep())
-  }
+        if(!hasBegun) {
+            setHasBegun(true)
+            dispatch(setTimestamp(Date.now()))
+        } 
+    }
 
 
     return (
@@ -108,7 +119,7 @@ export default function MyTimer() {
                 verifyStep("prev")
             }}> <img src="/images/timer-icons/PreviousArrowBackward.svg" alt="Prev_button_icon" /> </Button>
 
-            {isPlay ? <Button variant="filled" color="red" onClick={() => { pause() ; setIsPlay(false)}} id="timerButtons"> <img src="/images/timer-icons/Pause.svg" alt="Pause_button_image" /> </Button> : <Button variant='filled' color="#1ed760" onClick={() => { resume() ; setIsPlay(true)}} id="timerButtons"> <img src="/images/timer-icons/Play.svg" alt="Play_button_image" /> </Button>}
+            {isPlay ? <Button variant="filled" color="red" onClick={() => { pause() ; setIsPlay(false)}} id="timerButtons"> <img src="/images/timer-icons/Pause.svg" alt="Pause_button_image" /> </Button> : <Button variant='filled' color="#1ed760" onClick={() => { play() }} id="timerButtons"> <img src="/images/timer-icons/Play.svg" alt="Play_button_image" /> </Button>}
 
             <Button variant="default" onClick={() => {
                 const time = new Date(new Date().getTime() + t.currentStep.time * 60000);
