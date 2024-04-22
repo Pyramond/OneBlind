@@ -99,6 +99,6 @@ export function createRecap(Tid, avStack, recaveCounter, start, end) {
   return fetchWrapper("/tournament/recap/create", "POST", body)
 }
 
-export function getRecap(Tid) {
-  return fetchWrapper("/tournament/recap/get", "POST", { Tid })
+export function getRecap(id) {
+  return fetchWrapper("/tournament/recap/get", "POST", { id })
 }
