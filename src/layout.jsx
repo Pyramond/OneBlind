@@ -57,7 +57,7 @@ export function Layout() {
                 <Title order={3} size="h3">Autres</Title>
                 <DownloadDb />
                 <Button variant="light" onClick={() => { navigate("/changelogs")}}>Changelogs</Button>
-                <Button variant="light" leftSection={<IconBrandGithub size={25}/>} onClick={() => window.location.assign("https://github.com/Pyramond/OneBlind")}>Github</Button>
+                <Button variant="light" leftSection={<IconBrandGithub size={25}/>} onClick={() => window.open("https://github.com/Pyramond/OneBlind", '_blank')}>Github</Button>
 
             </Stack>
           
