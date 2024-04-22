@@ -87,3 +87,18 @@ export function removePlayerTournament(Pid, Tid) {
   }
   return fetchWrapper("/tournament/remove/player", "POST", body)
 }
+
+export function createRecap(Tid, avStack, recaveCounter, start, end) {
+  const body = {
+    Tid: Tid,
+    avStack: avStack,
+    recaveCounter: recaveCounter,
+    start: start,
+    end: end
+  }
+  return fetchWrapper("/tournament/recap/create", "POST", body)
+}
+
+export function getRecap(Tid) {
+  return fetchWrapper("/tournament/recap/get", "POST", { Tid })
+}
