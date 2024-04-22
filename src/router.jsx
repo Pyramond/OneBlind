@@ -15,6 +15,7 @@ import AllTournament from "./pages/allTournaments";
 import PlayerManagement from "./pages/playerManagement";
 import { ErrorPage } from "./pages/error/errorPage";
 import ChangelogsPage from "./pages/changelogs";
+import TournamentRecap from "./pages/tournamentRecap";
 
 
 const router = createBrowserRouter([
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
             {
                 path: "/changelogs",
                 element: <ChangelogsPage />
+            },
+            {
+                path: "/tournament/recap/:id",
+                element: <TournamentRecap />
             }
         ]
     },
