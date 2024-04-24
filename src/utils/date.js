@@ -34,3 +34,18 @@ export function convertTimeStampDate(timestamp) {
 
     return dateLisible
 }
+
+export function formatDate(timeStamp) {
+    const months = [
+        "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+        "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+    ];
+    const days = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+
+    const date = new Date(timeStamp);
+    const day = days[date.getDay()];
+    const dateOfMonth = date.getDate();
+    const month = months[date.getMonth()];
+
+    return `${day} ${dateOfMonth} ${month}`;
+}
