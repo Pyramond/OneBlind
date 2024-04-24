@@ -13,7 +13,7 @@ export const recapInfos = createSlice({
     reducers: {
         setInfo: (state, action) => {
             state.recap = action.payload.recap
-            state.players = action.payload.players
+            state.players = action.payload.players.sort((a, b) => a.place - b.place);
             state.tournament = action.payload.tournament
         }
     }

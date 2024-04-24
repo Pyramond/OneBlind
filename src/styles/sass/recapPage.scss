@@ -1,0 +1,81 @@
+#infoBoxes {
+    #infoBox {
+        background-color: #516EC8;
+        width: 15em;
+        height: 5em;
+        border-radius: 24px;
+        padding: 0.5em;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 0.5em;
+
+        position: relative;
+    }
+
+    #infoBoxText {
+        color: black;
+        font-size: xx-large;
+    }
+
+    #infoBoxTitle {
+        color: black;
+        font-size:larger;
+        margin-bottom: -1em;
+        position: absolute;
+        left: 0.5em;
+        top: 0em;
+    }
+    
+    margin: 1em;
+    margin-top: 2em;
+}
+
+
+#blindModelTable {
+    max-width: 35.5em;
+    margin: 1em;
+    border: gray 1px solid;
+}
+
+#blindBoxe {
+    margin-top: 2em;
+}
+
+#playerClassment {
+
+    margin-right: 1em;
+    padding: 1em;
+    max-height: 48em;
+
+    background: rgba(76, 74, 74, 0.46);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.7px);
+    -webkit-backdrop-filter: blur(7.7px);
+    border: 1px solid rgba(76, 74, 74, 0.4);
+}
+
+#playerItem {
+
+    margin-top: 1em;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7em;
+
+    background: rgba(0, 0, 0, 0.57);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.9px);
+    -webkit-backdrop-filter: blur(6.9px);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+
+    p {
+        margin: 0;
+        font-size: x-large;
+    }
+}
