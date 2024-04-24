@@ -8,6 +8,7 @@ import { addTournament } from '../utils/tournaments';
 import { IconDeviceFloppy } from "@tabler/icons-react"
 import { TextInput, NumberInput, Menu, Button, Title, Group, Stack, CloseButton, Checkbox } from '@mantine/core';
 import { notifications } from '@mantine/notifications'
+import { useNavigate } from 'react-router-dom';
 
 
 export default function CreateTournament() {
@@ -16,6 +17,7 @@ export default function CreateTournament() {
   const t = useSelector((state) => state.reload);
   const dispatch = useDispatch();
   const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
+  const navigate = useNavigate()
   
   const date = getDate()
   const [blind, setBlind] = useState("Modèle");
@@ -72,6 +74,8 @@ export default function CreateTournament() {
 		title: tournamentName,
 		message: "Le tournois à été créer"
 	  })
+
+	  navigate("/tournament")
     
     }
   }
