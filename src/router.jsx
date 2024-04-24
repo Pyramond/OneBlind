@@ -61,7 +61,7 @@ const router = createBrowserRouter([
                 element: <BlindModelManagement />
             },
             {
-                path: "/tournament/all",
+                path: "/tournament",
                 element: <AllTournament />
             },
             {

@@ -50,7 +50,7 @@ export function Layout() {
                 <Button variant="light" onClick={() => { navigate("/players") }}>Joueurs</Button>
                 <Button variant="light" onClick={() => { navigate("/blind/create") }}>Structure de blind</Button>
                 <Button variant="light" onClick={() => { navigate("/tournament/create") }}>Créer tournoi</Button>
-                <Button variant="light" onClick={() => { navigate("/tournament/all")}}>Tournois</Button>
+                <Button variant="light" onClick={() => { navigate("/tournament")}}>Tournois</Button>
 
                 <Space h="xl" />
 
