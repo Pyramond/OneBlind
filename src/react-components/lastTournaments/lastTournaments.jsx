@@ -20,7 +20,7 @@ export function LastTournaments() {
     return (
         <div id="lastTournaments">
             {allTournaments.map((tournament, index) => (
-                <LastTournamentItem name={tournament.name} date={convertTimeStampDate(tournament.date) } />
+                <LastTournamentItem name={tournament.name} date={convertTimeStampDate(tournament.date) } key={index} />
             ))}
         </div>
     )
