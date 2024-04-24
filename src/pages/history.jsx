@@ -2,10 +2,12 @@ import { useEffect, useState } from 'react'
 import { getAllTournaments } from '../utils/tournaments'
 import { convertTimeStamp } from '../utils/date'
 import { Stack, Table, Title } from '@mantine/core'
+import { useNavigate } from 'react-router-dom'
 
 export default function history() {
 
     const [allTournaments, setAllTournaments] = useState([])
+    const navigate = useNavigate()
 
     useEffect(() => {
         async function fetchData(){
@@ -31,7 +33,7 @@ export default function history() {
                 </Table.Thead>
                 <Table.Tbody>
                     {allTournaments.map((tournament, index) => (
-                        <Table.Tr key={index}>
+                        <Table.Tr key={index} onClick={() => { navigate(`/tournament/recap/${tournament.id}`) }} style={{cursor: "pointer"}}>
                             <Table.Td>{tournament.id}</Table.Td>
                             <Table.Td>{tournament.name}</Table.Td>
                             <Table.Td>{convertTimeStamp(tournament.date)}</Table.Td>
