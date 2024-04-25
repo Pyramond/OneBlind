@@ -25,11 +25,9 @@ export default function AllPlayers() {
                 <Title order={1}>Tous les joueurs</Title>
 
                 <ScrollArea h={780} offsetScrollbars id="playerScroll" >
-                    <ul component={ScrollArea}>
                     {allPlayers.map((player, index) => (
-                        <li key={index}> <Player id={player.id} name={player.name} /> </li>
+                        <Player key={index} id={player.id} name={player.name} />
                     ))}
-                    </ul>
                 </ScrollArea>
             </Stack>
         </>
