@@ -3,7 +3,7 @@ import { getRecap } from '../utils/tournaments';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setInfo } from '../redux/slices/tournamentRecap/recap';
-import { Title, Text, Button, Stack , Group} from '@mantine/core';
+import { Title, Text, Stack , Group} from '@mantine/core';
 import InfoBoxes from '../react-components/tournamentRecap/infoBoxes';
 import { getModelById } from '../utils/models';
 import { formatDate } from '../utils/date';
@@ -17,18 +17,26 @@ export default function TournamentRecap() {
     const dispatch = useDispatch();
     const recapInfos = useSelector((state) => state.recap);
     const [steps, setSteps] = useState([])
+    const [status, setStatus] = useState(null)
 
     useEffect(() => {
         async function getData() {
             const infos = await getRecap(id)
-            dispatch(setInfo(infos))
 
-            const reponseSteps = await getModelById(infos.tournament.blindId)
-            setSteps(reponseSteps.steps)
+            if(infos.status === 404) setStatus(infos.status)
+            else {
+                dispatch(setInfo(infos))
+                const reponseSteps = await getModelById(infos.tournament.blindId)
+                setSteps(reponseSteps.steps)
+            }
         }
         getData()
 
     }, [])
+
+    if(status === 404) {
+        return <Title order={1}>Aucun récapitulatif pour ce tournoi</Title>
+    }
 
     return (
         <>

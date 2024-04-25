@@ -13,8 +13,12 @@ function fetchWrapper(url, method, body = null) {
   };
 
   return fetch(`${baseEndpoint}${url}`, options)
-    .then(res => res.json())
-    .then(res => res)
+    .then(res => {
+      return res.json().then(data => ({
+        data: data,
+        status: res.status
+      }));
+    })
     .catch(error => {
       console.error('Error during fetch:', error);
     });
