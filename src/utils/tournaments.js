@@ -13,12 +13,8 @@ function fetchWrapper(url, method, body = null) {
   };
 
   return fetch(`${baseEndpoint}${url}`, options)
-    .then(res => {
-      return res.json().then(data => ({
-        data: data,
-        status: res.status
-      }));
-    })
+    .then(res => res.json())
+    .then(res => res)
     .catch(error => {
       console.error('Error during fetch:', error);
     });
@@ -104,5 +100,27 @@ export function createRecap(Tid, avStack, recaveCounter, start, end) {
 }
 
 export function getRecap(id) {
-  return fetchWrapper("/tournament/recap/get", "POST", { id })
+  // return fetchWrapper("/tournament/recap/get", "POST", { id })
+
+  const headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  };
+
+  const options = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ id })
+  };
+
+  return fetch(`${baseEndpoint}/tournament/recap/get`, options)
+    .then(res => {
+      return res.json().then(data => ({
+        data: data,
+        status: res.status
+      }));
+    })
+    .catch(error => {
+      console.error('Error during fetch:', error);
+    });
 }
