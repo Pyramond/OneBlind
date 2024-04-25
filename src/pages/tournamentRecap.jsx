@@ -25,8 +25,8 @@ export default function TournamentRecap() {
 
             if(infos.status === 404) setStatus(infos.status)
             else {
-                dispatch(setInfo(infos))
-                const reponseSteps = await getModelById(infos.tournament.blindId)
+                dispatch(setInfo(infos.data))
+                const reponseSteps = await getModelById(infos.data.tournament.blindId)
                 setSteps(reponseSteps.steps)
             }
         }
