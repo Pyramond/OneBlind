@@ -3,16 +3,16 @@ import { useState, useEffect, useMemo } from "react";
 import { getPlayerById } from "../utils/players";
 import { convertTimeStamp } from "../utils/date";
 import { getTournamentPlayer } from "../utils/tournaments";
-import { getAllAvatar, updateAvatar, updateAvatarColor } from "../utils/players";
+import { getAllAvatar, updateAvatar, updateAvatarColor, uploadAvatar } from "../utils/players";
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../redux/slices/reload";
-import { Title, Stack, Table, Group, Text, Modal, ColorInput, Checkbox, Button } from "@mantine/core"
+import { Title, Stack, Table, Group, Text, Modal, ColorInput, Checkbox, Button, FileInput, Flex  } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { defineAvatar, getOxroAvatar, getDiceBearAvatar } from "../utils/avatars";
 
 
-export default function Profile(props) {
+export default function Profile() {
 
     const { id } = useParams();
     const [playerData, setPlayerData] = useState({})
@@ -28,6 +28,8 @@ export default function Profile(props) {
     const [opened, { open, close }] = useDisclosure(false)
     const [oxroModalOpened, { toggle: oxroModalToggle }] = useDisclosure(false)
     const [avatarURL, setAvatarURL] = useState("")
+    const [editAvatarModalOpened, { toggle: editAvatarToggle }] = useDisclosure(false)
+    const [fileValue, setFileValue] = useState(null);
 
     const dispatch = useDispatch()
     const t = useSelector((state) => state.reload);
@@ -39,10 +41,7 @@ export default function Profile(props) {
             setPlayerData(data)
             setColor(data.avatarColor)
             
-            setAvatarURL(defineAvatar(data.name, data.avatar, data.avatarColor))
-
-            console.log(avatarURL)
-
+            setAvatarURL(defineAvatar(data.name, data.avatar, data.avatarColor, id))
         }
 
         async function fetchTournament() {
@@ -207,12 +206,13 @@ export default function Profile(props) {
 
                         {allAvatar.map((avatar, index) => (
 
-                            <div id="PPContainer">
+                            <div id="PPContainer" key={index}>
                                 <img src={`${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${index+1}.png`} id="allPP" onClick={() => { selectAvatar(index+1) }} />
                             </div>
                         ))}
-                        
 
+                        <div id="PPContainer"> <img src="/images/edit.png" id="allPP" onClick={() => { editAvatarToggle(); close() }}/> </div>
+                        
                     </div>
                 </Stack>
             </Modal>
@@ -250,6 +250,39 @@ export default function Profile(props) {
                      onClick={() => { defineColor() }}
                      >Valider</Button>
 
+                </Stack>
+            </Modal>
+
+
+            <Modal opened={editAvatarModalOpened} onClose={editAvatarToggle} title="Importer un avatar">
+                <Stack>
+                    <FileInput value={fileValue} onChange={setFileValue} />
+                    <Button onClick={async () => {
+                        const data = await uploadAvatar(fileValue, id)
+                        if(data.status === 400) {
+                            notifications.show({
+                                title: `Avatar`,
+                                message: `Le fichier doit être en png`,
+                                color: "red"
+                            })
+                        } else if(data.status === 422) {
+                            notifications.show({
+                                title: `Avatar`,
+                                message: `Vous devez selectionner un avatar`,
+                                color: "red"
+                            })
+                        } else {
+
+                            const response = await updateAvatar(id, -2)
+                            dispatch(change())
+
+                            notifications.show({
+                                title: `Avatar`,
+                                message: `Avatar modifié avec succès`
+                            })
+                            editAvatarToggle()
+                        }
+                    }}>Valider</Button>
                 </Stack>
             </Modal>
         </>

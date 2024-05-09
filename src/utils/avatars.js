@@ -26,9 +26,11 @@ function getRandomHexColor() {
   }
   
 
-export function defineAvatar(name, avatar, avatarColor) {
+export function defineAvatar(name, avatar, avatarColor, id) {
 
     switch(avatar) {
+        case -2:
+            return `${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/custom/avatar_${id}.png` 
         case -1: 
             return getOxroAvatar(name, avatarColor)
         case 0:

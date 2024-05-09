@@ -124,3 +124,20 @@ export function updateAvatarColor(id, color) {
 		return res
 	})
 }
+export function uploadAvatar(avatar, Pid) {
+
+	const formdata = new FormData()
+	formdata.append("avatar", avatar)
+	formdata.append("id", Pid)
+
+	return fetch(`${baseEndpoint}/player/avatar/upload`, {
+		method: "POST",
+		body: formdata
+	  })
+	  .then(res => {
+		return res.json().then(data => ({
+			data: data,
+			status: res.status
+		  }));
+	})
+}

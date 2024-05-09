@@ -21,7 +21,7 @@ export default function Player(props) {
     useEffect(() => {
         async function getData() {
             const r = await getPlayerById(props.id)
-            setAvatarURL(defineAvatar(r.name, r.avatar, r.avatarColor))
+            setAvatarURL(defineAvatar(r.name, r.avatar, r.avatarColor, props.id))
         }
         getData()
     }, [])
