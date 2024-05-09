@@ -4,7 +4,8 @@ import { changeStep, prevStep } from '../redux/slices/tournamentPage/steps';
 import { set } from '../redux/slices/tournamentPage/timer';
 import { setTimestamp } from "../redux/slices/tournamentPage/info"
 import { useEffect, useState, useMemo } from 'react';
-import { Button } from '@mantine/core';
+import { Button, Badge, Group, Text, NumberFormatter } from '@mantine/core';
+import { IconPokerChip } from "@tabler/icons-react"
 
 
 export default function MyTimer() {
@@ -51,10 +52,15 @@ export default function MyTimer() {
         setNextStepComponent(() => {
             if (t.steps && t.steps.length > t.index && t.steps[t.index]) {
               return (
-                <p style={{ color: "white", fontSize: "30px" }}>
-                  Prochaine étape: {t.steps[t.index].time} minutes de
-                  {t.steps[t.index].type === "game" ? ` jeu, petite blind ${t.steps[t.index].sb}` : " pause"}
-                </p>
+                <Group style={{ fontSize: "30px", margin: "1em" }} justify='center'>
+
+                  <Badge size="xl"> <Text size="xl" fw={700}> {t.steps[t.index].time} Minutes</Text> </Badge>
+
+                  {t.steps[t.index].type === "game" ? <Badge size="xl"> <Text size='xl' fw={700}> <NumberFormatter value={parseInt(t.steps[t.index].sb)} thousandSeparator=" " /> <IconPokerChip style={{ position: 'relative', bottom: "0.1em"}}/> </Text> </Badge> : null}
+
+                  <Badge size="xl"> <Text size="xl" fw={700}> {t.steps[t.index].type === "game" ? "Jeu" : "Pause"} </Text> </Badge>
+
+                </Group>
               );
             } else return nextStepComponent
         });
