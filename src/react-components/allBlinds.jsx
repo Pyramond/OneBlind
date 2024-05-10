@@ -1,11 +1,12 @@
 import { useState, useEffect, useMemo } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllModels } from "../utils/models";
-import {Text, Button, Group, Stack, Title } from "@mantine/core"
+import { Modal, Text, Button, Group, Stack, Title, Space } from "@mantine/core"
 import { Link } from "react-router-dom";
 import { removeModel } from "../utils/models";
 import { change } from "../redux/slices/reload";
 import { notifications } from '@mantine/notifications'
+import { useDisclosure } from "@mantine/hooks";
 
 
 export default function AllBlinds() {
@@ -13,6 +14,8 @@ export default function AllBlinds() {
     const [allModels, setAllModels] = useState([])
     const t = useSelector((state) => state.reload);
     const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
+    const [confirmationOpened, { toggle: confirmationToggle }] = useDisclosure()
+    const [model, setModel] = useState("")
     const dispatch = useDispatch();
 
 
@@ -31,6 +34,13 @@ export default function AllBlinds() {
             title: modelToDelete.name,
             message: "Supprimé avec succès"
         })
+
+        confirmationToggle()
+    }
+
+    function confirmation(model) {
+        setModel(model)
+        confirmationToggle()
     }
 
 
@@ -48,7 +58,7 @@ export default function AllBlinds() {
                                     <Group>
                                         <Text>{model.name}</Text>
                                         <Link to={`/blind/${model.id}`}> <Button variant="outline-secondary"> Détails </Button> </Link>
-                                        <Button variant="outline-danger" onClick={() => { deleteModel(model) }}>Supprimer</Button>
+                                        <Button variant="outline-danger" onClick={() => { confirmation(model) }}>Supprimer</Button>
                                     </Group>
                                 </li>
                             ))}
@@ -56,6 +66,22 @@ export default function AllBlinds() {
                     }
                 </div>
             </Stack>
+
+            <Modal opened={confirmationOpened} onClose={confirmationToggle} title={`Supprimer la structure ${model.name} ?`}>
+
+                <Text> La suppression de cette structure de blind est définitive. </Text>
+
+                <Space h="lg" />
+
+                <Text> Supprimer la structure {model.name} ? </Text>
+
+                <Space h="sm"/>
+
+                <Group>
+                    <Button variant="default">Annuler</Button>
+                    <Button variant="filled" color="red" onClick={() => { deleteModel(model) }}>Supprimer</Button>
+                </Group>
+            </Modal>
         </>
     )
 }
