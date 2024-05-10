@@ -1,12 +1,13 @@
 import { useState, useEffect, useMemo } from "react"
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllModels } from "../utils/models";
-import { Modal, Text, Button, Group, Stack, Title, Space } from "@mantine/core"
+import { Modal, Text, Button, Group, Stack, Title, Space, ActionIcon, ScrollArea } from "@mantine/core"
 import { Link } from "react-router-dom";
 import { removeModel } from "../utils/models";
 import { change } from "../redux/slices/reload";
 import { notifications } from '@mantine/notifications'
 import { useDisclosure } from "@mantine/hooks";
+import { IconInfoCircle, IconTrash } from "@tabler/icons-react";
 
 
 export default function AllBlinds() {
@@ -48,23 +49,25 @@ export default function AllBlinds() {
         <>
             <Stack>
                 <Title order={1}>Toutes les structures</Title>
-                <div id="allBlinds">
-                    {allModels.length === 0 ? 
-                        <Text>Aucune structure enregistrée</Text>
-                    :
-                        <ul>
+                {allModels.length === 0 ? 
+                    <Text>Aucune structure enregistrée</Text>
+                :
+                    <ul>
+                        <ScrollArea h={780} offsetScrollbars id="blindScroll" >
                             {allModels.map((model, index) => (
-                                <li key={index} className="allModels">
-                                    <Group>
+                                    <Group key={index} id="blindItem">
                                         <Text>{model.name}</Text>
-                                        <Link to={`/blind/${model.id}`}> <Button variant="outline-secondary"> Détails </Button> </Link>
-                                        <Button variant="outline-danger" onClick={() => { confirmation(model) }}>Supprimer</Button>
+                                        <Group>
+                                            <Link to={`/blind/${model.id}`}> <IconInfoCircle variant="outline-secondary"> Détails </IconInfoCircle> </Link>
+                                            <ActionIcon color="red" variant="transparent" onClick={() => { confirmation(model) }}> <IconTrash /> </ActionIcon>
+                                        </Group>
                                     </Group>
-                                </li>
+                                
                             ))}
-                        </ul>
-                    }
-                </div>
+                        </ScrollArea>
+                    </ul>
+                }
+
             </Stack>
 
             <Modal opened={confirmationOpened} onClose={confirmationToggle} title={`Supprimer la structure ${model.name} ?`}>
