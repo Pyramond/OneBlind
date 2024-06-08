@@ -10,7 +10,6 @@ import MyTimer from '../../react-components/timer';
 import Blind from '../../react-components/blind';
 import Other from '../../react-components/tournamentOther';
 import AvStack from '../../react-components/avStack';
-import BlindTab from '../../react-components/blindTab';
 import { SimpleGrid } from '@mantine/core';
 
 export default function TournamentPage() {
