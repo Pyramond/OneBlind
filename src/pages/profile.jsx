@@ -3,10 +3,10 @@ import { useState, useEffect, useMemo } from "react";
 import { getPlayerById } from "../utils/players";
 import { convertTimeStamp } from "../utils/date";
 import { getTournamentPlayer } from "../utils/tournaments";
-import { getAllAvatar, updateAvatar, updateAvatarColor, uploadAvatar } from "../utils/players";
+import { getAllAvatar, updateAvatar, updateAvatarColor, uploadAvatar, getAllPlayer } from "../utils/players";
 import { useDispatch, useSelector } from 'react-redux';
 import { change } from "../redux/slices/reload";
-import { Title, Stack, Table, Group, Text, Modal, ColorInput, Checkbox, Button, FileInput, Flex  } from "@mantine/core"
+import { Title, Stack, Table, Group, Text, Modal, ColorInput, Checkbox, Button, FileInput } from "@mantine/core"
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { defineAvatar, getOxroAvatar, getDiceBearAvatar } from "../utils/avatars";
@@ -30,6 +30,8 @@ export default function Profile() {
     const [avatarURL, setAvatarURL] = useState("")
     const [editAvatarModalOpened, { toggle: editAvatarToggle }] = useDisclosure(false)
     const [fileValue, setFileValue] = useState(null);
+    const [place, setPlace] = useState(0)
+    const [playerCount, setPlayerCount] = useState(0)
 
     const dispatch = useDispatch()
     const t = useSelector((state) => state.reload);
@@ -44,6 +46,14 @@ export default function Profile() {
             setAvatarURL(defineAvatar(data.name, data.avatar, data.avatarColor, id))
         }
 
+        async function fetchAllPlayer() {
+            let data = await getAllPlayer();
+            data = data.sort((a, b) => b.points - a.points);
+            setPlace(data.findIndex(player => player.id === Number(id))+1)
+            setPlayerCount(data.length)
+        }
+        fetchAllPlayer()
+
         async function fetchTournament() {
             const tournaments = await getTournamentPlayer(id)
             tournaments.sort((a, b) => b.date - a.date)
@@ -51,15 +61,15 @@ export default function Profile() {
 
             tournaments.forEach(element => {
 
-                if(element.place != 0) {
+                if(element.place !== 0) {
                     setPosition((prevPosition) => [...prevPosition, element.place])
                     setNbTournament(prevNbTournament => prevNbTournament + 1);
                 }
-                if(element.place == 1) {
+                if(element.place === 1) {
                     setTop1(top1 => top1 + 1)
-                } else if(element.place == 2) {
+                } else if(element.place === 2) {
                     setTop2(top2 => top2 + 1)
-                } else if(element.place == 3) {
+                } else if(element.place === 3) {
                     setTop3(top3 => top3 + 1)
                 }
             });
@@ -76,7 +86,7 @@ export default function Profile() {
     }
 
     async function selectAvatar(avatar) {
-        const response = await updateAvatar(playerData.id, avatar)
+        await updateAvatar(playerData.id, avatar)
 
         dispatch(change())
         close()
@@ -106,8 +116,8 @@ export default function Profile() {
             message = `avec la couleur ${color}`
         }
 
-        const updateColor = await updateAvatarColor(id, finalColor)
-        const update = await updateAvatar(playerData.id, -1)
+        await updateAvatarColor(id, finalColor)
+        await updateAvatar(playerData.id, -1)
 
         dispatch(change())
 
@@ -136,46 +146,56 @@ export default function Profile() {
                             <Text>Id: {playerData.id}</Text>
                             <Text>Date de création: {convertTimeStamp(parseInt(playerData.date))}</Text>
                             <Text>Points: {playerData.points}</Text>
+                            <Text>Place: {place}/{playerCount}</Text>
                         </Text>
 
                     </Stack>
                 </div>
 
-                <div style={{ width: "28rem"}} id="profileCard">
-                    <Stack id="stackInfo">
-                        <Title order={2} size="h2">Statistiques</Title>
 
-                        <div id="infosContainer">
-                            <Text>Nombre de tournois: {nbTournament}</Text>
-                            <Group>
-                                <Stack>
-                                    <Text>
-                                        <Text id="textStats"> top #1: {(Math.round((top1 / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
-                                        <Text id="textStats"> top #2: {(Math.round((top2 / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
-                                        <Text id="textStats"> top #3: {(Math.round((top3 / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
-                                    </Text>
-                                </Stack>
-                                <Stack>
-                                    <Text>
-                                        <Text id="textStats"> Podium: {(Math.round(((top1 + top2 + top3) / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
-                                        <Text id="textStats"> Meilleure position: {Math.min(...position)} </Text>
-                                        <Text id="textStats"> Pire position: {Math.max(...position)} </Text>
-                                    </Text>
-                                </Stack>
-                            </Group>
-                        </div>
-                    </Stack>
-                </div>
+                {tournaments.length == 0 ?
+                    null
+                    :
+                    <div style={{width: "28rem"}} id="profileCard">
+                        <Stack id="stackInfo">
+                            <Title order={2} size="h2">Statistiques</Title>
+
+                            <div id="infosContainer">
+                                <Text>Nombre de tournois: {nbTournament}</Text>
+                                <Group>
+                                    <Stack>
+                                        <Text>
+                                            <Text id="textStats"> top
+                                                #1: {(Math.round((top1 / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
+                                            <Text id="textStats"> top
+                                                #2: {(Math.round((top2 / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
+                                            <Text id="textStats"> top
+                                                #3: {(Math.round((top3 / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
+                                        </Text>
+                                    </Stack>
+                                    <Stack>
+                                        <Text>
+                                            <Text
+                                                id="textStats"> Podium: {(Math.round(((top1 + top2 + top3) / nbTournament) * 100 * 100) / 100).toFixed(2)}% </Text>
+                                            <Text id="textStats"> Meilleure position: {Math.min(...position)} </Text>
+                                            <Text id="textStats"> Pire position: {Math.max(...position)} </Text>
+                                        </Text>
+                                    </Stack>
+                                </Group>
+                            </div>
+                        </Stack>
+                    </div>
+                }
             </div>
 
 
             <div id="tournamentsPlayer">
-                {tournaments.length == 0 ? 
-                <div> <h3>Historique des tournois vide</h3></div>
-                :
+                {tournaments.length == 0 ?
+                    <div><h3>Historique des tournois vide</h3></div>
+                    :
                     <Stack>
                         <Title order={3} size="h3">Historique des tournois de {playerData.name}</Title>
-                        <Table verticalSpacing="sm" highlightOnHover withTableBorder >
+                        <Table verticalSpacing="sm" highlightOnHover withTableBorder>
                             <Table.Thead>
                                 <Table.Tr>
                                     <Table.Th> Nom </Table.Th>
@@ -201,7 +221,7 @@ export default function Profile() {
                 <Stack>
                     <div id="allPPContainer">
 
-                        <div id="PPContainer"> <img src={getOxroAvatar(playerData.name, playerData.avatarColor)} id="allPP" onClick={() => { selectColor() }} /> </div>
+                        <div id="PPContainer"><img src={getOxroAvatar(playerData.name, playerData.avatarColor)} id="allPP" onClick={() => { selectColor() }} /> </div>
                         <div id="PPContainer"> <img src={getDiceBearAvatar(playerData.name)} id="allPP" onClick={() => { selectAvatar(0) }} /> </div>
 
                         {allAvatar.map((avatar, index) => (
@@ -273,7 +293,7 @@ export default function Profile() {
                             })
                         } else {
 
-                            const response = await updateAvatar(id, -2)
+                            await updateAvatar(id, -2)
                             dispatch(change())
 
                             notifications.show({
