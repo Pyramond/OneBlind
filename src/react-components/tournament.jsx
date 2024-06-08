@@ -7,9 +7,10 @@ import { change } from '../redux/slices/reload';
 import { removeTournament, addPlayerTournament, removePlayerTournament } from '../utils/tournaments';
 import { useNavigate } from 'react-router-dom';
 import { IconArrowUpRight, IconDots, IconTrash, IconUsers } from "@tabler/icons-react"
-import { getAllPlayer } from '../utils/players';
-import { Button, Title, Menu, Popover, Text, Stack, Group, Flex, Modal, Space, ActionIcon, rem, CloseButton } from '@mantine/core';
+import { getAllPlayer, getPlayerById } from '../utils/players';
+import { Button, Title, Menu, Popover, Text, Stack, Group, Flex, Modal, Space, ActionIcon, rem, CloseButton, Avatar } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
+import { defineAvatar } from "../utils/avatars.js";
 
 
 export default function Tournament(props) {
@@ -140,7 +141,7 @@ export default function Tournament(props) {
                     <Group id="managePlayerGroup">
                         <Stack>
                             {players.map((player, index) => (
-                                <Group key={index} disabled={true} id="player"> <CloseButton onClick={() => { removePlayerTournament(player.id, props.tournament.id); dispatch(change()) }}/> {player.name} </Group>
+                                <PlayerItem player={player} id={props.tournament.id} key={index} />
                             ))}
                         </Stack>
 
@@ -165,4 +166,27 @@ export default function Tournament(props) {
             </div>
         </>
     )
+}
+
+
+function PlayerItem(props) {
+
+    const player = props.player
+    const dispatch = useDispatch()
+    const [avatarURL, setAvatarURL] = useState("")
+
+    useEffect(() => {
+        async function fetchData() {
+            const data = await getPlayerById(player.id)
+
+            setAvatarURL(defineAvatar(data.name, data.avatar, data.avatarColor, player.id))
+        }
+        fetchData()
+    }, [])
+
+    return <Group id="playerManage">
+        <Avatar src={avatarURL} />
+        <Text> {player.name} </Text>
+        <CloseButton onClick={() => { removePlayerTournament(player.id, props.id); dispatch(change()) }}/>
+    </Group>
 }

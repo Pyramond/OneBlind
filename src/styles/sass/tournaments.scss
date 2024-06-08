@@ -55,6 +55,15 @@
 
 }
 
+#playerManage {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    background-color: #161616;
+    padding: 0.5em;
+    border-radius: 16px;
+}
 
 // #addPlayer {
 //     margin-left: 15%;
