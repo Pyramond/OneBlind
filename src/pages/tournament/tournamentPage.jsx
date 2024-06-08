@@ -1,8 +1,8 @@
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setPlayers } from '../../redux/slices/tournamentPage/players';
 import { setInfos } from "../../redux/slices/tournamentPage/info"
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getTournamentPlayers, getTournamentById } from '../../utils/tournaments';
 import { getModelById } from '../../utils/models';
 import { setSteps, changeStep } from '../../redux/slices/tournamentPage/steps';
