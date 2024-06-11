@@ -6,7 +6,7 @@ import PlayerSpotify from "./spotify/playerSpotify"
 import TournementInfo from "./tournamentInfo"
 import { useEffect, useState, useMemo } from "react"
 import { useSelector } from 'react-redux';
-import { Stack, Group } from "@mantine/core"
+import { Stack, Group, Grid } from "@mantine/core"
 import TournamentSettings from "./tournamentSettings"
 
 
@@ -41,7 +41,7 @@ export default function Other(props) {
             <div id="otherContainer">
                 <Group>
                     <Stack id="otherStack">
-                        <Group>
+                        <Group id="topGroupContainer">
                             <TournamentPlayers id={props.id} />
                             <TournamentSettings />
                         </Group>
