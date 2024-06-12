@@ -10,7 +10,7 @@ export default function Blind() {
             <div id="blindContainer">
                     {t.currentStep.sb ?
                         <div id="blindNumberContainer">
-                            <h1 id="blindNumber">{t.currentStep.sb * 2} </h1>
+                            <h1 id="blindNumber">{t.currentStep.sb} </h1>
                             <h1 id="blindNumber">{t.currentStep.sb * 2} </h1>
                         </div>
                     :
