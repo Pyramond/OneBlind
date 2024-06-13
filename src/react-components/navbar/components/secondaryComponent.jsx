@@ -1,7 +1,8 @@
 import { useState } from 'react';
-import { FormGroup, Form, Button, Modal, Dropdown } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { change } from '../../../redux/slices/reload';
+import { Menu, Button, Stack, Title } from "@mantine/core"
+import { notifications } from '@mantine/notifications';
 
 
 export default function SelectSecondaryComponent() {
@@ -11,48 +12,32 @@ export default function SelectSecondaryComponent() {
     const [show, setShow] = useState(false)
     const dispatch = useDispatch()
 
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
-
-    function handleComponent(component) {
+    function setComponent(component) {
         setSelectedComponent(component)
-    }
-
-    function setComponent() {
-        window.localStorage.setItem("secondary-component", selectedComponent)
-        handleShow()
+        window.localStorage.setItem("secondary-component", component)
         dispatch(change())
+        notifications.show({
+            title: "Composant secondaire",
+            message: `Modifié avec succès pour ${component}`
+        })
     }
 
     return (
-        <>
-            <Form className="d-flex">
-                <FormGroup className='mb-5'>
-                    <Form.Label>Composant secondaire </Form.Label>
-                    <div id="formControl">
-                        <Dropdown data-bs-theme="dark" className="me-2" onSelect={handleComponent}>
-                            <Dropdown.Toggle variant="dark">{selectedComponent}</Dropdown.Toggle>
+        <Stack>
 
-                            <Dropdown.Menu>
-                            {secondaryList.map((component, index) => (
-                                <Dropdown.Item key={index} eventKey={component}>{component}</Dropdown.Item>
-                            ))}
-                            </Dropdown.Menu>
+            <Title order={4}> Composant secondaire: </Title>
 
-                        </Dropdown>
+            <Menu>
+                <Menu.Target>
+                    <Button variant="default" > {selectedComponent} </Button>
+                </Menu.Target>
 
-                        <Button variant="outline-success" onClick={setComponent}>Appliquer</Button>
-                    </div>
-                </FormGroup>
-            </Form>
-
-            <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton />
-                <Modal.Body>
-                    <p id="modalText">Composant séléctionné avec succès</p>
-                </Modal.Body>
-
-            </Modal>
-        </>
+                <Menu.Dropdown>
+                    {secondaryList.map((component, index) => (
+                        <Menu.Item key={index} onClick={() => { setComponent(component) }}> {component} </Menu.Item>
+                    ))}
+                </Menu.Dropdown>
+            </Menu>
+        </Stack>
     )
 }

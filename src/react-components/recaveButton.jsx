@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux"
-import { Button } from "react-bootstrap";
 import { recave } from "../redux/slices/tournamentPage/info";
+import { Button } from "@mantine/core"
 
 
 export function RecaveButton() {
@@ -14,5 +14,5 @@ export function RecaveButton() {
     }
 
 
-    return <Button variant="secondary" id="recaveButton" onClick={addRecave}>Recave</Button>
+    return <Button variant="default" id="recaveButton" onClick={addRecave}> {t.nbRecave != 0 ? t.nbRecave : null} {t.nbRecave >= 2 ? "Recaves" : "Recave"} </Button>
 }

@@ -45,13 +45,14 @@ export function getTournamentPlayer(id) {
   return fetchWrapper("/tournament/get_player_tournaments", "POST", { id });
 }
 
-export function addTournament(name, date, blind, players, initialChips) {
+export function addTournament(name, date, blind, players, initialChips, points) {
   const body = {
     name,
     date,
     blind,
     players,
-    initialChips: parseInt(initialChips)
+    initialChips: parseInt(initialChips),
+    points: points
   };
   return fetchWrapper("/tournament/create", "POST", body);
 }
@@ -68,4 +69,58 @@ export function eliminatePlayer(playerId, place, tournamentId, points) {
     points
   };
   return fetchWrapper("/tournament/eliminate", "POST", body);
+}
+
+
+export function addPlayerTournament(Pid, Tid) {
+  const body = {
+    Tid: Tid,
+    Pid: Pid
+  }
+  return fetchWrapper("/tournament/add/player", "POST", body)
+}
+
+export function removePlayerTournament(Pid, Tid) {
+  const body = {
+    Tid: Tid,
+    Pid: Pid
+  }
+  return fetchWrapper("/tournament/remove/player", "POST", body)
+}
+
+export function createRecap(Tid, avStack, recaveCounter, start, end) {
+  const body = {
+    Tid: Tid,
+    avStack: avStack,
+    recaveCounter: recaveCounter,
+    start: start,
+    end: end
+  }
+  return fetchWrapper("/tournament/recap/create", "POST", body)
+}
+
+export function getRecap(id) {
+  // return fetchWrapper("/tournament/recap/get", "POST", { id })
+
+  const headers = {
+    "Accept": "application/json",
+    "Content-Type": "application/json"
+  };
+
+  const options = {
+    method: "POST",
+    headers,
+    body: JSON.stringify({ id })
+  };
+
+  return fetch(`${baseEndpoint}/tournament/recap/get`, options)
+    .then(res => {
+      return res.json().then(data => ({
+        data: data,
+        status: res.status
+      }));
+    })
+    .catch(error => {
+      console.error('Error during fetch:', error);
+    });
 }

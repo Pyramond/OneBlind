@@ -1,0 +1,22 @@
+#topPlayers {
+    background: rgba(55, 55, 55, 0.78);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.2px);
+    -webkit-backdrop-filter: blur(7.2px);
+
+    padding: 0.4em;
+    max-width: 40%;
+    min-width: 40%;
+
+    #player {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+
+        background-color: #161616;
+        margin: 1em;
+        padding: 1em;
+        border-radius: 16px;
+    }
+}

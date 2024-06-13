@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import { Button } from "react-bootstrap"
 import { useDispatch } from 'react-redux';
 import { change } from '../../redux/slices/reload';
 import { useNavigate } from "react-router-dom";
+import { HoverCard, Text, Button } from "@mantine/core";
 
 
 export default function PlayerSpotify() {
@@ -15,12 +15,23 @@ export default function PlayerSpotify() {
     const[artist, setArtist] = useState("")
     const [imageUrl, setImageUrl] = useState("")
     const [error, setError] = useState("")
+    const [artistUrl, setArtistUrl] = useState("")
+    const [musicUrl, setMusicUrl] = useState("")
 
     const dispatch = useDispatch()
     const navigate = useNavigate()
 
     function openSettings() {
         navigate("/settings")
+    }
+
+    function openArtistPage() {
+        console.log(artistUrl)
+        window.open(artistUrl)
+    }
+
+    function openMusicPage() {
+        window.open(musicUrl)
     }
 
     useEffect(() => {
@@ -64,6 +75,8 @@ export default function PlayerSpotify() {
                     setMusicName(res.item.name)
                     setArtist(res.item.artists[0].name)
                     setImageUrl(res.item.album.images[2].url)
+                    setArtistUrl(res.item.artists[0].external_urls.spotify)
+                    setMusicUrl(res.item.external_urls.spotify)
                     setToken(window.localStorage.getItem("spotify_access_token"))
                 }
             })
@@ -82,17 +95,36 @@ export default function PlayerSpotify() {
     return (
         <>
             <div id="spotifyPlayer">
-                {imageUrl === "" ? <img src="/images/spotify.svg" alt="Spotify logo" id="spotifyLogo"/> : <img src={imageUrl} alt={`${musicName} - ${artist} Image`} />}
+                {imageUrl === "" ? <img src="/images/spotify.svg" alt="Spotify logo" id="spotifyLogo"/> : <img src={imageUrl} alt={`${musicName} - ${artist} Image`} id="albumImage" />}
                 {musicName === "" ?
-                <div>
-                    <p>Composant Indisponible</p> 
-                    <div id="errorButtons">
-                        <Button variant="primary" onClick={openSettings} id="errorButton">Paramètres</Button>
-                        <Button variant="secondary" onClick={setDefaultComponent} id="errorButton">Changer le composant</Button>
+                    <div>
+                        <p>Composant Indisponible</p> 
+                        <div id="errorButtons">
+                            <Button onClick={openSettings} id="errorButton">Paramètres</Button>
+                            <Button variant="default" onClick={setDefaultComponent} id="errorButton">Changer le composant</Button>
+                        </div>
                     </div>
-                </div>
-                :
-                <p> <span id="musicTitle">{musicName}</span> <br /> {artist}</p>}
+                    :
+                    <Text>
+                        <HoverCard>
+                            <HoverCard.Target>
+                                <span id="musicTitle" onClick={openMusicPage}> {musicName.length > 20 ? musicName.substring(0, 20) + "..." : musicName} </span>
+                            </HoverCard.Target>
+                            <HoverCard.Dropdown>
+                                {musicName}
+                            </HoverCard.Dropdown>
+                        </HoverCard>
+
+                        <HoverCard>
+                            <HoverCard.Target>
+                                <span onClick={openArtistPage}> <br /> {artist.length > 20 ? artist.substring(0, 20) + "..." : artist} </span>
+                            </HoverCard.Target>
+                            <HoverCard.Dropdown>
+                                {artist}
+                            </HoverCard.Dropdown>
+                        </HoverCard>
+                    </Text>
+                }
             </div>
         </>
     )

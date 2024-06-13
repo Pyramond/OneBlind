@@ -1,17 +1,16 @@
-import CreateTournament from '../react-components/createTournament'
-import CreateBlindModel from '../react-components/createBlindModel'
-import AllTournament from '../react-components/allTournaments'
+import LoginSpotify from "../react-components/spotify/loginSpotify";
+import TopPlayer from "../react-components/topPlayers/topPlayer";
+import { LastTournaments } from "../react-components/lastTournaments/lastTournaments";
 
 export default function Dashboard() {
-
   return (
     <>
-      <div id="homeContainer">
-        <CreateTournament />
-        <CreateBlindModel />
+      <div style={{ display: "flex", flexDirection: "row", justifyContent: "space-around"}}>
+        <TopPlayer />
+        <LastTournaments />
       </div>
 
-      <AllTournament />
+      <LoginSpotify path="/" />
     </>
-  )
+  );
 }

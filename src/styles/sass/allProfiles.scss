@@ -3,12 +3,54 @@
     flex-direction: row;
     flex-wrap: wrap;
 
-    margin-top: 5%;
+    margin-top: 2%;
 
     #playerCard {
+        
+        height: 12em;
+        width: 19em;
         margin: 2%;
 
-        #playerCardBody {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+
+        background: rgba(0, 0, 0, 0.57);
+        border-radius: 16px;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(6.9px);
+        -webkit-backdrop-filter: blur(6.9px);
+        border: 1px solid rgba(0, 0, 0, 0.15);
+
+        #topCard {
+            padding: 0.5em;
+
+            #pp {
+                border-radius: 16em;
+                height: 80px;
+                width: 80px;
+            }
+
+            #topInfo {
+
+                #pseudo {
+                    margin: 0.2em;
+                    font-size: x-large;
+                }
+
+                #points {
+                    margin: 0.2em;
+                    font-size: large;
+                }
+            }
+
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+        }
+
+        #bottomCard {
+            padding: 0.5em;
             display: flex;
             flex-direction: row;
             justify-content: space-between;

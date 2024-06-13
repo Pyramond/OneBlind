@@ -2,6 +2,13 @@
     display: flex;
     flex-direction: row;
     margin-top: 2em;
+    width: 55%;
+
+    background: rgba(0, 0, 0, 0.77);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(9.1px);
+    -webkit-backdrop-filter: blur(9.1px);
 
 
     p {
@@ -22,6 +29,11 @@
     #spotifyLogo {
         height: 64px;
         width: 64px;
+    }
+
+    #albumImage {
+        border-radius: 16px;
+        padding: 5px;
     }
 
     #errorButtons {

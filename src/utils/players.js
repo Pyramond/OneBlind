@@ -72,3 +72,72 @@ export function removePlayer(name, id) {
 		return res
 	})
 }
+
+
+export function getAllAvatar() {
+	return fetch(`${baseEndpoint}/player/avatar/getAll`, {
+		method: "GET",
+		headers: {
+			"Accept": "application/json",
+			"Content-Type": "application/json"
+		},
+	  })
+	  .then(res => res.json())
+	  .then(res => {
+		return res
+	})
+}
+
+
+export function updateAvatar(id, avatar) {
+	return fetch(`${baseEndpoint}/player/avatar/update`, {
+		method: "POST",
+		headers: {
+			"Accept": "application/json",
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			id: id,
+			avatar: avatar
+		})
+	  })
+	  .then(res => res.json())
+	  .then(res => {
+		return res
+	})
+}
+
+export function updateAvatarColor(id, color) {
+	return fetch(`${baseEndpoint}/player/avatar/change_color`, {
+		method: "POST",
+		headers: {
+			"Accept": "application/json",
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			userId: id,
+			color: color
+		})
+	  })
+	  .then(res => res.json())
+	  .then(res => {
+		return res
+	})
+}
+export function uploadAvatar(avatar, Pid) {
+
+	const formdata = new FormData()
+	formdata.append("avatar", avatar)
+	formdata.append("id", Pid)
+
+	return fetch(`${baseEndpoint}/player/avatar/upload`, {
+		method: "POST",
+		body: formdata
+	  })
+	  .then(res => {
+		return res.json().then(data => ({
+			data: data,
+			status: res.status
+		  }));
+	})
+}

@@ -1,0 +1,39 @@
+#blindItem {
+    margin-top: 1em;
+    padding: 0.5em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 7em;
+    margin: "1em";
+    min-width: 30em;
+
+    background: rgba(0, 0, 0, 0.57);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(6.9px);
+    -webkit-backdrop-filter: blur(6.9px);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+
+    p {
+        margin: 0;
+        font-size: x-large;
+    }
+
+    #name {
+        cursor: pointer;
+    }
+}
+
+#blindScroll {
+    background: rgba(76, 74, 74, 0.46);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7.7px);
+    -webkit-backdrop-filter: blur(7.7px);
+    border: 1px solid rgba(76, 74, 74, 0.4);
+
+    margin-left: 1em;
+    padding: 1em;
+}

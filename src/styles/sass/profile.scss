@@ -1,10 +1,34 @@
 #profileCard {
 
     margin: 1%;
+    background: rgba(33, 37, 41, 0.71);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgb(49, 49, 49);
 
+    #stackInfo {
+        padding: 1em;
+    }
+
+    #pp {
+        border-radius: 16em;
+        height: 80px;
+        width: 80px;
+        margin-right: 0.5em;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
 
     #infosContainer {
         margin-top: 2em;
+
+        #textStats {
+            margin: 0.5em;
+        }
 
         #statsProfile {
             display: flex;
@@ -18,7 +42,7 @@
 }
 
 #tournamentsPlayer {
-    max-width: 60%;
+    max-width: 90%;
     margin: 1em;
     margin-top: 5em;
 
@@ -30,4 +54,38 @@
 #profileContainer {
     display: flex;
     flex-direction: row;
+}
+
+
+
+#allPPContainer {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+
+    #PPContainer {
+        display: flex;
+        flex-direction: row;
+        margin: 0.6em;
+
+        #selectButton {
+            height: 2.5em;
+            margin: 1em;
+        }
+
+        #allPP {
+            border-radius: 16em;
+            height: 80px;
+            width: 80px;
+
+            &:hover {
+                opacity: 0.5;
+            }
+        }
+    }
+}
+
+
+#avatarBody {
+    color: white;
 }

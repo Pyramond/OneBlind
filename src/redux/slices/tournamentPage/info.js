@@ -10,7 +10,10 @@ export const tournamentInfo = createSlice({
         initialChip: 0,
         avStack: 0,
         totalChips: 0,
-        nbPlayer: 0
+        nbPlayer: 0,
+        nbRecave: 0,
+        points: true,
+        startTimestamp: null
     },
     reducers: {
         setInfos: (state, action) => {
@@ -24,16 +27,22 @@ export const tournamentInfo = createSlice({
             state.avStack = state.totalChips / action.payload.number
 
             state.nbPlayer = action.payload.number
+
+            if(action.payload.points == 0) state.points = false
         },
         recave: (state, action) => {
             state.totalChips = state.totalChips + state.initialChip
             state.avStack = state.totalChips / action.payload
+            state.nbRecave++
         },
         updateAvStack: (state, action) => {
             state.avStack = state.totalChips / action.payload
         },
+        setTimestamp: (state, action) => {
+            state.startTimestamp = action.payload
+        }
     },
 });
 
-export const { setInfos, recave, updateAvStack } = tournamentInfo.actions;
+export const { setInfos, recave, updateAvStack, setTimestamp } = tournamentInfo.actions;
 export default tournamentInfo.reducer;

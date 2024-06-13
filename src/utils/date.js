@@ -25,3 +25,27 @@ export function convertTimeStamp(timestamp) {
 
     return dateLisible
 }
+
+export function convertTimeStampDate(timestamp) {
+
+    const date = new Date(timestamp);
+    const options = { day: '2-digit', month: '2-digit', year: 'numeric'};
+    const dateLisible = date.toLocaleString("fr-FR", options);
+
+    return dateLisible
+}
+
+export function formatDate(timeStamp) {
+    const months = [
+        "Janvier", "Février", "Mars", "Avril", "Mai", "Juin",
+        "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"
+    ];
+    const days = ["Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"];
+
+    const date = new Date(timeStamp);
+    const day = days[date.getDay()];
+    const dateOfMonth = date.getDate();
+    const month = months[date.getMonth()];
+
+    return `${day} ${dateOfMonth} ${month}`;
+}
