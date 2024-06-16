@@ -59,6 +59,8 @@ export default function TournamentRecap() {
         )
     }
 
-    return <Title order={1}>Aucun récapitulatif pour ce tournoi</Title>
+    if(status === 404) return <Title order={1}>Aucun récapitulatif pour ce tournoi</Title>
+
+    return null
 
 }
