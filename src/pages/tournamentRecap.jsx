@@ -23,8 +23,8 @@ export default function TournamentRecap() {
         async function getData() {
             const infos = await getRecap(id)
 
-            if(infos.status === 404) setStatus(infos.status)
-            else {
+            setStatus(infos.status)
+            if(infos.status === 200) {
                 dispatch(setInfo(infos.data))
                 const reponseSteps = await getModelById(infos.data.tournament.blindId)
                 setSteps(reponseSteps.steps)
@@ -34,30 +34,31 @@ export default function TournamentRecap() {
 
     }, [])
 
-    if(status === 404) {
-        return <Title order={1}>Aucun récapitulatif pour ce tournoi</Title>
+
+    if(status === 200) {
+        return (
+            <>
+                <Title order={1}>Récapitulatif du tournois {recapInfos.tournament.name}</Title>
+                <Text fs="italic" id="date"> {formatDate(recapInfos.recap.start)} </Text>
+
+                <Group justify="space-between">
+
+                    <Stack>
+                        <InfoBoxes />
+
+                        <Stack id="blindBoxe">
+                            <Title order={2}> Structure utilisée: {recapInfos.tournament.blindName} </Title>
+                            <SmallBlindTab steps={steps} />
+                        </Stack>
+                    </Stack>
+
+                    <PlayerClassement />
+
+                </Group>
+            </>
+        )
     }
 
-    return (
-        <>
-            <Title order={1}>Récapitulatif du tournois {recapInfos.tournament.name}</Title>
-            <Text fs="italic" id="date"> {formatDate(recapInfos.recap.start)} </Text>
-            {/* <Button onClick={() => { console.log(recapInfos) }}>Test</Button> */}
+    return <Title order={1}>Aucun récapitulatif pour ce tournoi</Title>
 
-            <Group justify="space-between">
-
-                <Stack>
-                    <InfoBoxes />
-
-                    <Stack id="blindBoxe">
-                        <Title order={2}> Structure utilisée: {recapInfos.tournament.blindName} </Title>
-                        <SmallBlindTab steps={steps} />
-                    </Stack>
-                </Stack>
-
-                <PlayerClassement />
-
-            </Group>
-        </>
-    )
 }
