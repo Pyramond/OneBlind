@@ -6,9 +6,20 @@ import { getAllModels } from "../utils/models";
 import { change } from "../redux/slices/reload";
 import { addTournament } from '../utils/tournaments';
 import { IconDeviceFloppy } from "@tabler/icons-react"
-import { TextInput, NumberInput, Menu, Button, Title, Group, Stack, CloseButton, Checkbox } from '@mantine/core';
+import {
+	TextInput,
+	NumberInput,
+	Menu,
+	Button,
+	Title,
+	Group,
+	Stack,
+	CloseButton,
+	Checkbox
+} from '@mantine/core';
 import { notifications } from '@mantine/notifications'
 import { useNavigate } from 'react-router-dom';
+import CreatePlayerTournament from "../react-components/createPlayerTournament.tsx";
 
 
 export default function CreateTournament() {
@@ -40,7 +51,6 @@ export default function CreateTournament() {
 			message: `Le joueur ${selectedPlayer.name} a déjà été ajouté`,
 			color: "red"
 		})
-    	setTempPlayer(selectedPlayer.name)
     }
   };
   
@@ -135,17 +145,24 @@ export default function CreateTournament() {
 
 			<Stack id="form-component">
 				<Title order={5}>Liste de joueurs</Title>
-				<Menu>
-					<Menu.Target>
-						<Button variant="default"> Liste de joueur </Button>
-					</Menu.Target>
-					
-					<Menu.Dropdown>
-						{allPLayers.map((player, index) => (
-							<Menu.Item key={index} onClick={() => { handlePlayers(player.id)}}>{player.name}</Menu.Item>
-						))}
-					</Menu.Dropdown>
-				</Menu>
+				<Group>
+					<Menu>
+						<Menu.Target>
+							<Button variant="default"> Liste de joueur </Button>
+						</Menu.Target>
+
+						<Menu.Dropdown>
+							{allPLayers.map((player, index) => (
+								<Menu.Item key={index} onClick={() => {
+									handlePlayers(player.id)
+								}}>{player.name}</Menu.Item>
+							))}
+						</Menu.Dropdown>
+					</Menu>
+
+					<CreatePlayerTournament />
+
+				</Group>
 			</Stack>
 
 
