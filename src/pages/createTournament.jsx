@@ -19,7 +19,7 @@ import {
 } from '@mantine/core';
 import { notifications } from '@mantine/notifications'
 import { useNavigate } from 'react-router-dom';
-import CreatePlayerTournament from "../react-components/createPlayerTournament.tsx";
+import CreatePlayerTournament from "../react-components/createPlayerTournament.jsx";
 
 
 export default function CreateTournament() {
