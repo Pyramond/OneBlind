@@ -10,6 +10,7 @@ import { Title, Stack, Table, Group, Text, Modal, ColorInput, Checkbox, Button, 
 import { useDisclosure } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { defineAvatar, getOxroAvatar, getDiceBearAvatar } from "../utils/avatars";
+import ModifyPlayerName from "../react-components/modifyPlayerName";
 
 
 export default function Profile() {
@@ -139,6 +140,8 @@ export default function Profile() {
                             <img src={playerData.avatar > 0 ? `${import.meta.env.VITE_BACKEND_SERVER}/static/avatars/avatar${playerData.avatar}.png` : avatarURL} id="pp" onClick={avatarModal} />
 
                             <Title order={2} size="h2"> {playerData.name} </Title>
+
+                            <ModifyPlayerName id={id} />
 
                         </Group>
 

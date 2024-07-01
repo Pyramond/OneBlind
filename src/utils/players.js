@@ -124,6 +124,7 @@ export function updateAvatarColor(id, color) {
 		return res
 	})
 }
+
 export function uploadAvatar(avatar, Pid) {
 
 	const formdata = new FormData()
@@ -139,5 +140,24 @@ export function uploadAvatar(avatar, Pid) {
 			data: data,
 			status: res.status
 		  }));
+	})
+}
+
+export function updatePlayerName(Pid, name) {
+
+	return fetch(`${baseEndpoint}/player/name/update`, {
+		method: "POST",
+		headers: {
+			"Accept": "application/json",
+			"Content-Type": "application/json"
+		},
+		body: JSON.stringify({
+			id: Pid,
+			name: name
+		})
+	  })
+	  .then(res => res.json())
+	  .then(res => {
+		return res
 	})
 }
