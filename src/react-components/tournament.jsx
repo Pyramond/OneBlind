@@ -1,16 +1,18 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useSelector } from 'react-redux';
-import { getTournamentPlayers } from "../utils/tournaments"
+import { getTournamentPlayers, updateTournamentInfos } from "../utils/tournaments"
 import { convertTimeStamp } from "../utils/date"
 import { useDispatch } from "react-redux"
 import { change } from '../redux/slices/reload';
 import { removeTournament, addPlayerTournament, removePlayerTournament } from '../utils/tournaments';
 import { useNavigate } from 'react-router-dom';
-import { IconArrowUpRight, IconDots, IconTrash, IconUsers } from "@tabler/icons-react"
+import { IconArrowUpRight, IconDots, IconTrash, IconUsers, IconSettings } from "@tabler/icons-react"
 import { getAllPlayer, getPlayerById } from '../utils/players';
-import { Button, Title, Menu, Popover, Text, Stack, Group, Flex, Modal, Space, ActionIcon, rem, CloseButton, Avatar } from '@mantine/core';
+import { Button, Title, Menu, Popover, Text, Stack, Group, Flex, Modal, Space, ActionIcon, rem, CloseButton, Avatar, TextInput, NumberInput, Switch } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { defineAvatar } from "../utils/avatars.js";
+import { getAllModels, getModelById } from '../utils/models.js';
+import { notifications } from '@mantine/notifications';
 
 
 export default function Tournament(props) {
@@ -18,6 +20,9 @@ export default function Tournament(props) {
     const navigate = useNavigate()
     const [players, setPlayers] = useState([])
     const [allPlayers, setAllPlayers] = useState([])
+    const [allModels, setAllModels] = useState([])
+    const [selectedModel, setSelectedModel] = useState({})
+    const [blindName, setBlindName] = useState(props.tournament.blindName)
 
     const t = useSelector((state) => state.reload);
     const effectDependency = useMemo(() => ({ value: t.value, random: Math.random() }), [t.value]);
@@ -26,13 +31,28 @@ export default function Tournament(props) {
     const [opened, { close, open }] = useDisclosure(false);
     const [openedModal, setOpenedModal] = useState(false)
     const [openedPlayerModal, { toggle: playerModalToggle }] = useDisclosure(false)
+    const [openedSettingsModal, { toggle: settingsModalToggle }] = useDisclosure(false)
+
+    const [tournamentName, setTournamentName] = useState(props.tournament.name)
+    const [tournamentInitialChip, setTournamentInitialChip] = useState(props.tournament.initialChip)
+    const [tournamentPoints, setTournamentPoints] = useState(props.tournament.points === 1 ? true : false)
     
     function openModal() { setOpenedModal(true)}
     function closeModal() { setOpenedModal(false)}
 
     useEffect(() => {
+        
+        setSelectedModel({
+            "id": props.tournament.id,
+            "name": props.tournament.blindName
+        })
+
         getTournamentPlayers(props.tournament.id).then(players => {
             setPlayers(players)
+        })
+
+        getAllModels().then(models => {
+            setAllModels(models)
         })
 
         getAllPlayer().then(result => {
@@ -57,6 +77,28 @@ export default function Tournament(props) {
         navigate(`/tournament/${props.tournament.id}`)
     }
 
+    const handleBlindSelect = (selectedModelId) => {
+		const i = allModels.find(model => model.id === parseInt(selectedModelId))
+		setSelectedModel(i)
+		setBlindName(i.name)
+	};
+
+    async function updateInfos() {
+
+        const blind = {
+            "name": selectedModel.name,
+            "id": selectedModel.id
+        }
+        await updateTournamentInfos(props.tournament.id, tournamentName, blind, tournamentPoints, tournamentInitialChip)
+
+        dispatch(change())
+
+        notifications.show({
+            title: tournamentName,
+            message: "Informations mises à jour avec succès"
+        })
+    }
+
     return(
         <>
             <div id="tournament">
@@ -79,6 +121,13 @@ export default function Tournament(props) {
                                 </Menu.Target>
 
                                 <Menu.Dropdown>
+
+                                    <Menu.Item
+                                        leftSection={<IconSettings style={{ width: rem(14), height: rem(14) }} />}
+                                        onClick={settingsModalToggle}
+                                    >
+                                        Paramètres
+                                    </Menu.Item>
 
                                     <Menu.Item
                                         leftSection={<IconUsers style={{ width: rem(14), height: rem(14) }} />}
@@ -125,7 +174,7 @@ export default function Tournament(props) {
                 </div>
 
 
-                <Modal opened={openedModal} onClose={closeModal} title="Supprimer ce tournois">
+                <Modal opened={openedModal} onClose={closeModal} title="Supprimer ce tournoi">
                     <Text>Tu es sur le point de supprimer définitivement ce tournoi</Text>
 
                     <Space h="lg" />
@@ -161,6 +210,50 @@ export default function Tournament(props) {
                             </Menu>
                         </Stack>
                     </Group>
+                </Modal>
+
+
+                <Modal opened={openedSettingsModal} onClose={settingsModalToggle} size={"xl"} title={`Paramètres du tournoi ${props.tournament.name}`}>
+                        <Stack style={{ maxWidth: "40%" }}>
+                                    
+                            <TextInput
+                                label="Nom du tournoi"
+                                placeholder="Nom du tournoi"
+                                value={tournamentName} 
+                                onChange={(e) => setTournamentName(e.currentTarget.value)}
+                            />
+                            <NumberInput
+                                label="Tapis de départ"
+                                placeholder="Tapis de départ"
+                                value={tournamentInitialChip}
+                                onChange={setTournamentInitialChip}
+                            />
+                            <Menu>
+                                <Menu.Target>
+                                    <Button variant="default" style={{ maxWidth: "50%" }}> {blindName} </Button>
+                                </Menu.Target>
+                                <Menu.Dropdown>
+                                    {allModels.map((model, index) => (
+                                        <Menu.Item key={index} onClick={() => handleBlindSelect(model.id)}> {model.name} </Menu.Item>
+                                    ))}
+                                </Menu.Dropdown>
+                            </Menu>
+
+                            <Switch
+                                label="Compter les points pour ce tournoi"
+                                checked={tournamentPoints}
+                                onChange={(e) => setTournamentPoints(e.currentTarget.checked)}
+                            />
+
+                            <Button variant="default" style={{ maxWidth: "60%" }} onClick={() => { 
+                                settingsModalToggle();
+                                playerModalToggle();
+                                dispatch(change())
+                             }}>Modifier les joueurs</Button>
+                            
+                            <Button style={{ maxWidth: "50%" }} onClick={() => { updateInfos() }}>Valider</Button>
+
+                        </Stack>
                 </Modal>
 
             </div>
