@@ -6,10 +6,10 @@ import { deleteTournament } from "../utils/tournaments"
 import { useNavigate } from 'react-router-dom';
 import { calculatePoints } from '../utils/points';
 import { eliminatePlayer as utilsEliminatePlayer, createRecap } from '../utils/tournaments';
-
 import { Button, Modal, Table, Group, Text, Stack } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import { notifications } from '@mantine/notifications';
+import data from "../assets/jokes.json"
 
 
 export function TournamentPlayers(props) {
@@ -21,6 +21,7 @@ export function TournamentPlayers(props) {
     const [ finalPlayersOpened, { toggle: finalPlayersModal }] = useDisclosure(false)
     const [classementOpened, { toggle: classementModal }] = useDisclosure(false)
     const [ firstPlayerEliminatedOpened, { toggle: firstPlayerEliminatedModal }] = useDisclosure(false)
+    const [playerEliminatedOpened, { toggle: playerEliminatedModal }] = useDisclosure(false)
 
     // Redux
     const t = useSelector((state) => state.tournamentPlayers);
@@ -31,7 +32,8 @@ export function TournamentPlayers(props) {
 
     const [isWinner, setIsWinner] = useState(false)
     const [eliminationsTab, setEliminationsTab] = useState([])
-
+    const [joke, setJoke] = useState("")
+    const [jokesIndex, setJokesIndex] = useState([])
 
     useEffect(() => {
         dispatch(updateAvStack(Object.keys(t.value).length))
@@ -60,7 +62,6 @@ export function TournamentPlayers(props) {
 
     async function eliminatePlayer(id, remove, name) {
 
-        
         const place = Object.keys(t.value).length
 
         let points;
@@ -78,6 +79,7 @@ export function TournamentPlayers(props) {
         setEliminationsTab([...eliminationsTab, playerStats]);
 
         await utilsEliminatePlayer(id, place, props.id, points)
+
         if(remove) {
             dispatch(removePlayer(id))
             notifications.show({
@@ -95,6 +97,19 @@ export function TournamentPlayers(props) {
                     audio.volume = window.localStorage.getItem("volume")
                 }
                 audio.play()
+            } else if(place > 3) {
+
+                let randomIndex = Math.floor(Math.random() * data.phrases.length)
+
+                while(jokesIndex.includes(randomIndex) === true) {
+                    if(jokesIndex.length === data.phrases.length) setJokesIndex([])
+                        randomIndex = Math.floor(Math.random() * data.phrases.length)
+                }
+                    
+                setJoke(data.phrases[randomIndex])
+                setJokesIndex([...jokesIndex, randomIndex])
+
+                playerEliminatedModal()
             }
         }
     }
@@ -180,6 +195,11 @@ export function TournamentPlayers(props) {
             {/* 1st player eliminated */}
             <Modal opened={firstPlayerEliminatedOpened} onClose={firstPlayerEliminatedModal} size="lg" title="Premier joueur éliminé">
                 <img src="/images/firstPlayerEliminatedImage.png" alt="firstPlayedEliminatedImage" id="firstPlayerEliminatedImage" />
+            </Modal>
+
+
+            <Modal opened={playerEliminatedOpened} onClose={playerEliminatedModal} title="Joueur éliminé">
+                    {joke}
             </Modal>
         </>
     )
