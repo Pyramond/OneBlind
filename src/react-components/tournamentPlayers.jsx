@@ -38,7 +38,7 @@ export function TournamentPlayers(props) {
     useEffect(() => {
         dispatch(updateAvStack(Object.keys(t.value).length))
         //if(!localStorage.getItem("volume")) localStorage.setItem("volume", 1);
-        if(localStorage.getItem("volume") == "null") localStorage.setItem("volume", "1")
+        if(localStorage.getItem("volume") === "null") localStorage.setItem("volume", "1")
         
         switch (Object.keys(t.value).length) {
             case 1:
@@ -63,7 +63,7 @@ export function TournamentPlayers(props) {
         const place = Object.keys(t.value).length
 
         let points;
-        if(tournamentInfo.points == false) {
+        if(tournamentInfo.points === false) {
             points = 0
         } else {
             points = calculatePoints(place, tournamentInfo.nbPlayer)
