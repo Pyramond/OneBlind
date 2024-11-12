@@ -37,6 +37,8 @@ export function TournamentPlayers(props) {
 
     useEffect(() => {
         dispatch(updateAvStack(Object.keys(t.value).length))
+        //if(!localStorage.getItem("volume")) localStorage.setItem("volume", 1);
+        if(localStorage.getItem("volume") == "null") localStorage.setItem("volume", "1")
         
         switch (Object.keys(t.value).length) {
             case 1:
@@ -47,11 +49,7 @@ export function TournamentPlayers(props) {
                 break;
             case 2:
                 let audio = new Audio("/sounds/overtaken.mp3")
-                if(!window.localStorage.getItem("volume")) {
-                    audio.volume = 1
-                } else {
-                    audio.volume = window.localStorage.getItem("volume")
-                }
+                audio.volume = window.localStorage.getItem("volume")
                 audio.play()
                 finalPlayersModal()
                 break;
@@ -91,11 +89,7 @@ export function TournamentPlayers(props) {
             if(place === tournamentInfo.nbPlayer) {
                 firstPlayerEliminatedModal()
                 let audio = new Audio("/sounds/luffy_laugh.mp3")
-                if(!window.localStorage.getItem("volume")) {
-                    audio.volume = 1
-                } else {
-                    audio.volume = window.localStorage.getItem("volume")
-                }
+                audio.volume = window.localStorage.getItem("volume")
                 audio.play()
             } else if(place > 3) {
 
