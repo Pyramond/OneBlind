@@ -37,7 +37,7 @@ export function Layout() {
 
           </Group>
         </AppShell.Header>
-        <AppShell.Navbar p="md">
+        <AppShell.Navbar p="md" style={{ overflowY: 'auto', flex: 1 }}>
             <Stack>
                 <Title order={3} size="h3">Pages</Title>
                 <Button variant="light" onClick={() => { navigate("/") }}>Accueil</Button>
