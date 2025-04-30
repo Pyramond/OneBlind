@@ -52,9 +52,6 @@ export default function PlayerSpotify() {
                     const options = {
                         method: 'POST',
                         headers: {
-                          cookie: '__Host-device_id=AQAau_Bb8_832qCq0Lnih3eV_NgBsWhLJmjh2yegawQqnt3wVCBiHYZuHg9yARKo7_N5Hc0ra5WZvzbquLYyYcsU8WNUExrO0HE; sp_tr=false',
-                          'Content-Type': 'application/x-www-form-urlencoded',
-                          'User-Agent': 'insomnia/8.4.2',
                           Authorization: AUTHORIZATION_HEADER
                         },
                         body: new URLSearchParams({
