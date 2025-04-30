@@ -34,11 +34,15 @@ export function TournamentPlayers(props) {
     const [eliminationsTab, setEliminationsTab] = useState([])
     const [joke, setJoke] = useState("")
     const [jokesIndex, setJokesIndex] = useState([])
+    const [overlay, setOverlay] = useState(false)
 
     useEffect(() => {
         dispatch(updateAvStack(Object.keys(t.value).length))
         //if(!localStorage.getItem("volume")) localStorage.setItem("volume", 1);
         if(localStorage.getItem("volume") === "null") localStorage.setItem("volume", "1")
+
+        const overlayStr = localStorage.getItem("overlay");
+        setOverlay(overlayStr === "true")
         
         switch (Object.keys(t.value).length) {
             case 1:
@@ -48,10 +52,12 @@ export function TournamentPlayers(props) {
                 console.log(createRecap(props.id, tournamentInfo.avStack.toString(), tournamentInfo.nbRecave, tournamentInfo.startTimestamp, Date.now()))
                 break;
             case 2:
-                let audio = new Audio("/sounds/overtaken.mp3")
-                audio.volume = window.localStorage.getItem("volume")
-                audio.play()
-                finalPlayersModal()
+                if(overlay) {
+                    let audio = new Audio("/sounds/overtaken.mp3")
+                    audio.volume = window.localStorage.getItem("volume")
+                    audio.play()
+                    finalPlayersModal()
+                }
                 break;
         }
 
@@ -86,12 +92,12 @@ export function TournamentPlayers(props) {
             })
             close()
 
-            if(place === tournamentInfo.nbPlayer) {
+            if(place === tournamentInfo.nbPlayer && overlay) {
                 firstPlayerEliminatedModal()
                 let audio = new Audio("/sounds/luffy_laugh.mp3")
                 audio.volume = window.localStorage.getItem("volume")
                 audio.play()
-            } else if(place > 3) {
+            } else if(place > 3 && overlay) {
 
                 let randomIndex = Math.floor(Math.random() * data.phrases.length)
 
