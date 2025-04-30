@@ -1,12 +1,17 @@
 [
     {
         "version": "1.4.0",
-        "date": "00/00/0000",
+        "date": "02/05/2025",
         "changes": [
-            "Correction du bug quand il n'y a pas de recap pour un tournoi",
-            "Possibilité de créer un joueur dans la page de création de tournois",
+            "Correction du bugs",
             "Amélioration du design de Oneblind",
-            "Possibilité de changer le nom d'un joueur"
+            "Possibilité de créer un joueur dans la page de création de tournois",
+            "Possibilité de changer le nom d'un joueur",
+            "Possibilité de changer les informations d'un tournoi déjà crée",
+            "Ajout de blague quand un joueur est éliminé",
+            "Possibilité de désactiver les overlay (Gifs, blagues...)",
+            "Points comptés quand il y a moins de 6 joueurs",
+            "Possibilité de remettre à zéro les points"
         ]
     },
     {
