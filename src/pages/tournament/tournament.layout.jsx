@@ -19,8 +19,8 @@ export function TournamentLayout() {
             <Link to="/">
                 <Image
                     radius="md"
-                    h={50}
-                    src="/images/OneBlind.svg"
+                    h={65}
+                    src="/images/one-blinde.png"
                 />
             </Link>
 
