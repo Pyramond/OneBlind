@@ -36,9 +36,7 @@ export default function Other(props) {
     }, [effectDependency])
 
     
-    return(
-        <>
-            <div id="otherContainer">
+    return <div id="otherContainer">
                 <Group>
                     <Stack id="otherStack">
                         <Group id="topGroupContainer">
@@ -55,7 +53,5 @@ export default function Other(props) {
 
                     {secondaryComponent}
                 </Group>
-            </div>
-        </>
-    )
+    </div>
 }

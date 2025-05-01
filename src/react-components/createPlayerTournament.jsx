@@ -30,6 +30,7 @@ export default function CreatePlayerTournament() {
         <>
             <Group>
                 <Input
+                    placeholder={"Créer un joueur"}
                     value={playerName}
                     onChange={(event) => setPlayerName(event.currentTarget.value)}
                 />

@@ -5,13 +5,6 @@ export function calculatePoints(place, nbPlayer) {
     const defaultPoints = 1
 
     switch(nbPlayer) {
-        case 6:
-            switch(place) {
-                case 1: return 38
-                case 2: return 22
-                default: return defaultPoints
-            }
-
         case 7:
             switch(place) {
                 case 1: return 46
@@ -27,7 +20,13 @@ export function calculatePoints(place, nbPlayer) {
             }
     }
 
-    if(nbPlayer < 6) return 0
+    if(nbPlayer <= 6) {
+        switch(place) {
+            case 1: return 38
+            case 2: return 22
+            default: return defaultPoints
+        }
+    }
     if(nbPlayer > 8) {
         switch(place) {
             case 1: return 48

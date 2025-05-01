@@ -124,3 +124,16 @@ export function getRecap(id) {
       console.error('Error during fetch:', error);
     });
 }
+
+
+export function updateTournamentInfos(Tid, name, blind, points, initialChips) {
+  const body = {
+    name: name,
+    initialChips: initialChips,
+    blindName: blind.name,
+    blindId: blind.id,
+    points: points,
+    Tid: Tid
+  }
+  return fetchWrapper("/tournament/update", "POST", body)
+}

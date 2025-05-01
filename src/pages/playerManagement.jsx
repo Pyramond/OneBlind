@@ -7,7 +7,7 @@ export default function PlayerManagement() {
     return (
         <>
             <Flex
-                // justify="space-between"
+                justify="space-between"
                 direction="row"
             >
                 <AddPlayer />

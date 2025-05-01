@@ -4,6 +4,8 @@ import { useDisclosure } from '@mantine/hooks';
 import { useNavigate, Link } from 'react-router-dom';
 import DownloadDb from "./react-components/navbar/components/downloadDb";
 import { IconBrandGithub } from "@tabler/icons-react"
+import Delete_points_db from "./react-components/navbar/components/delete_points_db.jsx";
+import ToggleOverlayBtn from "./react-components/navbar/components/toggleOverlayBtn.jsx";
 
 
 export function Layout() {
@@ -29,14 +31,14 @@ export function Layout() {
             <Link to="/">
                 <Image
                     radius="md"
-                    h={50}
-                    src="/images/OneBlind.svg"
+                    h={65}
+                    src="/images/one-blinde.png"
                 />
             </Link>
 
           </Group>
         </AppShell.Header>
-        <AppShell.Navbar p="md">
+        <AppShell.Navbar p="md" style={{ overflowY: 'auto', flex: 1 }}>
             <Stack>
                 <Title order={3} size="h3">Pages</Title>
                 <Button variant="light" onClick={() => { navigate("/") }}>Accueil</Button>
@@ -56,6 +58,8 @@ export function Layout() {
 
                 <Title order={3} size="h3">Autres</Title>
                 <DownloadDb />
+                <Delete_points_db />
+                <ToggleOverlayBtn />
                 <Button variant="light" onClick={() => { navigate("/changelogs")}}>Changelogs</Button>
                 <Button variant="light" leftSection={<IconBrandGithub size={25}/>} onClick={() => window.open("https://github.com/Pyramond/OneBlind", '_blank')}>Github</Button>
 

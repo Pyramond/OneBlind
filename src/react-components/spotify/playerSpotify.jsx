@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import { useDispatch } from 'react-redux';
 import { change } from '../../redux/slices/reload';
 import { useNavigate } from "react-router-dom";
-import { HoverCard, Text, Button } from "@mantine/core";
+import { Text, Button, Tooltip } from "@mantine/core";
 
 
 export default function PlayerSpotify() {
@@ -52,9 +52,6 @@ export default function PlayerSpotify() {
                     const options = {
                         method: 'POST',
                         headers: {
-                          cookie: '__Host-device_id=AQAau_Bb8_832qCq0Lnih3eV_NgBsWhLJmjh2yegawQqnt3wVCBiHYZuHg9yARKo7_N5Hc0ra5WZvzbquLYyYcsU8WNUExrO0HE; sp_tr=false',
-                          'Content-Type': 'application/x-www-form-urlencoded',
-                          'User-Agent': 'insomnia/8.4.2',
                           Authorization: AUTHORIZATION_HEADER
                         },
                         body: new URLSearchParams({
@@ -106,23 +103,13 @@ export default function PlayerSpotify() {
                     </div>
                     :
                     <Text>
-                        <HoverCard>
-                            <HoverCard.Target>
-                                <span id="musicTitle" onClick={openMusicPage}> {musicName.length > 20 ? musicName.substring(0, 20) + "..." : musicName} </span>
-                            </HoverCard.Target>
-                            <HoverCard.Dropdown>
-                                {musicName}
-                            </HoverCard.Dropdown>
-                        </HoverCard>
+                        <Tooltip label={musicName}>
+                            <span id="musicTitle" onClick={openMusicPage}> {musicName.length > 20 ? musicName.substring(0, 20) + "..." : musicName} </span>
+                        </Tooltip>
 
-                        <HoverCard>
-                            <HoverCard.Target>
-                                <span onClick={openArtistPage}> <br /> {artist.length > 20 ? artist.substring(0, 20) + "..." : artist} </span>
-                            </HoverCard.Target>
-                            <HoverCard.Dropdown>
-                                {artist}
-                            </HoverCard.Dropdown>
-                        </HoverCard>
+                        <Tooltip label={artist}>
+                            <span id="artistName" onClick={openArtistPage}> <br /> {artist.length > 20 ? artist.substring(0, 20) + "..." : artist} </span>
+                        </Tooltip>
                     </Text>
                 }
             </div>

@@ -9,6 +9,7 @@ export default function BlindModelManagement() {
         <>
            <Flex
                 direction="row"
+                justify={"space-between"}
            >
                 <CreateBlindModel />
                 <AllBlinds id="allBlindComponent" />

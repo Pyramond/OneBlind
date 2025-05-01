@@ -1,10 +1,10 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { getDate } from "../utils/date";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { change } from "../redux/slices/reload";
 import { addModel } from '../utils/models';
-import { IconDeviceFloppy } from "@tabler/icons-react";
-import { TextInput, NumberInput, Text, Button, Title, Group, Stack, CloseButton, Modal, Notification } from '@mantine/core';
+import { IconDeviceFloppy, IconTextPlus, IconTrash } from "@tabler/icons-react";
+import { TextInput, NumberInput, Button, Title, Group, Stack, Text, ActionIcon } from '@mantine/core';
 import { notifications } from '@mantine/notifications'
 
 
@@ -23,6 +23,23 @@ export default function CreateBlindModel() {
     function handleChangeName(event) { setName(event.target.value) }
  
     function addStep() {
+
+        if(SBlind === 0) {
+            notifications.show({
+                title: "Attention",
+                message: "Vous n'avez pas spécifié de petite blind pour cette étape.",
+                color: "yellow"
+            })
+        }
+
+        if(time === 0) {
+            notifications.show({
+                title: "Erreur",
+                message: "Vous n'avez pas spécifié de temps pour cette étape.",
+                color: "red"
+            })
+        } else {
+
         const step = {
             "order": order,
             "time": time,
@@ -31,9 +48,19 @@ export default function CreateBlindModel() {
         }
         setSteps((prevSteps) => [...prevSteps, step]);
         setOrder(order + 1)
+        }
+
     }
 
     function addPause() {
+        if(pauseTime === 0) {
+            notifications.show({
+                title: "Erreur",
+                message: "Vous n'avez pas spécifié de temps pour cette pause.",
+                color: "red"
+            })
+        } else {
+
         const pause = {
             "order": order,
             "time": pauseTime,
@@ -42,6 +69,8 @@ export default function CreateBlindModel() {
         }
         setSteps((prevSteps) => [...prevSteps, pause]);
         setOrder(order + 1)
+        }
+
     }
 
     const removeStep = (stepToRemove) => {
@@ -100,7 +129,9 @@ export default function CreateBlindModel() {
                                 value={SBlind}
                             />
 
-                            <Button variant="default" onClick={addStep} id="addStepButton">Ajouter étape</Button>
+                            <ActionIcon variant={"default"} onClick={addStep} id="addStepButton" size={"input-sm"} style={{ marginLeft: "-0.5em"}}>
+                                <IconTextPlus />
+                            </ ActionIcon>
                         </Group>
 
                         <Group>
@@ -109,20 +140,31 @@ export default function CreateBlindModel() {
                                 value={pauseTime}
                                 onChange={setPauseTime}
                             />
-                            <Button variant="default" onClick={addPause} id="pauseButton">Ajouter Pause</Button>
+
+                            <ActionIcon variant={"default"} onClick={addPause} id="addStepButton" size={"input-sm"} style={{ marginLeft: "-0.5em"}}>
+                                <IconTextPlus />
+                            </ ActionIcon>
+
                         </Group>
                     </Stack>
 
                     {steps.length === 0 ? "" : <Title order={2}>Étapes</Title>}
                     <ol>
+
                         {steps.map((step, index) => (
-                            <li key={index} id="step" >
-                                <Group>
-                                    {step.time}' | {step.type} {step.type == "pause" ? `` : `| ${step.SBlind} | ${step.SBlind * 2}`}
-                                    <CloseButton variant="white" onClick={() => removeStep(step)}/> 
-                                </Group>
-                            </li>
+
+                            <Group id="step" key={index}>
+
+                                <Text size={"lg"}>{step.order} | {step.type === "pause" ? "Pause": "Jeu"} | {step.time} minutes {step.type === "pause" ? `` : ` | ${step.SBlind} | ${step.SBlind * 2}`} </Text>
+
+                                <ActionIcon color="red" variant="transparent" onClick={() => { removeStep(step) }}>
+                                    <IconTrash />
+                                </ActionIcon>
+
+                            </Group>
+
                         ))}
+
                     </ol>
              
                     
