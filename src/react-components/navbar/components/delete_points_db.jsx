@@ -8,7 +8,7 @@ export default function Delete_points_db() {
 
     return (
         <>
-            <Button variant="light" onClick={openModal}>réinitialiser les points</Button>
+            <Button variant="light" onClick={openModal}>Réinitialiser les points</Button>
 
             <Modal opened={opened} onClose={openModal} title="Êtes-vous sûr de vouloir sréinitialiser les points des joueurs ?">
                 <Modal.Body>
