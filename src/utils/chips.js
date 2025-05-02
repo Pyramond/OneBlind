@@ -21,10 +21,10 @@ function fetchWrapper(url, method, body = null) {
 }
 
 
-export function add_chips() {
+export function add_chips(color, value) {
     const body = {
-        "color": "pink",
-        "value": 100
+        "color": color,
+        "value": value
     };
     return fetchWrapper("/chips/add", "POST", body);
 }
