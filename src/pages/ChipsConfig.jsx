@@ -1,9 +1,12 @@
+import {Button, Title} from "@mantine/core";
+
 function ChipsConfig() {
 
 
 
     return <>
-            <h1>Hello</h1>
+        <Title order={1}>Jetons</Title>
+        <Button>test</Button>
     </>
 }
 

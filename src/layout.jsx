@@ -6,6 +6,7 @@ import DownloadDb from "./react-components/navbar/components/downloadDb";
 import { IconBrandGithub } from "@tabler/icons-react"
 import Delete_points_db from "./react-components/navbar/components/delete_points_db.jsx";
 import ToggleOverlayBtn from "./react-components/navbar/components/toggleOverlayBtn.jsx";
+import ChipsConfigBtn from "./react-components/navbar/components/chipsConfigBtn.jsx";
 
 
 export function Layout() {
@@ -60,6 +61,7 @@ export function Layout() {
                 <DownloadDb />
                 <Delete_points_db />
                 <ToggleOverlayBtn />
+                <ChipsConfigBtn />
                 <Button variant="light" onClick={() => { navigate("/changelogs")}}>Changelogs</Button>
                 <Button variant="light" leftSection={<IconBrandGithub size={25}/>} onClick={() => window.open("https://github.com/Pyramond/OneBlind", '_blank')}>Github</Button>
 
