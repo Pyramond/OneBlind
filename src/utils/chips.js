@@ -30,9 +30,9 @@ export function add_chips(color, value) {
 }
 
 
-export function remove_chip() {
+export function remove_chip(id) {
     const body = {
-        "id": 5
+        "id": id
     };
     return fetchWrapper("/chips/remove", "DELETE", body);
 }
