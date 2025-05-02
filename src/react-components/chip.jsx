@@ -1,6 +1,6 @@
 import { CloseButton, Text } from "@mantine/core";
 import {useDispatch} from "react-redux";
-import {removeChip, setChips} from "../redux/slices/chips.js";
+import {setChips} from "../redux/slices/chips.js";
 import {get_all_chips, remove_chip} from "../utils/chips.js";
 
 export default function Chip(props) {
