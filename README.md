@@ -50,6 +50,17 @@ VITE_SPOTIFY_CLIENT_SECRET=XXXXXXXXXXX
 2. Run image ```docker run -p 8080:8080 oneblind```
 
 
+## Connect Spotify
+
+First, you need to create a [Spotify app](https://developer.spotify.com/dashboard)
+In the app configuration, make sure to enable both Web API and Web Playback SDK. <br>
+Finally, set the Redirect URI to match your Oneblind app's URL.
+<br>For example:
+``` 
+    http://localhost:8000/
+    http://127.0.0.1:5673/
+```
+
 ## Screen
 ![profile](https://github.com/Pyramond/OneBlind/assets/83555414/cfedbcfe-38c5-4a1f-8b27-f01250fe24d1)
 ![profilesPage](https://github.com/Pyramond/OneBlind/assets/83555414/311b02f9-c33d-4b83-9dba-d7bced88a062)
