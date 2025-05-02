@@ -4,7 +4,10 @@ import tournamentStepsReducer from "./slices/tournamentPage/steps";
 import tournamentInfoReducer from "./slices/tournamentPage/info"
 import tournamentTimer from "./slices/tournamentPage/timer";
 import reload from "./slices/reload";
-import recapInfosReducer from "./slices/tournamentRecap/recap"
+import recapInfosReducer from "./slices/tournamentRecap/recap";
+import chipsReducer from "./slices/chips";
+
+
 
 
 export default configureStore({
@@ -14,6 +17,7 @@ export default configureStore({
         tournamentInfo: tournamentInfoReducer,
         tournamentTimer: tournamentTimer,
         reload: reload,
-        recap: recapInfosReducer
+        recap: recapInfosReducer,
+        chips: chipsReducer
     },
 });
