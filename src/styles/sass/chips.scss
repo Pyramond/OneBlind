@@ -1,0 +1,11 @@
+#add_chips_container {
+  margin: 2em;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  gap: 1em;
+}
+
+#chips {
+  margin: 3em;
+}
