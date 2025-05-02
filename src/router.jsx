@@ -16,6 +16,7 @@ import PlayerManagement from "./pages/playerManagement";
 import { ErrorPage } from "./pages/error/errorPage";
 import ChangelogsPage from "./pages/changelogs";
 import TournamentRecap from "./pages/tournamentRecap";
+import ChipsConfig from "./pages/ChipsConfig.jsx";
 
 
 const router = createBrowserRouter([
@@ -75,6 +76,10 @@ const router = createBrowserRouter([
             {
                 path: "/tournament/recap/:id",
                 element: <TournamentRecap />
+            },
+            {
+                path: "/config/chips",
+                element: <ChipsConfig />
             }
         ]
     },
