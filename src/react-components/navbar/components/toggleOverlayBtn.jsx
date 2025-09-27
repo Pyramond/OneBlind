@@ -1,5 +1,6 @@
 import { Button } from "@mantine/core"
 import {useEffect, useState} from "react";
+import { notifications } from "@mantine/notifications";
 
 export default function ToggleOverlayBtn() {
 
@@ -11,6 +12,7 @@ export default function ToggleOverlayBtn() {
         if(!overlay){
             localStorage.setItem("overlay", "false")
             setOverlay(false);
+
         } else {
             if(overlay === "false") setOverlay(false);
             else setOverlay(true);
@@ -20,7 +22,24 @@ export default function ToggleOverlayBtn() {
 
     function toggle() {
         localStorage.setItem("overlay", JSON.stringify(!overlay));
-        setOverlay(!overlay);
+
+        if(overlay === false) {
+
+            setOverlay(true);
+
+            notifications.show({
+                title: "Overlay",
+                message: "L'overlay a été activé"
+            });
+        } else {
+
+            setOverlay(false);
+
+            notifications.show({
+                title: "Overlay",
+                message: "L'overlay a été désactivé"
+            });
+        }
     }
 
     return (
